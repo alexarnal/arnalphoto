@@ -74,13 +74,14 @@ body, html {
 <!-- First Parallax Image with Logo Text -->
 <div class="bgimg-2 w3-display-container w3-opacity-min" id="portfolio">
   <div class="w3-display-middle">
-    <span class="w3-xxlarge w3-text-white w3-wide">CONFIRMATION</span>
+    <span class="w3-xxlarge w3-text-white w3-wide w3-hide-small ">CONFIRMATION</span>
+    <span class="w3-xlarge w3-text-white w3-wide w3-hide-large w3-hide-medium">CONFIRMATION</span>
   </div>
 </div>
 
 <!-- Container (About Section) -->
 <div class="w3-content w3-container w3-padding-64" id="about">
-  <h3 class="w3-center">Tradition Package Includes:</h3><br>
+  <h3 class="w3-center">Traditional Package Includes:</h3><br>
   <div class="w3-content w3-container w3-padding-32" >  
     
     <div class="w3-row-padding w3-center">
@@ -103,13 +104,23 @@ body, html {
     <h3 class="w3-center">Samples</h3><br>
     <div class="w3-row-padding w3-center w3-section">
       <div class="w3-col m4">
-        <img src="../images/5s.jpg" style="width:100%" onclick="onClick(this)" class="w3-hover-opacity" alt="Religious Formation">
+        <img src="../images/conf_1.jpg" style="width:100%" onclick="onClick(this)" class="w3-hover-opacity" alt="Religious Formation">
       </div>
       <div class="w3-col m4">
-        <img src="../images/5s.jpg" style="width:100%" onclick="onClick(this)" class="w3-hover-opacity" alt="Religious Formation">
+        <img src="../images/conf_2.jpg" style="width:100%" onclick="onClick(this)" class="w3-hover-opacity" alt="Religious Formation">
       </div>
       <div class="w3-col m4">
-        <img src="../images/5s.jpg" style="width:100%" onclick="onClick(this)" class="w3-hover-opacity" alt="Religious Formation">
+        <img src="../images/conf_3.jpg" style="width:100%" onclick="onClick(this)" class="w3-hover-opacity" alt="Religious Formation">
+      </div>
+      <br>
+      <!--button class="w3-button w3-padding-large w3-light-grey" style="margin-top:64px">LOAD MORE</button-->
+    </div>
+    <div class="w3-row-padding w3-center w3-section">
+      <div class="w3-col m6">
+        <img src="../images/conf_group_1.jpg" style="width:100%" onclick="onClick(this)" class="w3-hover-opacity" alt="Religious Formation">
+      </div>
+      <div class="w3-col m6">
+        <img src="../images/conf_group_2.jpg" style="width:100%" onclick="onClick(this)" class="w3-hover-opacity" alt="Religious Formation">
       </div>
       <br>
       <!--button class="w3-button w3-padding-large w3-light-grey" style="margin-top:64px">LOAD MORE</button-->
@@ -136,156 +147,84 @@ body, html {
     <div class="w3-row-padding w3-center w3-section">
 
       <div class="w3-col m6">
-    <div><div style="
-    overflow: auto;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    align-items: center;
-    width: 100%;
-    background: #FFFFFF;
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    box-shadow: -2px 10px 5px rgba(0, 0, 0, 0);
-    border-radius: 10px;
-    font-family: SQ Market, SQ Market, Helvetica, Arial, sans-serif;
-    ">
-    <div style="padding: 20px;">
-    <p style="
-      font-size: 18px;
-      line-height: 20px;
-    ">Tradition Package</p>
-    <p style="
-      font-size: 18px;
-      line-height: 20px;
-      font-weight: 600;
-    ">$35.00</p>
-    <a target="_blank" data-url="https://square.link/u/yFXceCVK" href="https://square.link/u/yFXceCVK" style="
-      display: inline-block;
-      font-size: 18px;
-      line-height: 48px;
-      height: 48px;
-      color: #ffffff;
-      min-width: 212px;
-      background-color: #006aff;
-      text-align: center;
-      box-shadow: 0 0 0 1px rgba(0,0,0,.1) inset;
-      border-radius: 6px;
-    ">Pay now</a>
-    </div>
+        <div style="
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  width: 100%;
+  background: #FFFFFF;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: -2px 10px 5px rgba(0, 0, 0, 0);
+  border-radius: 10px;
+  font-family: SQ Market, SQ Market, Helvetica, Arial, sans-serif;
+  ">
+  <div style="padding: 20px;">
+  <p style="
+    font-size: 18px;
+    line-height: 20px;
+  ">Photo Package</p>
+  <p style="
+    font-size: 18px;
+    line-height: 20px;
+    font-weight: 600;
+  ">$30.00</p>
+  <a target="_blank" href="https://square.link/u/G5lQgzJM?src=embed" style="
+    display: inline-block;
+    font-size: 18px;
+    line-height: 48px;
+    height: 48px;
+    color: #ffffff;
+    min-width: 212px;
+    background-color: #333333;
+    text-align: center;
+    box-shadow: 0 0 0 1px rgba(0,0,0,.1) inset;
+    border-radius: 6px;
+  ">Buy now</a>
   </div>
-  </div>
-
-  <script>
-    function showCheckoutWindow(e) {
-      e.preventDefault();
-
-      const url = document.getElementById('embedded-checkout-modal-checkout-button').getAttribute('data-url');
-      const title = 'Square Online Checkout';
-
-      // Some platforms embed in an iframe, so we want to top window to calculate sizes correctly
-      const topWindow = window.top ? window.top : window;
-
-      // Fixes dual-screen position                                Most browsers          Firefox
-      const dualScreenLeft = topWindow.screenLeft !==  undefined ? topWindow.screenLeft : topWindow.screenX;
-      const dualScreenTop = topWindow.screenTop !==  undefined   ? topWindow.screenTop  : topWindow.screenY;
-
-      const width = topWindow.innerWidth ? topWindow.innerWidth : document.documentElement.clientWidth ? document.documentElement.clientWidth : screen.width;
-      const height = topWindow.innerHeight ? topWindow.innerHeight : document.documentElement.clientHeight ? document.documentElement.clientHeight : screen.height;
-
-      const h = height * .75;
-      const w = 500;
-
-      const systemZoom = width / topWindow.screen.availWidth;
-      const left = (width - w) / 2 / systemZoom + dualScreenLeft;
-      const top = (height - h) / 2 / systemZoom + dualScreenTop;
-      const newWindow = window.open(url, title, `scrollbars=yes, width=${w / systemZoom}, height=${h / systemZoom}, top=${top}, left=${left}`);
-
-      if (window.focus) newWindow.focus();
-    }
-
-    // This overrides the default checkout button click handler to show the embed modal
-    // instead of opening a new tab with the given link url
-    document.getElementById('embedded-checkout-modal-checkout-button').addEventListener('click', function (e) {
-      showCheckoutWindow(e);
-    });
-  </script>
 </div>
+      </div>
       
       <div class="w3-col m6">
-    <div><div style="
-    overflow: auto;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    align-items: center;
-    width: 100%;
-    background: #FFFFFF;
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    box-shadow: -2px 10px 5px rgba(0, 0, 0, 0);
-    border-radius: 10px;
-    font-family: SQ Market, SQ Market, Helvetica, Arial, sans-serif;
-    ">
-    <div style="padding: 20px;">
-    <p style="
-      font-size: 18px;
-      line-height: 20px;
-    ">Tradition Package</p>
-    <p style="
-      font-size: 18px;
-      line-height: 20px;
-      font-weight: 600;
-    ">$35.00</p>
-    <a target="_blank" data-url="https://square.link/u/yFXceCVK" href="https://square.link/u/yFXceCVK" style="
-      display: inline-block;
-      font-size: 18px;
-      line-height: 48px;
-      height: 48px;
-      color: #ffffff;
-      min-width: 212px;
-      background-color: #006aff;
-      text-align: center;
-      box-shadow: 0 0 0 1px rgba(0,0,0,.1) inset;
-      border-radius: 6px;
-    ">Pay now</a>
-    </div>
+        <div style="
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  width: 100%;
+  background: #FFFFFF;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: -2px 10px 5px rgba(0, 0, 0, 0);
+  border-radius: 10px;
+  font-family: SQ Market, SQ Market, Helvetica, Arial, sans-serif;
+  ">
+  <div style="padding: 20px;">
+  <p style="
+    font-size: 18px;
+    line-height: 20px;
+  ">Extra Pose</p>
+  <p style="
+    font-size: 18px;
+    line-height: 20px;
+    font-weight: 600;
+  ">Free</p>
+  <a target="_blank" href="https://square.link/u/2TLnCHge?src=embed" style="
+    display: inline-block;
+    font-size: 18px;
+    line-height: 48px;
+    height: 48px;
+    color: #ffffff;
+    min-width: 212px;
+    background-color: #333333;
+    text-align: center;
+    box-shadow: 0 0 0 1px rgba(0,0,0,.1) inset;
+    border-radius: 6px;
+  ">Buy now</a>
   </div>
-  </div>
-
-  <script>
-    function showCheckoutWindow(e) {
-      e.preventDefault();
-
-      const url = document.getElementById('embedded-checkout-modal-checkout-button').getAttribute('data-url');
-      const title = 'Square Online Checkout';
-
-      // Some platforms embed in an iframe, so we want to top window to calculate sizes correctly
-      const topWindow = window.top ? window.top : window;
-
-      // Fixes dual-screen position                                Most browsers          Firefox
-      const dualScreenLeft = topWindow.screenLeft !==  undefined ? topWindow.screenLeft : topWindow.screenX;
-      const dualScreenTop = topWindow.screenTop !==  undefined   ? topWindow.screenTop  : topWindow.screenY;
-
-      const width = topWindow.innerWidth ? topWindow.innerWidth : document.documentElement.clientWidth ? document.documentElement.clientWidth : screen.width;
-      const height = topWindow.innerHeight ? topWindow.innerHeight : document.documentElement.clientHeight ? document.documentElement.clientHeight : screen.height;
-
-      const h = height * .75;
-      const w = 500;
-
-      const systemZoom = width / topWindow.screen.availWidth;
-      const left = (width - w) / 2 / systemZoom + dualScreenLeft;
-      const top = (height - h) / 2 / systemZoom + dualScreenTop;
-      const newWindow = window.open(url, title, `scrollbars=yes, width=${w / systemZoom}, height=${h / systemZoom}, top=${top}, left=${left}`);
-
-      if (window.focus) newWindow.focus();
-    }
-
-    // This overrides the default checkout button click handler to show the embed modal
-    // instead of opening a new tab with the given link url
-    document.getElementById('embedded-checkout-modal-checkout-button').addEventListener('click', function (e) {
-      showCheckoutWindow(e);
-    });
-  </script>
 </div>
+      </div>
       <!--button class="w3-button w3-padding-large w3-light-grey" style="margin-top:64px">LOAD MORE</button-->
     </div>
   </div>
