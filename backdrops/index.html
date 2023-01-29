@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html>
+<title>Arnal Studio</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta property="og:image" content="../images/backdrop_blue_.jpg">
+<meta property="og:title" content="Backdrops" />
+<link rel="stylesheet" href="../css/w3.css">
+<link rel="stylesheet" href="../css/opensans.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="icon" href="../images/aplogo_circleIcon.png">
+<style>
+body,h1,h2,h3,h4,h5,h6 {font-family: "Open Sans", monospace;}
+body, html {
+  height: 100%;
+  color: #333;
+  line-height: 1.8;
+}
+
+/* Create a Parallax Effect */
+.bgimg-1, .bgimg-2, .bgimg-3 {
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+/* First image (Logo. Full height) */
+
+/* Second image (Portfolio) */
+.bgimg-2 {
+  background-image: url("../images/backdrop.jpg");
+  min-height: 400px;
+}
+
+
+.w3-wide {letter-spacing: 10px;}
+.w3-hover-opacity {cursor: pointer;}
+
+.w3-top {color:white;}
+
+/* Turn off parallax scrolling for tablets and phones */
+@media only screen and (max-device-width: 1600px) {
+  .bgimg-1, .bgimg-2, .bgimg-3 {
+    background-attachment: scroll;
+    min-height: 400px;
+  }
+}
+</style>
+<body>
+
+<!-- Navbar (sit on top) -->
+<div class="w3-top">
+  <div class="w3-bar" id="myNavbar">
+    <a class="w3-bar-item w3-button w3-hover-black w3-hide-medium w3-hide-large w3-right" href="javascript:void(0);" onclick="toggleFunction()" title="Toggle Navigation Menu">
+      <i class="fa fa-bars" ></i>
+    </a>
+    <a href="../#home" class="w3-bar-item w3-button" >HOME</a>
+    <a href="../#about" class="w3-bar-item w3-button w3-hide-small" ><!--i class="fa fa-user"></i-->ABOUT</a>
+    <a href="../#portfolio" class="w3-bar-item w3-button w3-hide-small" ><!--i class="fa fa-th"></i-->PORTFOLIO</a>
+    <a href="../#contact" class="w3-bar-item w3-button w3-hide-small" ><!--i class="fa fa-envelope"></i-->CONTACT</a>
+    <!--a href="#" class="w3-bar-item w3-button w3-hide-small w3-right w3-hover-red">
+      <i class="fa fa-search"></i>
+    </a-->
+  </div>
+
+  <!-- Navbar on small screens -->
+  <div id="navDemo" class="w3-bar-block w3-hide w3-hide-large w3-hide-medium ">
+    <a href="../#about" class="w3-bar-item w3-button " onclick="toggleFunction()">ABOUT</a>
+    <a href="../#portfolio" class="w3-bar-item w3-button " onclick="toggleFunction()">PORTFOLIO</a>
+    <a href="../#contact" class="w3-bar-item w3-button "  onclick="toggleFunction()">CONTACT</a>
+    <!--a href="#" class="w3-bar-item w3-button">SEARCH</a-->
+  </div>
+</div>
+
+<!-- First Parallax Image with Logo Text -->
+<div class="bgimg-2 w3-display-container w3-opacity-min" id="portfolio">
+  <div class="w3-display-middle w3-center">
+    <span class="w3-xxlarge w3-text-white w3-wide w3-hide-small ">BACKDROPS</span>
+    <span class="w3-xlarge w3-text-white w3-wide w3-hide-large w3-hide-medium">BACKDROPS</span>
+  </div>
+</div>
+
+  
+  <div class="w3-content w3-container w3-padding-32" >
+    <h2 class="w3-center">The Selection</h2>
+    <!--p class="w3-center"><em>Here are some of my latest lorem work ipsum tipsum.<br> Click on the images to make them bigger</em></p--><br>
+
+    <!-- Responsive Grid. Four columns on tablets, laptops and desktops. Will stack on mobile devices/small screens (100% width) -->
+    
+  
+
+    <div class="" style="margin: auto; max-width: 600px">
+        <div style="
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  width: 100%;
+  background: #FFFFFF;
+  border: 2px solid rgba(0, 0, 0, 0.7);
+  box-shadow: -2px 10px 5px rgba(0, 0, 0, 0);
+  border-radius: 10px;
+  font-family: SQ Market, SQ Market, Helvetica, Arial, sans-serif;
+  ">
+  <h3>Sky Blue</h3>
+  <img src="../images/backdrop_blue_.jpg" style="width:80%;border-radius: 10px" alt="Sky blue backdrop">
+    <p style="
+    font-size: 20px;
+    line-height: 20px;
+  ">1 - 6 people</p>
+    
+  </div>
+  </div>
+    
+    <br><br>
+    
+    <div class="" style="margin: auto; max-width: 600px">
+        <div style="
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  width: 100%;
+  background: #FFFFFF;
+  border: 2px solid rgba(0, 0, 0, 0.7);
+  box-shadow: -2px 10px 5px rgba(0, 0, 0, 0);
+  border-radius: 10px;
+  font-family: SQ Market, SQ Market, Helvetica, Arial, sans-serif;
+  ">
+  <h3>Forest Brown</h3>
+  <img src="../images/backdrop_brown_.jpg" style="width:80%;border-radius: 10px" alt="Forest brown backdrop">
+    <p style="
+    font-size: 20px;
+    line-height: 20px;
+  ">1 - 6 people</p>
+    
+  </div>
+  </div>
+    
+     <br><br>
+    
+    <div class="" style="margin: auto; max-width: 600px">
+        <div style="
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  width: 100%;
+  background: #FFFFFF;
+  border: 2px solid rgba(0, 0, 0, 0.7);
+  box-shadow: -2px 10px 5px rgba(0, 0, 0, 0);
+  border-radius: 10px;
+  font-family: SQ Market, SQ Market, Helvetica, Arial, sans-serif;
+  ">
+  <h3>Storm Gray</h3>
+  <img src="../images/backdrop_gray_.jpg" style="width:80%;border-radius: 10px" alt="Storm gray backdrop">
+    <p style="
+    font-size: 20px;
+    line-height: 20px;
+  ">1 - 3 people</p>
+    
+  </div>
+  </div>
+    
+  </div>
+
+  <br><br>
+  
+<!-- Footer -->
+<footer class="w3-center w3-padding-32" style="background: #111;color: white">
+  <!--a href="#home" class="w3-button w3-light-grey"><i class="fa fa-arrow-up w3-margin-right"></i>To the top</a-->
+  <div class="w3-xlarge w3-section">
+    <a href="https://www.facebook.com/arnalstudio" title="fa" target="_blank"><i class="fa fa-facebook-official w3-hover-opacity"></i></a>
+    <!--i class="fa fa-instagram w3-hover-opacity"></i>
+    <i class="fa fa-snapchat w3-hover-opacity"></i>
+    <i class="fa fa-linkedin w3-hover-opacity"></i>
+    <i class="fa fa-pinterest-p w3-hover-opacity"></i-->
+    <a href="https://twitter.com/arnalstudio" title="fa" target="_blank"><i class="fa fa-twitter w3-hover-opacity"></i></a>
+    
+  </div>
+  <p>Powered by <a href="https://www.w3schools.com/w3css/default.asp" title="W3.CSS" target="_blank" class="w3-hover-opacity">w3.css</a></p>
+</footer>
+<p style="background: #111; color: white; margin:0px; font-size: 12px">Copyright © 2022 Arnal Studio</p>
+<script>
+// Modal Image Gallery
+function onClick(element) {
+  document.getElementById("img01").src = element.src;
+  document.getElementById("modal01").style.display = "block";
+  var captionText = document.getElementById("caption");
+  captionText.innerHTML = element.alt;
+}
+
+// Change style of navbar on scroll
+window.onscroll = function() {myFunction()};
+function myFunction() {
+    var navbar = document.getElementById("myNavbar");
+    if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+        navbar.className = "w3-bar" + " w3-white";
+    } else {
+        navbar.className = navbar.className.replace( " w3-white", "");//w3-card w3-animate-top w3-white", "");
+    }
+    var x = document.getElementById("navDemo");
+    if (x.className.indexOf("w3-show") != -1) {
+        x.className = "w3-bar-block" + " w3-hide" + " w3-hide-large" + " w3-hide-medium" + " w3-show";
+        if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+            x.className = "w3-bar-block" + " w3-hide" + " w3-hide-large" + " w3-hide-medium" + " w3-show" + " w3-white";
+        } else {
+            x.className = x.className.replace( " w3-white", "");//w3-card w3-animate-top w3-white", "");
+        }
+    } else {
+        x.className = x.className.replace(" w3-show", "");
+        if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+            x.className = "w3-bar-block" + " w3-hide" + " w3-hide-large" + " w3-hide-medium" + " w3-white";
+        } else {
+            x.className = x.className.replace( " w3-white", "");//w3-card w3-animate-top w3-white", "");
+        }
+    }
+    
+}
+
+// Used to toggle the menu on small screens when clicking on the menu button
+function toggleFunction() {
+    var x = document.getElementById("navDemo");
+    if (x.className.indexOf("w3-show") == -1) {
+        x.className += " w3-show";
+    } else {
+        x.className = x.className.replace(" w3-show", "");
+    }
+}
+</script>
+
+</body>
+</html>
