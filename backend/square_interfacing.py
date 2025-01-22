@@ -49,8 +49,10 @@ def create_square_order_and_get_payment_link(order_details, customer_email):
         order_details = json.loads(order_details)
 
     # Format order details for Square
+    # Create line items
     line_items = []
     for pose in order_details:
+        # Add the prints to the order
         for print_type, quantity in pose['prints'].items():
             price = get_price_for_print(print_type)  # You need to implement this function
             line_items.append({
@@ -59,8 +61,30 @@ def create_square_order_and_get_payment_link(order_details, customer_email):
                 "base_price_money": {
                     "amount": int(price * 100),  # Convert to cents
                     "currency": "USD"
-                }
+                },
+                "note": f"{pose['description']}"
             })
+        # Add the poseType of pose to the order
+        cost_for_number_of_people = get_price_for_number_of_people(pose['poseType'])
+        line_items.append({
+            "name": f"Pose {pose['poseNumber']} - {pose['poseType']} people",
+            "quantity": "1",
+            "note": f"{pose['description']}",
+            "base_price_money": {
+                "amount": int(cost_for_number_of_people * 100),
+                "currency": "USD"
+            }
+        })
+        if pose['description'] != '':
+            line_items.append({
+                "name": f'Pose {pose["poseNumber"]} Note - {pose["description"]}',
+                "quantity": "1",
+                "base_price_money": {
+                    "amount": 0,
+                    "currency": "USD"
+                },
+            })
+
 
     """
         Create a payment link
@@ -164,17 +188,30 @@ def create_square_order_and_get_payment_link(order_details, customer_email):
     
 
 # You need to implement this function to return the price for each print type
+def get_price_for_number_of_people(number_of_people):
+    prices = {
+        "1-3": 0,
+        "4-6": 15,
+        "7-10": 30
+    }
+    value = prices.get(number_of_people, 0)  # Return 0 if number of people not found
+    if value==0: print('unable to get price, returning price of 0 for number_of_people', number_of_people)
+    return value
+
 def get_price_for_print(print_type):
-    # Example prices, replace with your actual pricing
     prices = {
         "Print 2x3": 2.5,
         "Print 5x7": 10,
         "Print 8x10": 15,
-
-        # Add other print types and prices here
+        "Print 11x14": 35,
+        "Print 16x20": 65,
+        "Print 20x24": 95,
+        "Print 30x40": 200,
+        "Photo Package": 35
     }
-    return prices.get(print_type, 0)  # Return 0 if print type not found
-
+    value = prices.get(print_type, 0)  # Return 0 if print type not found
+    if value==0: print('unable to get price, returning price of 0 for print_type', print_type)
+    return value
 # # Use this in your main loop
 # if new_order:
 #     payment_link = create_square_order_and_get_payment_link(parse_order_details(new_order), customer_email)
