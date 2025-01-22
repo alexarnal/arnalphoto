@@ -1,0 +1,3 @@
+.vscode/launch.json
+backend/order_env/
+backend/env_variables.sh
