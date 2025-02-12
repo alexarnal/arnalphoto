@@ -2,3 +2,6 @@
 backend/order_env/
 backend/env_variables.sh
 backend/env_variables.env
+
+__pycache__/
+.pyc
