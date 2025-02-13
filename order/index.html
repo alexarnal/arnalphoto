@@ -38,6 +38,39 @@
             font-size: 16px;
         }
     </style>
+    <style>
+    .print-option {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+    .quantity-btn {
+        width: 30px;
+        height: 30px;
+        border: 1px solid #ccc;
+        background: #f8f8f8;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+    .quantity-btn:hover {
+        background: #eee;
+    }
+    input[type="number"] {
+        width: 60px;
+        text-align: center;
+    }
+    /* Hide default spinner arrows */
+    input[type="number"]::-webkit-inner-spin-button,
+    input[type="number"]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+    input[type="number"] {
+        -moz-appearance: textfield; /* Firefox */
+        pointer-events: none; /* Prevent direct input */
+        background-color: #f8f8f8; /* Light gray background to indicate read-only */
+    }
+    </style>
 </head>
 <body>
     <h1>Photo Order Form</h1>
@@ -55,33 +88,71 @@
                 </div>
                 <br>
 
-                <div style="margin-left: 20px">
-                    <label>Photo Package: <input type="number" class="photo-package" min="0" value="0" data-price="35"></label>
-                </div>
+                <!-- Photo Package -->
                 <div class="print-option">
-                    <label>Print 2x3: <input type="number" class="print-2x3" min="0" step="4" value="0" data-price="2.5"></label>
-                    <!-- <span class="quantity-note">(quantity in multiples of 4)</span> -->
+                    <label>Photo Package:</label>
+                    <button type="button" class="quantity-btn decrease">-</button>
+                    <input type="number" class="photo-package" value="0" data-price="35" readonly>
+                    <button type="button" class="quantity-btn increase">+</button>
                 </div>
+
+                <!-- Print 2x3 (multiples of 4) -->
                 <div class="print-option">
-                    <label>Print 5x7: <input type="number" class="print-5x7" min="0" value="0" data-price="10"></label>
+                    <label>Print 2x3:</label>
+                    <button type="button" class="quantity-btn decrease">-</button>
+                    <input type="number" class="print-2x3" value="0" data-price="2.5" readonly>
+                    <button type="button" class="quantity-btn increase">+</button>
                 </div>
+
+                <!-- Print 5x7 -->
                 <div class="print-option">
-                    <label>Print 8x10: <input type="number" class="print-8x10" min="0" value="0" data-price="15"></label>
+                    <label>Print 5x7:</label>
+                    <button type="button" class="quantity-btn decrease">-</button>
+                    <input type="number" class="print-5x7" value="0" data-price="10" readonly>
+                    <button type="button" class="quantity-btn increase">+</button>
                 </div>
+
+                <!-- Print 8x10 -->
                 <div class="print-option">
-                    <label>Print 11x14: <input type="number" class="print-11x14" min="0" value="0" data-price="35"></label>
+                    <label>Print 8x10:</label>
+                    <button type="button" class="quantity-btn decrease">-</button>
+                    <input type="number" class="print-8x10" value="0" data-price="15" readonly>
+                    <button type="button" class="quantity-btn increase">+</button>
+                </div>
+
+                <!-- Print 11x14 -->
+                <div class="print-option">
+                    <label>Print 11x14:</label>
+                    <button type="button" class="quantity-btn decrease">-</button>
+                    <input type="number" class="print-11x14" value="0" data-price="35" readonly>
+                    <button type="button" class="quantity-btn increase">+</button>
                     <span class="wood-panel-note">(wood panel backing included)</span>
                 </div>
+
+                <!-- Print 16x20 -->
                 <div class="print-option">
-                    <label>Print 16x20: <input type="number" class="print-16x20" min="0" value="0" data-price="65"></label>
+                    <label>Print 16x20:</label>
+                    <button type="button" class="quantity-btn decrease">-</button>
+                    <input type="number" class="print-16x20" value="0" data-price="65" readonly>
+                    <button type="button" class="quantity-btn increase">+</button>
                     <span class="wood-panel-note">(wood panel backing included)</span>
                 </div>
+
+                <!-- Print 20x24 -->
                 <div class="print-option">
-                    <label>Print 20x24: <input type="number" class="print-20x24" min="0" value="0" data-price="95"></label>
+                    <label>Print 20x24:</label>
+                    <button type="button" class="quantity-btn decrease">-</button>
+                    <input type="number" class="print-20x24" value="0" data-price="95" readonly>
+                    <button type="button" class="quantity-btn increase">+</button>
                     <span class="wood-panel-note">(wood panel backing included)</span>
                 </div>
+
+                <!-- Print 30x40 -->
                 <div class="print-option">
-                    <label>Print 30x40: <input type="number" class="print-30x40" min="0" value="0" data-price="200"></label>
+                    <label>Print 30x40:</label>
+                    <button type="button" class="quantity-btn decrease">-</button>
+                    <input type="number" class="print-30x40" value="0" data-price="200" readonly>
+                    <button type="button" class="quantity-btn increase">+</button>
                     <span class="wood-panel-note">(wood panel backing included)</span>
                 </div>
                 <br>
@@ -117,35 +188,73 @@
                 </div>
                 <br>
 
-                <div style="margin-left: 20px">
-                    <label>Photo Package: <input type="number" class="photo-package" min="0" value="0" data-price="35"></label>
-                </div>
-                <div class="print-option">
-                    <label>Print 2x3: <input type="number" class="print-2x3" min="0" step="4" value="0" data-price="2.5"></label>
-                    <!-- <span class="quantity-note">(quantity in multiples of 4)</span> -->
-                </div>
-                <div class="print-option">
-                    <label>Print 5x7: <input type="number" class="print-5x7" min="0" value="0" data-price="10"></label>
-                </div>
-                <div class="print-option">
-                    <label>Print 8x10: <input type="number" class="print-8x10" min="0" value="0" data-price="15"></label>
-                </div>
-                <div class="print-option">
-                    <label>Print 11x14: <input type="number" class="print-11x14" min="0" value="0" data-price="35"></label>
-                    <span class="wood-panel-note">(wood panel backing included)</span>
-                </div>
-                <div class="print-option">
-                    <label>Print 16x20: <input type="number" class="print-16x20" min="0" value="0" data-price="65"></label>
-                    <span class="wood-panel-note">(wood panel backing included)</span>
-                </div>
-                <div class="print-option">
-                    <label>Print 20x24: <input type="number" class="print-20x24" min="0" value="0" data-price="95"></label>
-                    <span class="wood-panel-note">(wood panel backing included)</span>
-                </div>
-                <div class="print-option">
-                    <label>Print 30x40: <input type="number" class="print-30x40" min="0" value="0" data-price="200"></label>
-                    <span class="wood-panel-note">(wood panel backing included)</span>
-                </div>
+                <!-- Photo Package -->
+<div class="print-option">
+    <label>Photo Package:</label>
+    <button type="button" class="quantity-btn decrease">-</button>
+    <input type="number" class="photo-package" value="0" data-price="35" readonly>
+    <button type="button" class="quantity-btn increase">+</button>
+</div>
+
+<!-- Print 2x3 (multiples of 4) -->
+<div class="print-option">
+    <label>Print 2x3:</label>
+    <button type="button" class="quantity-btn decrease">-</button>
+    <input type="number" class="print-2x3" value="0" data-price="2.5" readonly>
+    <button type="button" class="quantity-btn increase">+</button>
+</div>
+
+<!-- Print 5x7 -->
+<div class="print-option">
+    <label>Print 5x7:</label>
+    <button type="button" class="quantity-btn decrease">-</button>
+    <input type="number" class="print-5x7" value="0" data-price="10" readonly>
+    <button type="button" class="quantity-btn increase">+</button>
+</div>
+
+<!-- Print 8x10 -->
+<div class="print-option">
+    <label>Print 8x10:</label>
+    <button type="button" class="quantity-btn decrease">-</button>
+    <input type="number" class="print-8x10" value="0" data-price="15" readonly>
+    <button type="button" class="quantity-btn increase">+</button>
+</div>
+
+<!-- Print 11x14 -->
+<div class="print-option">
+    <label>Print 11x14:</label>
+    <button type="button" class="quantity-btn decrease">-</button>
+    <input type="number" class="print-11x14" value="0" data-price="35" readonly>
+    <button type="button" class="quantity-btn increase">+</button>
+    <span class="wood-panel-note">(wood panel backing included)</span>
+</div>
+
+<!-- Print 16x20 -->
+<div class="print-option">
+    <label>Print 16x20:</label>
+    <button type="button" class="quantity-btn decrease">-</button>
+    <input type="number" class="print-16x20" value="0" data-price="65" readonly>
+    <button type="button" class="quantity-btn increase">+</button>
+    <span class="wood-panel-note">(wood panel backing included)</span>
+</div>
+
+<!-- Print 20x24 -->
+<div class="print-option">
+    <label>Print 20x24:</label>
+    <button type="button" class="quantity-btn decrease">-</button>
+    <input type="number" class="print-20x24" value="0" data-price="95" readonly>
+    <button type="button" class="quantity-btn increase">+</button>
+    <span class="wood-panel-note">(wood panel backing included)</span>
+</div>
+
+<!-- Print 30x40 -->
+<div class="print-option">
+    <label>Print 30x40:</label>
+    <button type="button" class="quantity-btn decrease">-</button>
+    <input type="number" class="print-30x40" value="0" data-price="200" readonly>
+    <button type="button" class="quantity-btn increase">+</button>
+    <span class="wood-panel-note">(wood panel backing included)</span>
+</div>
                 <br>
                 <div style="margin-left: 20px ">
                     Note: <input type="text" class="pose-description" placeholder="E.g., Candidate only, Graduate with parents, 5 people, Siblings, Family portrait, etc.">
@@ -206,6 +315,22 @@ function validatePrintOptions() {
     }
     return true;
 }
+
+document.addEventListener('click', function(e) {
+    if (e.target.classList.contains('quantity-btn')) {
+        const input = e.target.parentNode.querySelector('input');
+        const step = input.classList.contains('print-2x3') ? 4 : 1;
+        const currentValue = parseInt(input.value) || 0;
+        
+        if (e.target.classList.contains('increase')) {
+            input.value = currentValue + step;
+        } else if (e.target.classList.contains('decrease')) {
+            input.value = Math.max(0, currentValue - step);
+        }
+        
+        input.dispatchEvent(new Event('change'));
+    }
+});
 
 document.getElementById('orderForm').addEventListener('submit', function(e) {
     e.preventDefault(); // Always prevent default submission
