@@ -13,24 +13,32 @@ def home():
 def submit():
     try:
         # Get form data
-        email = request.form.get('email')
+        # email = request.form.get('email')
+        # if not email:
+        #     return "Email is required", 400
+            
         order_details = request.form.get('order_details')
+        if not order_details:
+            return "Order details are required", 400
+            
+        try:
+            # Parse order details as JSON
+            order_data = json.loads(order_details)
+        except json.JSONDecodeError:
+            return "Invalid order details format", 400
+
+        # Create payment link
+        payment_link = create_square_order_and_get_payment_link(json.dumps(order_data))
         
-        # Clean up order details (keeping your existing logic)
-        order_details = '[' + order_details[order_details.rfind("[")+1:order_details.rfind("]")] + ']'
-        
-        # Create payment link using your existing function
-        payment_link = create_square_order_and_get_payment_link(order_details, email)
-        
-        if payment_link:
-            # Redirect to the payment link
-            return redirect(payment_link)
-        else:
+        if not payment_link:
             return "Failed to create payment link", 500
+            
+        return redirect(payment_link)
             
     except Exception as e:
         print(f"Error processing submission: {str(e)}")
-        return "Error processing submission", 500
+        # In production, you might want to log the full error details securely
+        return "An error occurred processing your order. Please try again.", 500
 
 if __name__ == '__main__':
     # Make sure required environment variables are set

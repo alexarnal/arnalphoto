@@ -3,6 +3,13 @@ from square.client import Client
 import os
 import json
 import uuid
+import logging
+
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+)
+logger = logging.getLogger(__name__)
 
 """
     Create a client    
@@ -12,7 +19,7 @@ client = Client(
     bearer_auth_credentials=BearerAuthCredentials(
         access_token=os.environ['SQUARE_ACCESS_TOKEN']
     ),
-    environment='sandbox')
+    environment='production')
 
 
 def submit_to_square(order_details):
@@ -39,153 +46,91 @@ def submit_to_square(order_details):
     )
 
     if result.is_success():
-        print(f"Order created successfully: {result.body}")
+        logger.info(f"Order created successfully: {result.body}")
     else:
-        print(f"Error creating order: {result.errors}")
+        logger.error(f"Error creating order: {result.errors}")
 
-def create_square_order_and_get_payment_link(order_details, customer_email):
-    # Parse the order_details JSON string if it's not already a dictionary
-    if isinstance(order_details, str):
-        order_details = json.loads(order_details)
+def create_square_order_and_get_payment_link(order_details):
+    try:
+        # Parse the order_details JSON string if it's not already a dictionary
+        if isinstance(order_details, str):
+            order_details = json.loads(order_details)
 
-    # Format order details for Square
-    # Create line items
-    line_items = []
-    for pose in order_details:
-        # Add the prints to the order
-        for print_type, quantity in pose['prints'].items():
-            price = get_price_for_print(print_type)  # You need to implement this function
+        # Format order details for Square
+        line_items = []
+        for pose in order_details:
+            # Add the prints to the order
+            for print_type, quantity in pose['prints'].items():
+                price = get_price_for_print(print_type)
+                if price == 0:
+                    raise ValueError(f"Invalid print type or price not found: {print_type}")
+                
+                line_items.append({
+                    "name": f"Pose {pose['poseNumber']} - {print_type}",
+                    "quantity": str(quantity),
+                    "base_price_money": {
+                        "amount": int(price * 100),
+                        "currency": "USD"
+                    },
+                    "note": f"{pose['description']}"
+                })
+            
+            # Add pose type cost
+            cost_for_number_of_people = get_price_for_number_of_people(pose['poseType'])
+            # if cost_for_number_of_people > 0:  # Only add if there's a cost
             line_items.append({
-                "name": f"Pose {pose['poseNumber']} - {print_type}",
-                "quantity": str(quantity),
-                "base_price_money": {
-                    "amount": int(price * 100),  # Convert to cents
-                    "currency": "USD"
-                },
-                "note": f"{pose['description']}"
-            })
-        # Add the poseType of pose to the order
-        cost_for_number_of_people = get_price_for_number_of_people(pose['poseType'])
-        line_items.append({
-            "name": f"Pose {pose['poseNumber']} - {pose['poseType']} people",
-            "quantity": "1",
-            "note": f"{pose['description']}",
-            "base_price_money": {
-                "amount": int(cost_for_number_of_people * 100),
-                "currency": "USD"
-            }
-        })
-        if pose['description'] != '':
-            line_items.append({
-                "name": f'Pose {pose["poseNumber"]} Note - {pose["description"]}',
+                "name": f"Pose {pose['poseNumber']} - {pose['poseType']} people",
                 "quantity": "1",
+                "note": f"{pose['description']}",
                 "base_price_money": {
-                    "amount": 0,
+                    "amount": int(cost_for_number_of_people * 100),
                     "currency": "USD"
-                },
+                }
             })
+            if pose['description'] != '':
+                line_items.append({
+                    "name": f'Pose {pose["poseNumber"]} Note - {pose["description"]}',
+                    "quantity": "1",
+                    "base_price_money": {
+                        "amount": 0,
+                        "currency": "USD"
+                    },
+                })    
 
+        result = client.checkout.create_payment_link(
+            body = {
+                "order": {
+                    "location_id": os.environ['SQUARE_LOCATION_ID'],
+                    "line_items": line_items
+                },
+                "checkout_options": {
+                    "allow_tipping": False,
+                    "ask_for_shipping_address": True,
+                    "accepted_payment_methods": {
+                        "apple_pay": True,
+                        "google_pay": True,
+                        "cash_app_pay": True,
+                        "afterpay_clearpay": True
+                    }
+                },
+                # "pre_populated_data": {
+                #     "buyer_email": customer_email
+                # }
+            }
+        )
 
-    """
-        Create a payment link
-    """
-
-    result = client.checkout.create_payment_link(
-    body = {
-        "order": {
-        "location_id": os.environ['SQUARE_LOCATION_ID'],
-        "line_items": line_items
-        # [
-        #     {
-        #     "name": "Photo Package ",
-        #     "quantity": "2",
-        #     "note": "1 - 8x10 2 - 5x7 4 - 2x3",
-        #     "base_price_money": {
-        #         "amount": 35*100,
-        #         "currency": "USD"
-        #     }
-        #     },
-        #     {
-        #     "name": "11x14 print",
-        #     "quantity": "1",
-        #     "note": "group of 5 people",
-        #     "base_price_money": {
-        #         "amount": 35*100,
-        #         "currency": "USD"
-        #     }
-        #     }
-        # ]
-        },
-        "checkout_options": {
-        "allow_tipping": False,
-        "ask_for_shipping_address": True,
-        "accepted_payment_methods": {
-            "apple_pay": True,
-            "google_pay": True,
-            "cash_app_pay": True,
-            "afterpay_clearpay": True
-        },
-        },
-        # "pre_populated_data": {
-        # "buyer_email": "alex51195@gmail.com",
-        # "buyer_phone_number": "19155881690",
-        # "buyer_address": {
-        #     "address_line_1": "8771 Plains Dr",
-        #     # "address_line_2": "2",
-        #     # "address_line_3": "3",
-        #     "postal_code": "79907",
-        #     "country": "US",
-        #     "first_name": "Alexandro",
-        #     "last_name": "Arnal"
-        # }
-        # }
-    }
-    )
-
-    if result.is_success():
-        print("Payment link created successfully")
-        # print formatted with indents for better readability
-        text = json.dumps(result.body, indent=4)
-        print(text)
-        return result.body['payment_link']['long_url']
-    elif result.is_error():
-        print("Errors occurred while creating payment link:")
-        print(result.errors)
+        if result.is_success():
+            return result.body['payment_link']['long_url']
+        else:
+            logger.error("Square API Error:", result.errors)
+            return None
+            
+    except json.JSONDecodeError as e:
+        logger.error(f"JSON parsing error: {str(e)}")
         return None
-    # # Create order in Square
-    # order_result = client.orders.create_order(
-    #     body = {
-    #         "order": {
-    #             "location_id": "62A8XEQ52V2HD",
-    #             "line_items": line_items
-    #         }
-    #     }
-    # )
-
-    # if order_result.is_success():
-    #     order_id = order_result.body['order']['id']
-        
-    #     # Generate payment link
-    #     payment_link_result = client.checkout.create_payment_link(
-    #         body = {
-    #             "order_id": order_id,
-    #             "checkout_options": {
-    #                 "allow_tipping": False,
-    #                 "redirect_url": "https://yourwebsite.com/thank-you",
-    #                 "ask_for_shipping_address": False
-    #             }
-    #         }
-    #     )
-
-    #     if payment_link_result.is_success():
-    #         payment_link = payment_link_result.body['payment_link']['url']
-    #         print(f"Payment link created: {payment_link}")
-    #         return payment_link
-    #     else:
-    #         print(f"Error creating payment link: {payment_link_result.errors}")
-    # else:
-    #     print(f"Error creating order: {order_result.errors}")
-    
+    except Exception as e:
+        logger.error(f"Unexpected error: {str(e)}")
+        return None
 
 # You need to implement this function to return the price for each print type
 def get_price_for_number_of_people(number_of_people):
@@ -195,7 +140,7 @@ def get_price_for_number_of_people(number_of_people):
         "7-10": 30
     }
     value = prices.get(number_of_people, 0)  # Return 0 if number of people not found
-    if value==0: print('unable to get price, returning price of 0 for number_of_people', number_of_people)
+    if value==0: logger.info('unable to get price, returning price of 0 for number_of_people', number_of_people)
     return value
 
 def get_price_for_print(print_type):
@@ -210,7 +155,7 @@ def get_price_for_print(print_type):
         "Photo Package": 35
     }
     value = prices.get(print_type, 0)  # Return 0 if print type not found
-    if value==0: print('unable to get price, returning price of 0 for print_type', print_type)
+    if value==0: logger.info('unable to get price, returning price of 0 for print_type', print_type)
     return value
 # # Use this in your main loop
 # if new_order:
