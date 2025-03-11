@@ -4,10 +4,29 @@ import os
 import json
 import uuid
 import logging
+from logging.handlers import RotatingFileHandler
 
+# Create logs directory if it doesn't exist
+os.makedirs('logs', exist_ok=True)
+
+# Setup file handler
+file_handler = RotatingFileHandler(
+    'logs/square_app.log',
+    maxBytes=1024 * 1024,  # 1MB
+    backupCount=5
+)
+file_handler.setFormatter(logging.Formatter(
+    '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+))
+
+# Setup logging config
 logging.basicConfig(
     level=logging.INFO,
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+    handlers=[
+        file_handler,
+        logging.StreamHandler()  # This will still print to console
+    ]
 )
 logger = logging.getLogger(__name__)
 
@@ -148,10 +167,10 @@ def get_price_for_print(print_type):
         "Print 2x3": 2.5,
         "Print 5x7": 10,
         "Print 8x10": 15,
-        "Print 11x14": 35,
-        "Print 16x20": 65,
-        "Print 20x24": 95,
-        "Print 30x40": 200,
+        "Print 11x14*": 35,
+        "Print 16x20*": 65,
+        "Print 20x24*": 95,
+        "Print 30x40*": 200,
         "Photo Package": 35
     }
     value = prices.get(print_type, 0)  # Return 0 if print type not found

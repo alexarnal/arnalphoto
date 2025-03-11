@@ -69,6 +69,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            margin-left: 20px;
             margin-bottom: 15px;
         }
         
@@ -256,19 +257,18 @@
                         <h2>Pose 1</h2>
                         <button type="button" class="remove-pose" disabled>Remove</button>
                     </div>
-                    <div style="margin-left: 20px">
-                        Number of people in pose:
+                    <div style="margin-left: 20px;margin-bottom: 12px">
+                        Number of people in pose
                         <select class="pose-type">
                             <option value="1-3">1-3 ($0)</option>
                             <option value="4-6">4-6 ($15)</option>
                             <option value="7-10">7-10 ($30)</option>
                         </select>
                     </div>
-                    <br>
 
                     <!-- Photo Package -->
                     <div class="print-option">
-                        <label>Photo Package:</label>
+                        <label>Photo Package</label>
                         <button type="button" class="quantity-btn decrease">-</button>
                         <input type="number" class="photo-package" value="0" data-price="35" readonly>
                         <button type="button" class="quantity-btn increase">+</button>
@@ -276,7 +276,7 @@
 
                     <!-- Print 2x3 (multiples of 4) -->
                     <div class="print-option">
-                        <label>Print 2x3:</label>
+                        <label>Print 2x3</label>
                         <button type="button" class="quantity-btn decrease">-</button>
                         <input type="number" class="print-2x3" value="0" data-price="2.5" readonly>
                         <button type="button" class="quantity-btn increase">+</button>
@@ -284,7 +284,7 @@
 
                     <!-- Print 5x7 -->
                     <div class="print-option">
-                        <label>Print 5x7:</label>
+                        <label>Print 5x7</label>
                         <button type="button" class="quantity-btn decrease">-</button>
                         <input type="number" class="print-5x7" value="0" data-price="10" readonly>
                         <button type="button" class="quantity-btn increase">+</button>
@@ -292,7 +292,7 @@
 
                     <!-- Print 8x10 -->
                     <div class="print-option">
-                        <label>Print 8x10:</label>
+                        <label>Print 8x10</label>
                         <button type="button" class="quantity-btn decrease">-</button>
                         <input type="number" class="print-8x10" value="0" data-price="15" readonly>
                         <button type="button" class="quantity-btn increase">+</button>
@@ -300,43 +300,39 @@
 
                     <!-- Print 11x14 -->
                     <div class="print-option">
-                        <label>Print 11x14:</label>
+                        <label>Print 11x14*</label>
                         <button type="button" class="quantity-btn decrease">-</button>
                         <input type="number" class="print-11x14" value="0" data-price="35" readonly>
                         <button type="button" class="quantity-btn increase">+</button>
-                        <span class="wood-panel-note">(wood panel backing included)</span>
                     </div>
 
                     <!-- Print 16x20 -->
                     <div class="print-option">
-                        <label>Print 16x20:</label>
+                        <label>Print 16x20*</label>
                         <button type="button" class="quantity-btn decrease">-</button>
                         <input type="number" class="print-16x20" value="0" data-price="65" readonly>
                         <button type="button" class="quantity-btn increase">+</button>
-                        <span class="wood-panel-note">(wood panel backing included)</span>
                     </div>
 
                     <!-- Print 20x24 -->
                     <div class="print-option">
-                        <label>Print 20x24:</label>
+                        <label>Print 20x24*</label>
                         <button type="button" class="quantity-btn decrease">-</button>
                         <input type="number" class="print-20x24" value="0" data-price="95" readonly>
                         <button type="button" class="quantity-btn increase">+</button>
-                        <span class="wood-panel-note">(wood panel backing included)</span>
                     </div>
 
                     <!-- Print 30x40 -->
                     <div class="print-option">
-                        <label>Print 30x40:</label>
+                        <label>Print 30x40*</label>
                         <button type="button" class="quantity-btn decrease">-</button>
                         <input type="number" class="print-30x40" value="0" data-price="200" readonly>
                         <button type="button" class="quantity-btn increase">+</button>
-                        <span class="wood-panel-note">(wood panel backing included)</span>
                     </div>
-                    <br>
                     <div style="margin-left: 20px">
                         Note: <input type="text" class="pose-description" placeholder="E.g., Candidate only, Graduate with parents, 5 people, Siblings, Family portrait, etc.">
                     </div>
+                    <p style="font-size: 0.8em; color: #666; margin-left: 20px;">* Wood panel backing included</p>
                 </div>
             </div>
             <button type="button" id="addPose" class="add-pose-btn"><i class="fa fa-plus"></i> Add Pose</button>
@@ -398,19 +394,18 @@
                     <h2>Pose ${nextPoseNumber}</h2>
                     <button type="button" class="remove-pose">Remove</button>
                 </div>
-                <div style="margin-left: 20px">
-                    Number of people in pose:
+                <div style="margin-left: 20px;margin-bottom: 12px">
+                    Number of people in pose
                     <select class="pose-type">
                         <option value="1-3">1-3 ($0)</option>
                         <option value="4-6">4-6 ($15)</option>
                         <option value="7-10">7-10 ($30)</option>
                     </select>
                 </div>
-                <br>
 
                 <!-- Photo Package -->
                 <div class="print-option">
-                    <label>Photo Package:</label>
+                    <label>Photo Package</label>
                     <button type="button" class="quantity-btn decrease">-</button>
                     <input type="number" class="photo-package" value="0" data-price="35" readonly>
                     <button type="button" class="quantity-btn increase">+</button>
@@ -418,7 +413,7 @@
 
                 <!-- Print 2x3 (multiples of 4) -->
                 <div class="print-option">
-                    <label>Print 2x3:</label>
+                    <label>Print 2x3</label>
                     <button type="button" class="quantity-btn decrease">-</button>
                     <input type="number" class="print-2x3" value="0" data-price="2.5" readonly>
                     <button type="button" class="quantity-btn increase">+</button>
@@ -426,7 +421,7 @@
 
                 <!-- Print 5x7 -->
                 <div class="print-option">
-                    <label>Print 5x7:</label>
+                    <label>Print 5x7</label>
                     <button type="button" class="quantity-btn decrease">-</button>
                     <input type="number" class="print-5x7" value="0" data-price="10" readonly>
                     <button type="button" class="quantity-btn increase">+</button>
@@ -434,7 +429,7 @@
 
                 <!-- Print 8x10 -->
                 <div class="print-option">
-                    <label>Print 8x10:</label>
+                    <label>Print 8x10</label>
                     <button type="button" class="quantity-btn decrease">-</button>
                     <input type="number" class="print-8x10" value="0" data-price="15" readonly>
                     <button type="button" class="quantity-btn increase">+</button>
@@ -442,43 +437,39 @@
 
                 <!-- Print 11x14 -->
                 <div class="print-option">
-                    <label>Print 11x14:</label>
+                    <label>Print 11x14*</label>
                     <button type="button" class="quantity-btn decrease">-</button>
                     <input type="number" class="print-11x14" value="0" data-price="35" readonly>
                     <button type="button" class="quantity-btn increase">+</button>
-                    <span class="wood-panel-note">(wood panel backing included)</span>
                 </div>
 
                 <!-- Print 16x20 -->
                 <div class="print-option">
-                    <label>Print 16x20:</label>
+                    <label>Print 16x20*</label>
                     <button type="button" class="quantity-btn decrease">-</button>
                     <input type="number" class="print-16x20" value="0" data-price="65" readonly>
                     <button type="button" class="quantity-btn increase">+</button>
-                    <span class="wood-panel-note">(wood panel backing included)</span>
                 </div>
 
                 <!-- Print 20x24 -->
                 <div class="print-option">
-                    <label>Print 20x24:</label>
+                    <label>Print 20x24*</label>
                     <button type="button" class="quantity-btn decrease">-</button>
                     <input type="number" class="print-20x24" value="0" data-price="95" readonly>
                     <button type="button" class="quantity-btn increase">+</button>
-                    <span class="wood-panel-note">(wood panel backing included)</span>
                 </div>
 
                 <!-- Print 30x40 -->
                 <div class="print-option">
-                    <label>Print 30x40:</label>
+                    <label>Print 30x40*</label>
                     <button type="button" class="quantity-btn decrease">-</button>
                     <input type="number" class="print-30x40" value="0" data-price="200" readonly>
                     <button type="button" class="quantity-btn increase">+</button>
-                    <span class="wood-panel-note">(wood panel backing included)</span>
                 </div>
-                <br>
                 <div style="margin-left: 20px">
                     Note: <input type="text" class="pose-description" placeholder="E.g., Candidate only, Graduate with parents, 5 people, Siblings, Family portrait, etc.">
                 </div>
+                <p style="font-size: 0.8em; color: #666; margin-left: 20px;">* Wood panel backing included</p>
             `;
             document.getElementById('poses').appendChild(newPose);
             updateRemoveButtons();
@@ -601,7 +592,7 @@
                 };
                 pose.querySelectorAll('input[type="number"]').forEach(input => {
                     if (parseInt(input.value) > 0) {
-                        poseData.prints[input.parentNode.textContent.trim().split(':')[0]] = input.value;
+                        poseData.prints[input.parentNode.textContent.trim().split('\n')[0]] = input.value;
                     }
                 });
                 orderData.push(poseData);
