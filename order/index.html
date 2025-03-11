@@ -70,11 +70,13 @@
             justify-content: space-between;
             align-items: center;
             margin-left: 20px;
+            margin-right: 20px;
             margin-bottom: 15px;
         }
         
         .print-option {
             margin-left: 20px;
+            margin-right: 20px;
             margin-bottom: 10px;
             display: flex;
             align-items: center;
@@ -83,6 +85,7 @@
         
         .people-option {
             margin-left: 20px;
+            margin-right: 20px;
             margin-bottom: 12px;
             display: flex;
             align-items: center;
@@ -177,7 +180,7 @@
         }
         
         .order-summary {
-            background-color: #f9f9f9;
+            background-color: #f3f3f3;
             padding: 20px;
             margin-top: 20px;
             border-radius: 6px;
@@ -388,20 +391,20 @@
                             <button type="button" class="quantity-btn increase">+</button>
                         </div>
                     </div>
-                    <div style="margin-left: 20px">
+                    <div style="margin-left: 20px;margin-right: 20px;">
                         Note: <input type="text" class="pose-description" placeholder="E.g., Candidate only, Graduate with parents, 5 people, Siblings, Family portrait, etc.">
                     </div>
                     <p style="font-size: 0.8em; color: #666; margin-left: 20px;">* Wood panel backing included</p>
                 </div>
             </div>
-            <button type="button" id="addPose" class="add-pose-btn"><i class="fa fa-plus"></i> Add Pose</button>
-            
+            <button type="button" id="addPose" class="add-pose-btn" style="float:right"><i class="fa fa-plus"></i> Add Pose</button>
+            <br><br>
             <div class="order-summary">
-                <h3>Order Summary</h3>
-                <p>Subtotal: $<span id="subtotal">0.00</span></p>
-                <p>Shipping: $<span id="shipping">0.00</span></p>
-                <p>Total: $<span id="total">0.00</span></p>
-                <button type="submit" class="submit-button"><i class="fa fa-check"></i> Submit Order</button>
+                <h3 style="margin-left:20px;margin-right:20px">Order Summary</h3>
+                <p style="margin-left:20px;margin-right:20px">Subtotal: $<span id="subtotal">0.00</span></p>
+                <p style="margin-left:20px;margin-right:20px">Shipping: $<span id="shipping">0.00</span></p>
+                <p style="margin-left:20px;margin-right:20px">Total: $<span id="total">0.00</span></p>
+                <button style="margin-left:20px;margin-right:20px;margin-bottom: 20px;" type="submit" class="submit-button"><i class="fa fa-check"></i> Submit Order</button>
             </div>
         </form>
     </div>
@@ -543,7 +546,7 @@
                         <button type="button" class="quantity-btn increase">+</button>
                     </div>
                 </div>
-                <div style="margin-left: 20px">
+                <div style="margin-left: 20px;margin-right: 20px;">
                     Note: <input type="text" class="pose-description" placeholder="E.g., Candidate only, Graduate with parents, 5 people, Siblings, Family portrait, etc.">
                 </div>
                 <p style="font-size: 0.8em; color: #666; margin-left: 20px;">* Wood panel backing included</p>
