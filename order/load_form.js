@@ -20,10 +20,13 @@ document.addEventListener('DOMContentLoaded', function() {
             // Insert the form HTML into the container
             formContainer.innerHTML = html;
             
-            // Dynamically load the form script after the HTML is inserted
-            const script = document.createElement('script');
-            script.src = '../order/photo_order_form.js';
-            document.body.appendChild(script);
+            // Now that the form is loaded, load and execute the form script
+            return new Promise((resolve) => {
+                const script = document.createElement('script');
+                script.src = '../order/photo_order_form.js';
+                script.onload = resolve;
+                document.body.appendChild(script);
+            });
         })
         .catch(error => {
             console.error('Error loading photo order form:', error);
