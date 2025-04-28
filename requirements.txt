@@ -1,13 +1,20 @@
 apimatic-core==0.2.15
 apimatic-core-interfaces==0.1.5
 apimatic-requests-client-adapter==0.1.6
+blinker==1.9.0
 CacheControl==0.12.14
 certifi==2024.8.30
 charset-normalizer==3.4.0
+click==8.1.8
 deprecation==2.1.0
+Flask==3.1.0
+gunicorn==23.0.0
 idna==3.10
+itsdangerous==2.2.0
+Jinja2==3.1.5
 jsonpickle==3.0.4
 jsonpointer==2.4
+MarkupSafe==3.0.2
 msgpack==1.1.0
 packaging==24.2
 python-dateutil==2.8.2
@@ -15,3 +22,4 @@ requests==2.32.3
 six==1.16.0
 squareup==38.2.0.20241017
 urllib3==2.2.3
+Werkzeug==3.1.3
