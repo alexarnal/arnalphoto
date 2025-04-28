@@ -14,6 +14,8 @@ def home():
 
 @app.route('/submit', methods=['POST'])
 def submit():
+    print("Received submission!")
+    print(f"Form data: {request.form}")
     try:
         # Get form data
         # email = request.form.get('email')
