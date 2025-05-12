@@ -699,7 +699,22 @@ window.onscroll = function() {myFunction()};
         e.preventDefault(); // Always prevent default submission
 
         // Validate print options
-        // [existing validation code...]
+        const poses = document.querySelectorAll('.pose');
+        for (let i = 0; i < poses.length; i++) {
+            const pose = poses[i];
+            const printInputs = pose.querySelectorAll('input[type="number"]');
+            let hasSelection = false;
+            for (const input of printInputs) {
+                if (parseInt(input.value) > 0) {
+                    hasSelection = true;
+                    break;
+                }
+            }
+            if (!hasSelection) {
+                alert(`Please select at least one print option for Pose ${i + 1}.`);
+                return; // Stop here if validation fails
+            }
+        }
 
         // If we get here, validation passed
         // Gather all the order data
@@ -713,6 +728,7 @@ window.onscroll = function() {myFunction()};
             };
             pose.querySelectorAll('input[type="number"]').forEach(input => {
                 if (parseInt(input.value) > 0) {
+                    // Get the item name from the new DOM structure
                     const itemName = input.parentNode.parentNode.querySelector('.item-name').textContent;
                     poseData.prints[itemName] = input.value;
                 }
@@ -720,24 +736,11 @@ window.onscroll = function() {myFunction()};
             orderData.push(poseData);
         });
 
-        // Add shipping information to the order data
-        const subtotal = parseFloat(document.getElementById('subtotal').textContent);
-        const shippingCost = parseFloat(document.getElementById('shipping').textContent);
-        
-        // Add shipping info to the order data
-        const orderInfo = {
-            poses: orderData,
-            shipping: {
-                cost: shippingCost,
-                applied: shippingCost > 0
-            }
-        };
-
         // Add the order data to the form
         const hiddenInput = document.createElement('input');
         hiddenInput.type = 'hidden';
         hiddenInput.name = 'order_details';
-        hiddenInput.value = JSON.stringify(orderInfo);
+        hiddenInput.value = JSON.stringify(orderData);
         this.appendChild(hiddenInput);
 
         // Now manually submit the form
