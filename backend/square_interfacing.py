@@ -75,6 +75,16 @@ def create_square_order_and_get_payment_link(order_details):
         if isinstance(order_details, str):
             order_details = json.loads(order_details)
 
+        # Check if we have the new order structure with shipping info
+        if 'poses' in order_details:
+            poses = order_details['poses']
+            shipping_info = order_details.get('shipping', {'cost': 0, 'applied': False})
+        else:
+            # If using old format, assume it's just the poses array
+            poses = order_details
+            shipping_info = {'cost': 0, 'applied': False}
+
+
         # Format order details for Square
         line_items = []
         for pose in order_details:
@@ -115,6 +125,16 @@ def create_square_order_and_get_payment_link(order_details):
                         "currency": "USD"
                     },
                 })    
+
+        if shipping_info['applied'] and shipping_info['cost'] > 0:
+            line_items.append({
+                "name": "Shipping",
+                "quantity": "1",
+                "base_price_money": {
+                    "amount": int(shipping_info['cost'] * 100),  # Convert to cents
+                    "currency": "USD"
+                }
+            })  
 
         result = client.checkout.create_payment_link(
             body = {
