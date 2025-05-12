@@ -164,13 +164,13 @@ def get_price_for_number_of_people(number_of_people):
 
 def get_price_for_print(print_type):
     prices = {
-        "Print 2x3": 2.5,
+        "Print 2x3": 10,
         "Print 5x7": 10,
         "Print 8x10": 15,
-        "Print 11x14*": 35,
-        "Print 16x20*": 65,
-        "Print 20x24*": 95,
-        "Print 30x40*": 200,
+        "Print 11x14": 35,
+        "Print 16x20": 65,
+        "Print 20x24": 95,
+        "Print 30x40": 200,
         "Photo Package": 35
     }
     value = prices.get(print_type, 0)  # Return 0 if print type not found
