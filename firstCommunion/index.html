@@ -728,7 +728,9 @@ window.onscroll = function() {myFunction()};
             };
             pose.querySelectorAll('input[type="number"]').forEach(input => {
                 if (parseInt(input.value) > 0) {
-                    poseData.prints[input.parentNode.parentNode.textContent.trim().split('\n')[0]] = input.value;
+                    // Get the item name from the new DOM structure
+                    const itemName = input.parentNode.parentNode.querySelector('.item-name').textContent;
+                    poseData.prints[itemName] = input.value;
                 }
             });
             orderData.push(poseData);
