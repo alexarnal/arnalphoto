@@ -94,17 +94,6 @@ def create_square_order_and_get_payment_link(order_details):
                 if price == 0:
                     raise ValueError(f"Invalid print type or price not found: {print_type}")
                 
-                # Include the description as a note for each item
-                note = ""
-                if pose['description']:
-                    note = f"{pose['description']}"
-                
-                # Also include the people count in the note
-                if note:
-                    note = f"{note} ({pose['poseType']} people)"
-                else:
-                    note = f"{pose['poseType']} people"
-                
                 line_items.append({
                     "name": f"Pose {pose['poseNumber']} - {print_type}",
                     "quantity": str(quantity),
@@ -112,21 +101,30 @@ def create_square_order_and_get_payment_link(order_details):
                         "amount": int(price * 100),
                         "currency": "USD"
                     },
-                    "note": note
+                    # "note": f"{pose['description']}"
                 })
             
-            # Add pose type cost as a separate line item ONLY if the cost is greater than 0
+            # Add pose type cost
             cost_for_number_of_people = get_price_for_number_of_people(pose['poseType'])
-            if cost_for_number_of_people > 0:
+            # if cost_for_number_of_people > 0:  # Only add if there's a cost
+            line_items.append({
+                "name": f"Pose {pose['poseNumber']} - {pose['poseType']} people",
+                "quantity": "1",
+                # "note": f"{pose['description']}",
+                "base_price_money": {
+                    "amount": int(cost_for_number_of_people * 100),
+                    "currency": "USD"
+                }
+            })
+            if pose['description'] != '':
                 line_items.append({
-                    "name": f"Pose {pose['poseNumber']} - {pose['poseType']} people",
+                    "name": f'Pose {pose["poseNumber"]} Note - {pose["description"]}',
                     "quantity": "1",
-                    "note": f"Additional charge for {pose['poseType']} people",
                     "base_price_money": {
-                        "amount": int(cost_for_number_of_people * 100),
+                        "amount": 0,
                         "currency": "USD"
-                    }
-                })
+                    },
+                })    
 
         # Add shipping charge if applicable
         if shipping_info['applied'] and shipping_info['cost'] > 0:
@@ -182,7 +180,7 @@ def get_price_for_number_of_people(number_of_people):
         "7-10": 30
     }
     value = prices.get(number_of_people, 0)  # Return 0 if number of people not found
-    if value==0: logger.info(f'unable to get price, returning price of 0 for number_of_people {number_of_people}')
+    if value==0: logger.info('unable to get price, returning price of 0 for number_of_people', number_of_people)
     return value
 
 def get_price_for_print(print_type):
@@ -197,5 +195,12 @@ def get_price_for_print(print_type):
         "Photo Package": 35
     }
     value = prices.get(print_type, 0)  # Return 0 if print type not found
-    if value==0: logger.info(f'unable to get price, returning price of 0 for print_type {print_type}')
+    if value==0: logger.info('unable to get price, returning price of 0 for print_type', print_type)
     return value
+# # Use this in your main loop
+# if new_order:
+#     payment_link = create_square_order_and_get_payment_link(parse_order_details(new_order), customer_email)
+#     if payment_link:
+#         print(f"Payment link created: {payment_link}")
+#     else:
+#         print("Failed to create payment link")
