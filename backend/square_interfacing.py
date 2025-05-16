@@ -84,6 +84,7 @@ def create_square_order_and_get_payment_link(order_details):
             poses = order_details
             shipping_info = {'cost': 0, 'applied': False}
 
+
         # Format order details for Square
         line_items = []
         for pose in poses:
@@ -98,6 +99,12 @@ def create_square_order_and_get_payment_link(order_details):
                 if pose['description']:
                     note = f"{pose['description']}"
                 
+                # Also include the people count in the note
+                if note:
+                    note = f"{note} ({pose['poseType']} people)"
+                else:
+                    note = f"{pose['poseType']} people"
+                
                 line_items.append({
                     "name": f"Pose {pose['poseNumber']} - {print_type}",
                     "quantity": str(quantity),
@@ -108,17 +115,18 @@ def create_square_order_and_get_payment_link(order_details):
                     "note": note
                 })
             
-            # Add pose type cost as a separate line item
+            # Add pose type cost as a separate line item ONLY if the cost is greater than 0
             cost_for_number_of_people = get_price_for_number_of_people(pose['poseType'])
-            line_items.append({
-                "name": f"Pose {pose['poseNumber']} - {pose['poseType']} people",
-                "quantity": "1",
-                "note": f"{pose['description']}",
-                "base_price_money": {
-                    "amount": int(cost_for_number_of_people * 100),
-                    "currency": "USD"
-                }
-            })
+            if cost_for_number_of_people > 0:
+                line_items.append({
+                    "name": f"Pose {pose['poseNumber']} - {pose['poseType']} people",
+                    "quantity": "1",
+                    "note": f"Additional charge for {pose['poseType']} people",
+                    "base_price_money": {
+                        "amount": int(cost_for_number_of_people * 100),
+                        "currency": "USD"
+                    }
+                })
 
         # Add shipping charge if applicable
         if shipping_info['applied'] and shipping_info['cost'] > 0:
