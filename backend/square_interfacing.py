@@ -87,38 +87,38 @@ def create_square_order_and_get_payment_link(order_details):
         # Format order details for Square
         line_items = []
         for pose in poses:
-            # Format description with pose type (number of people)
-            description = pose['description'] or ""
-            description_with_people = f"{pose['poseType']} people"
-            if description:
-                description_with_people = f"{description} ({pose['poseType']} people)"
-            
-            # Calculate additional charge for number of people
-            cost_for_number_of_people = get_price_for_number_of_people(pose['poseType'])
-            
             # Add the prints to the order
             for print_type, quantity in pose['prints'].items():
                 price = get_price_for_print(print_type)
                 if price == 0:
                     raise ValueError(f"Invalid print type or price not found: {print_type}")
                 
-                # Add extra charge for number of people to the first item only
-                adjusted_price = price
-                if cost_for_number_of_people > 0 and print_type == next(iter(pose['prints'])): 
-                    adjusted_price += cost_for_number_of_people
-                    note = f"{description_with_people} (includes ${cost_for_number_of_people} extra for {pose['poseType']} people)"
-                else:
-                    note = description_with_people
+                # Include the description as a note for each item
+                note = ""
+                if pose['description']:
+                    note = f"{pose['description']}"
                 
                 line_items.append({
                     "name": f"Pose {pose['poseNumber']} - {print_type}",
                     "quantity": str(quantity),
                     "base_price_money": {
-                        "amount": int(adjusted_price * 100),
+                        "amount": int(price * 100),
                         "currency": "USD"
                     },
                     "note": note
                 })
+            
+            # Add pose type cost as a separate line item
+            cost_for_number_of_people = get_price_for_number_of_people(pose['poseType'])
+            line_items.append({
+                "name": f"Pose {pose['poseNumber']} - {pose['poseType']} people",
+                "quantity": "1",
+                "note": f"{pose['description']}",
+                "base_price_money": {
+                    "amount": int(cost_for_number_of_people * 100),
+                    "currency": "USD"
+                }
+            })
 
         # Add shipping charge if applicable
         if shipping_info['applied'] and shipping_info['cost'] > 0:
