@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html>
+<title>Arnal Studio - First Communions</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta property="og:image" content="../images/comm_1.jpg">
+<meta property="og:image:width" content="1024">
+<meta property="og:image:height" content="717">
+<meta property="og:title" content="Arnal Studio - First Communions" />
+
+<link rel="stylesheet" href="../css/w3.css">
+<link rel="stylesheet" href="../css/opensans.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="icon" href="../images/aplogo_circleIcon.png">
+<link rel="stylesheet" href="../order/photo_order_form.css">
+<style>
+body,h1,h2,h3,h4,h5,h6 {font-family: "Open Sans", monospace;}
+body, html {
+    height: 100%;
+    color: #333;
+    line-height: 1.8;
+  }
+
+  /* Create a Parallax Effect */
+.bgimg-1, .bgimg-2, .bgimg-3 {
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+
+  /* First image (Logo. Full height) */
+
+  /* Second image (Portfolio) */
+  .bgimg-2 {
+    background-image: url("../images/backdrop.jpg");
+    min-height: 400px;
+  }
+
+  .print-option {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.item-details {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.item-name {
+    font-weight: 500;
+    font-size: 16px;
+}
+
+.item-price {
+    /* font-weight: bold; */
+    color: #333;
+}
+
+.item-description {
+    font-size: 0.85em;
+    color: #666;
+    font-style: italic;
+}
+
+.controls-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.quantity-btn {
+    width: 36px;
+    height: 36px;
+    border: 1px solid #ddd;
+    background: white;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.quantity-btn:hover {
+    background: #f5f5f5;
+}
+
+input[type="number"] {
+    width: 60px;
+    height: 36px;
+    text-align: center;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+
+.w3-wide {letter-spacing: 10px;}
+.w3-hover-opacity {cursor: pointer;}
+
+.w3-top {color:white;}
+
+  /* Turn off parallax scrolling for tablets and phones */
+  @media only screen and (max-device-width: 1600px) {
+  .bgimg-1, .bgimg-2, .bgimg-3 {
+      background-attachment: scroll;
+      min-height: 400px;
+    }
+  }
+</style>
+<body>
+
+  <!-- Navbar (sit on top) -->
+  <div class="w3-top">
+    <div class="w3-bar" id="myNavbar">
+    <a class="w3-bar-item w3-button w3-hover-black w3-hide-medium w3-hide-large w3-right" href="javascript:void(0);" onclick="toggleFunction()" title="Toggle Navigation Menu">
+      <i class="fa fa-bars" ></i>
+      </a>
+    <a href="../#home" class="w3-bar-item w3-button" >HOME</a>
+    <a href="../#about" class="w3-bar-item w3-button w3-hide-small" ><!--i class="fa fa-user"></i-->ABOUT</a>
+    <a href="../#portfolio" class="w3-bar-item w3-button w3-hide-small" ><!--i class="fa fa-th"></i-->PORTFOLIO</a>
+    <a href="../#contact" class="w3-bar-item w3-button w3-hide-small" ><!--i class="fa fa-envelope"></i-->CONTACT</a>
+      <!--a href="#" class="w3-bar-item w3-button w3-hide-small w3-right w3-hover-red">
+      <i class="fa fa-search"></i>
+    </a-->
+    </div>
+
+    <!-- Navbar on small screens -->
+    <div id="navDemo" class="w3-bar-block w3-hide w3-hide-large w3-hide-medium ">
+      <a href="../#about" class="w3-bar-item w3-button " onclick="toggleFunction()">ABOUT</a>
+      <a href="../#portfolio" class="w3-bar-item w3-button " onclick="toggleFunction()">PORTFOLIO</a>
+    <a href="../#contact" class="w3-bar-item w3-button "  onclick="toggleFunction()">CONTACT</a>
+      <!--a href="#" class="w3-bar-item w3-button">SEARCH</a-->
+    </div>
+  </div>
+
+  <!-- First Parallax Image with Logo Text -->
+  <div class="bgimg-2 w3-display-container w3-opacity-min" id="portfolio">
+    <div class="w3-display-middle w3-center">
+      <span class="w3-xxlarge w3-text-white w3-wide w3-hide-small ">FIRST COMMUNION</span>
+      <span class="w3-xlarge w3-text-white w3-wide w3-hide-large w3-hide-medium">FIRST COMMUNION</span>
+    </div>
+  </div>
+
+  <!-- Container (About Section) -->
+  <!-- <div class="w3-content w3-container w3-padding-64" id="about">
+    <h3 class="w3-center">Photo Orders</h3><br>
+  <div class="w3-content w3-container w3-padding-32" >  
+
+      <div class="w3-row-padding w3-center">
+        <div class="w3-col m4">
+          <img src="../images/1-8x10.svg" style="width:100%" alt="One 8×10">
+        </div>
+
+        <div class="w3-col m4">
+          <img src="../images/2-5x7.svg" style="width:100%" alt="Two 5×7">
+        </div>
+
+        <div class="w3-col m4">
+          <img src="../images/4-2x3.svg" style="width:100%" alt="Four Wallets">
+        </div>
+      </div>
+    </div><br> -->
+
+  <div class="w3-content w3-container w3-padding-32" >
+      <h3 class="w3-center">Order Yours Today!</h3>
+      <div class="w3-container w3-padding-16 w3-center">
+        <p class="w3-medium">
+          Start with our traditional photo package of your special moment, then customize your order with additional photos and sizes as desired:
+        </p>
+        <ul class="w3-left-align" style="display: inline-block; text-align: left; max-width: 600px; margin: 0 auto;">
+          <li><strong>Choose your poses</strong> - Each pose is a different photo setup (individual, with family, etc.)</li>
+          <li><strong>Select sizes for each pose</strong> - Mix and match print sizes to suit your preferences</li>
+          <li><strong>Add family members</strong> - Include parents, siblings or other family in additional poses</li>
+          <li><strong>Free Shipping</strong> - Take advantage of our free shipping on orders of $35 or more!</li>
+        </ul>
+        <p class="w3-medium w3-padding-16">
+          Simply select what you want below. We'll prepare your custom photo session based on your selections.
+        </p>
+      </div>
+      <!-- Order Form Container -->
+      <div class="order-form-container">
+        <form id="orderForm" action="https://api.arnalphoto.com/submit" method="POST"> 
+            <div id="poses">
+                <div class="pose" data-pose-id="1">
+                    <div class="pose-header">
+                        <h2>Pose 1</h2>
+                        <button type="button" class="remove-pose" disabled>Remove</button>
+                    </div>
+
+                    <!-- Photo Package -->
+                    <div class="print-option">
+                        <div class="item-details">
+                            <div class="item-name">Photo Package</div>
+                            <div class="item-price">$35.00</div>
+                            <div class="item-description"><i>Includes 1 8×10, 2 5×7, and 4 2×3</i></div>
+                        </div>
+                        <div class="controls-container">
+                            <button type="button" class="quantity-btn decrease">-</button>
+                            <input type="number" class="photo-package" value="0" data-price="35" readonly>
+                            <button type="button" class="quantity-btn increase">+</button>
+                        </div>
+                    </div>
+
+                    <!-- Print 2x3 -->
+                    <div class="print-option">
+                        <div class="item-details">
+                            <div class="item-name">Print 2x3</div>
+                            <div class="item-price">$10.00</div>
+                            <div class="item-description"><i>Includes 4 prints</i></div>
+                        </div>
+                        <div class="controls-container">
+                            <button type="button" class="quantity-btn decrease">-</button>
+                            <input type="number" class="print-2x3" value="0" data-price="10" readonly>
+                            <button type="button" class="quantity-btn increase">+</button>
+                        </div>
+                    </div>
+
+                    <!-- Print 5x7 -->
+                    <div class="print-option">
+                        <div class="item-details">
+                            <div class="item-name">Print 5x7</div>
+                            <div class="item-price">$10.00</div>
+                            <div class="item-description"><i>&nbsp;</i></div> <!-- Optional empty description to maintain spacing -->
+                        </div>
+                        <div class="controls-container">
+                            <button type="button" class="quantity-btn decrease">-</button>
+                            <input type="number" class="print-5x7" value="0" data-price="10" readonly>
+                            <button type="button" class="quantity-btn increase">+</button>
+                        </div>
+                    </div>
+
+                    <!-- Print 8x10 -->
+                    <div class="print-option">
+                        <div class="item-details">
+                            <div class="item-name">Print 8x10</div>
+                            <div class="item-price">$15.00</div>
+                            <div class="item-description"><i>&nbsp;</i></div> <!-- Optional empty description to maintain spacing -->
+                        </div>
+                        <div class="controls-container">
+                            <button type="button" class="quantity-btn decrease">-</button>
+                            <input type="number" class="print-8x10" value="0" data-price="15" readonly>
+                            <button type="button" class="quantity-btn increase">+</button>
+                        </div>
+                    </div>
+
+                    <!-- Print 11x14 -->
+                    <div class="print-option">
+                        <div class="item-details">
+                            <div class="item-name">Print 11x14</div>
+                            <div class="item-price">$35.00</div>
+                            <div class="item-description"><i>&nbsp;</i></div> <!-- Optional empty description to maintain spacing -->
+                        </div>
+                        <div class="controls-container">
+                            <button type="button" class="quantity-btn decrease">-</button>
+                            <input type="number" class="print-11x14" value="0" data-price="35" readonly>
+                            <button type="button" class="quantity-btn increase">+</button>
+                        </div>
+                    </div>
+
+                    <!-- Print 16x20 -->
+                    <div class="print-option">
+                        <div class="item-details">
+                            <div class="item-name">Print 16x20</div>
+                            <div class="item-price">$65.00</div>
+                            <div class="item-description"><i>&nbsp;</i></div> <!-- Optional empty description to maintain spacing -->
+                        </div>
+                        <div class="controls-container">
+                            <button type="button" class="quantity-btn decrease">-</button>
+                            <input type="number" class="print-16x20" value="0" data-price="65" readonly>
+                            <button type="button" class="quantity-btn increase">+</button>
+                        </div>
+                    </div>
+
+                    <!-- Print 20x24 -->
+                    <div class="print-option">
+                        <div class="item-details">
+                            <div class="item-name">Print 20x24</div>
+                            <div class="item-price">$95.00</div>
+                            <div class="item-description"><i>&nbsp;</i></div> <!-- Optional empty description to maintain spacing -->
+                        </div>
+                        <div class="controls-container">
+                            <button type="button" class="quantity-btn decrease">-</button>
+                            <input type="number" class="print-20x24" value="0" data-price="95" readonly>
+                            <button type="button" class="quantity-btn increase">+</button>
+                        </div>
+                    </div>
+
+                    <!-- Print 30x40 -->
+                    <div class="print-option">
+                        <div class="item-details">
+                            <div class="item-name">Print 30x40</div>
+                            <div class="item-price">$200.00</div>
+                            <div class="item-description"><i>&nbsp;</i></div> <!-- Optional empty description to maintain spacing -->
+                        </div>
+                        <div class="controls-container">
+                            <button type="button" class="quantity-btn decrease">-</button>
+                            <input type="number" class="print-30x40" value="0" data-price="200" readonly>
+                            <button type="button" class="quantity-btn increase">+</button>
+                        </div>
+                    </div>
+
+                    <div class="print-option" style="padding-bottom: 24px;">
+                        <label>Number of people in pose</label>
+                        <div class="controls-container">
+                            <select class="pose-type">
+                                <option value="1-3">1-3 ($0)</option>
+                                <option value="4-6">4-6 ($15)</option>
+                                <option value="7-10">7-10 ($30)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div style="margin-left: 10px;margin-right: 10px;">
+                        Note (optional) <input type="text" class="pose-description" placeholder="E.g., Candidate only, Graduate with parents, 5 people, Siblings, Family portrait, etc.">
+                    </div>
+                    <!-- <p style="font-size: 0.8em; color: #666; margin-left: 10px;">* Wood panel backing included</p> -->
+                </div>
+            </div>
+            <button type="button" id="addPose" class="add-pose-btn" style="float:right"><i class="fa fa-plus"></i> Add Pose</button>
+            <br><br>
+            <div class="order-summary">
+                <h3 style="margin-left:10px;margin-right:10px">Order Summary</h3>
+                <p style="margin-left:10px;margin-right:10px">Subtotal: $<span id="subtotal">0.00</span></p>
+                <p style="margin-left:10px;margin-right:10px">Shipping: $<span id="shipping">0.00</span></p>
+                <p style="margin-left:10px;margin-right:10px">Total: $<span id="total">0.00</span></p>
+                <button style="margin-left:10px;margin-right:10px;margin-bottom: 20px;" type="submit" class="submit-button"><i class="fa fa-check"></i> Submit Order</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Container (Portfolio Section) -->
+  <div class="w3-content w3-container w3-padding-32" >
+    <h3 class="w3-center">Samples</h3><br>
+    <div class="w3-row-padding w3-center w3-section">
+      <div class="w3-col m4">
+      <img src="../images/comm_1.jpg" style="width:100%" onclick="onClick(this)" class="w3-hover-opacity" alt="Religious Formation">
+      </div>
+      <div class="w3-hide-large w3-hide-medium">&nbsp;</div>
+      <div class="w3-col m4">
+      <img src="../images/comm_2.jpg" style="width:100%" onclick="onClick(this)" class="w3-hover-opacity" alt="Religious Formation">
+      </div>
+      <div class="w3-hide-large w3-hide-medium">&nbsp;</div>
+      <div class="w3-col m4">
+      <img src="../images/comm_3.jpg" style="width:100%" onclick="onClick(this)" class="w3-hover-opacity" alt="Religious Formation">
+      </div>
+
+      <!--button class="w3-button w3-padding-large w3-light-grey" style="margin-top:64px">LOAD MORE</button-->
+    </div>
+    <div class="w3-hide-large w3-hide-medium" style="margin-top: -32px">&nbsp;</div>
+    <div class="w3-row-padding w3-center w3-section">
+      <div class="w3-col m6">
+      <img src="../images/comm_group_1.jpg" style="width:100%" onclick="onClick(this)" class="w3-hover-opacity" alt="Religious Formation">
+      </div>
+
+      <div class="w3-hide-large w3-hide-medium">&nbsp;</div>
+
+      <div class="w3-col m6">
+      <img src="../images/comm_group_2.jpg" style="width:100%" onclick="onClick(this)" class="w3-hover-opacity" alt="Religious Formation">
+      </div>
+      <br>
+      <!--button class="w3-button w3-padding-large w3-light-grey" style="margin-top:64px">LOAD MORE</button-->
+    </div>
+  </div>
+
+  <!-- Modal for full size images on click-->
+  <div id="modal01" class="w3-modal w3-black" onclick="this.style.display='none'">
+  <span class="w3-button w3-large w3-black w3-display-topright" title="Close Modal Image"><i class="fa fa-remove"></i></span>
+    <div class="w3-modal-content w3-animate-zoom w3-center w3-transparent w3-padding-64">
+      <img id="img01" class="w3-image">
+      <p id="caption" class="w3-opacity w3-large"></p>
+    </div>
+  </div>
+
+    </div>
+
+  </div>
+
+  <!-- Footer -->
+  <footer class="w3-center w3-padding-32" style="background: #111;color: white">
+    <!--a href="#home" class="w3-button w3-light-grey"><i class="fa fa-arrow-up w3-margin-right"></i>To the top</a-->
+    <div class="w3-xlarge w3-section">
+    <a href="https://www.facebook.com/arnalstudio" title="fa" target="_blank"><i class="fa fa-facebook-official w3-hover-opacity"></i></a>
+      <!--i class="fa fa-instagram w3-hover-opacity"></i>
+    <i class="fa fa-snapchat w3-hover-opacity"></i>
+    <i class="fa fa-linkedin w3-hover-opacity"></i>
+    <i class="fa fa-pinterest-p w3-hover-opacity"></i-->
+    <a href="https://twitter.com/arnalstudio" title="fa" target="_blank"><i class="fa fa-twitter w3-hover-opacity"></i></a>
+
+    </div>
+  <p>Powered by <a href="https://www.w3schools.com/w3css/default.asp" title="W3.CSS" target="_blank" class="w3-hover-opacity">w3.css</a></p>
+  </footer>
+  <p style="background: #111; color: white; margin:0px; font-size: 12px">Copyright © 2025 Arnal Studio</p>
+  <script>
+    // Modal Image Gallery
+    function onClick(element) {
+      document.getElementById("img01").src = element.src;
+      document.getElementById("modal01").style.display = "block";
+      var captionText = document.getElementById("caption");
+      captionText.innerHTML = element.alt;
+    }
+
+    // Change style of navbar on scroll
+window.onscroll = function() {myFunction()};
+    function myFunction() {
+      var navbar = document.getElementById("myNavbar");
+      if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+        navbar.className = "w3-bar" + " w3-white";
+      } else {
+        navbar.className = navbar.className.replace( " w3-white", "");//w3-card w3-animate-top w3-white", "");
+      }
+      var x = document.getElementById("navDemo");
+      if (x.className.indexOf("w3-show") != -1) {
+        x.className = "w3-bar-block" + " w3-hide" + " w3-hide-large" + " w3-hide-medium" + " w3-show";
+        if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+          x.className = "w3-bar-block" + " w3-hide" + " w3-hide-large" + " w3-hide-medium" + " w3-show" + " w3-white";
+        } else {
+            x.className = x.className.replace( " w3-white", "");//w3-card w3-animate-top w3-white", "");
+        }
+      } else {
+        x.className = x.className.replace(" w3-show", "");
+        if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+          x.className = "w3-bar-block" + " w3-hide" + " w3-hide-large" + " w3-hide-medium" + " w3-white";
+        } else {
+            x.className = x.className.replace( " w3-white", "");//w3-card w3-animate-top w3-white", "");
+        }
+      }
+
+    }
+
+    // Used to toggle the menu on small screens when clicking on the menu button
+    function toggleFunction() {
+      var x = document.getElementById("navDemo");
+      if (x.className.indexOf("w3-show") == -1) {
+        x.className += " w3-show";
+      } else {
+        x.className = x.className.replace(" w3-show", "");
+      }
+    }
+  </script>
+
+  <script>
+    // We don't need poseCount anymore as we'll use the actual number of poses
+
+    // Function to update pose numbering
+    function updatePoseNumbering() {
+        const poses = document.querySelectorAll('.pose');
+        poses.forEach((pose, index) => {
+            pose.querySelector('h2').textContent = `Pose ${index + 1}`;
+            pose.setAttribute('data-pose-id', index + 1);
+        });
+    }
+
+    // Function to update remove buttons' disabled state
+    function updateRemoveButtons() {
+        const poses = document.querySelectorAll('.pose');
+        const totalPoses = poses.length;
+        
+        poses.forEach(pose => {
+            const removeButton = pose.querySelector('.remove-pose');
+            // Enable remove button only if there's more than one pose
+            removeButton.disabled = totalPoses <= 1;
+        });
+    }
+
+    document.getElementById('addPose').addEventListener('click', function() {
+        // Get the current number of poses and set the new pose's number to be the next sequential number
+        const currentPoses = document.querySelectorAll('.pose');
+        const nextPoseNumber = currentPoses.length + 1;
+        
+        const newPose = document.createElement('div');
+        newPose.className = 'pose';
+        newPose.setAttribute('data-pose-id', nextPoseNumber);
+        newPose.innerHTML = `
+            <div class="pose-header">
+                <h2>Pose ${nextPoseNumber}</h2>
+                <button type="button" class="remove-pose">Remove</button>
+            </div>
+
+            <!-- Photo Package -->
+            <div class="print-option">
+                <div class="item-details">
+                    <div class="item-name">Photo Package</div>
+                    <div class="item-price">$35.00</div>
+                    <div class="item-description"><i>Includes 1 8×10, 2 5×7, and 4 2×3</i></div>
+                </div>
+                <div class="controls-container">
+                    <button type="button" class="quantity-btn decrease">-</button>
+                    <input type="number" class="photo-package" value="0" data-price="35" readonly>
+                    <button type="button" class="quantity-btn increase">+</button>
+                </div>
+            </div>
+
+            <!-- Print 2x3 -->
+            <div class="print-option">
+                <div class="item-details">
+                    <div class="item-name">Print 2x3</div>
+                    <div class="item-price">$10.00</div>
+                    <div class="item-description"><i>Includes 4 prints</i></div>
+                </div>
+                <div class="controls-container">
+                    <button type="button" class="quantity-btn decrease">-</button>
+                    <input type="number" class="print-2x3" value="0" data-price="10" readonly>
+                    <button type="button" class="quantity-btn increase">+</button>
+                </div>
+            </div>
+
+            <!-- Print 5x7 -->
+            <div class="print-option">
+                <div class="item-details">
+                    <div class="item-name">Print 5x7</div>
+                    <div class="item-price">$10.00</div>
+                    <div class="item-description"><i>&nbsp;</i></div> <!-- Optional empty description to maintain spacing -->
+                </div>
+                <div class="controls-container">
+                    <button type="button" class="quantity-btn decrease">-</button>
+                    <input type="number" class="print-5x7" value="0" data-price="10" readonly>
+                    <button type="button" class="quantity-btn increase">+</button>
+                </div>
+            </div>
+
+            <!-- Print 8x10 -->
+            <div class="print-option">
+                <div class="item-details">
+                    <div class="item-name">Print 8x10</div>
+                    <div class="item-price">$15.00</div>
+                    <div class="item-description"><i>&nbsp;</i></div> <!-- Optional empty description to maintain spacing -->
+                </div>
+                <div class="controls-container">
+                    <button type="button" class="quantity-btn decrease">-</button>
+                    <input type="number" class="print-8x10" value="0" data-price="15" readonly>
+                    <button type="button" class="quantity-btn increase">+</button>
+                </div>
+            </div>
+
+            <!-- Print 11x14 -->
+            <div class="print-option">
+                <div class="item-details">
+                    <div class="item-name">Print 11x14</div>
+                    <div class="item-price">$35.00</div>
+                    <div class="item-description"><i>&nbsp;</i></div> <!-- Optional empty description to maintain spacing -->
+                </div>
+                <div class="controls-container">
+                    <button type="button" class="quantity-btn decrease">-</button>
+                    <input type="number" class="print-11x14" value="0" data-price="35" readonly>
+                    <button type="button" class="quantity-btn increase">+</button>
+                </div>
+            </div>
+
+            <!-- Print 16x20 -->
+            <div class="print-option">
+                <div class="item-details">
+                    <div class="item-name">Print 16x20</div>
+                    <div class="item-price">$65.00</div>
+                    <div class="item-description"><i>&nbsp;</i></div> <!-- Optional empty description to maintain spacing -->
+                </div>
+                <div class="controls-container">
+                    <button type="button" class="quantity-btn decrease">-</button>
+                    <input type="number" class="print-16x20" value="0" data-price="65" readonly>
+                    <button type="button" class="quantity-btn increase">+</button>
+                </div>
+            </div>
+
+            <!-- Print 20x24 -->
+            <div class="print-option">
+                <div class="item-details">
+                    <div class="item-name">Print 20x24</div>
+                    <div class="item-price">$95.00</div>
+                    <div class="item-description"><i>&nbsp;</i></div> <!-- Optional empty description to maintain spacing -->
+                </div>
+                <div class="controls-container">
+                    <button type="button" class="quantity-btn decrease">-</button>
+                    <input type="number" class="print-20x24" value="0" data-price="95" readonly>
+                    <button type="button" class="quantity-btn increase">+</button>
+                </div>
+            </div>
+
+            <!-- Print 30x40 -->
+            <div class="print-option">
+                <div class="item-details">
+                    <div class="item-name">Print 30x40</div>
+                    <div class="item-price">$200.00</div>
+                    <div class="item-description"><i>&nbsp;</i></div> <!-- Optional empty description to maintain spacing -->
+                </div>
+                <div class="controls-container">
+                    <button type="button" class="quantity-btn decrease">-</button>
+                    <input type="number" class="print-30x40" value="0" data-price="200" readonly>
+                    <button type="button" class="quantity-btn increase">+</button>
+                </div>
+            </div>
+
+            <div class="print-option" style="padding-bottom: 24px;">
+                <label>Number of people in pose</label>
+                <div class="controls-container">
+                    <select class="pose-type">
+                        <option value="1-3">1-3 ($0)</option>
+                        <option value="4-6">4-6 ($15)</option>
+                        <option value="7-10">7-10 ($30)</option>
+                    </select>
+                </div>
+            </div>
+
+            <div style="margin-left: 10px;margin-right: 10px;">
+                Note: <input type="text" class="pose-description" placeholder="E.g., Candidate only, Graduate with parents, 5 people, Siblings, Family portrait, etc.">
+            </div>
+        `;
+        document.getElementById('poses').appendChild(newPose);
+        updateRemoveButtons();
+        updateTotal();
+    });
+
+    // Event delegation for the remove pose button
+    document.getElementById('poses').addEventListener('click', function(e) {
+        if (e.target.classList.contains('remove-pose')) {
+            const pose = e.target.closest('.pose');
+            const poses = document.querySelectorAll('.pose');
+            
+            // Remove pose only if it's not the last one
+            if (poses.length > 1) {
+                pose.remove();
+                updatePoseNumbering();
+                updateRemoveButtons();
+                updateTotal();
+            }
+        }
+    });
+
+    document.getElementById('orderForm').addEventListener('change', updateTotal);
+
+    function updateTotal() {
+        let subtotal = 0;
+        const poses = document.querySelectorAll('.pose');
+        poses.forEach(pose => {
+            const poseType = pose.querySelector('.pose-type').value;
+            if (poseType === '4-6') subtotal += 15;
+            if (poseType === '7-10') subtotal += 30;
+            
+            pose.querySelectorAll('input[type="number"]').forEach(input => {
+                let quantity = parseInt(input.value) || 0; // Use 0 if NaN
+                const price = parseFloat(input.getAttribute('data-price'));
+                if (input.classList.contains('print-2x3')) {
+                    // quantity = Math.floor(quantity / 4) * 4; // Ensure quantity is a multiple of 4
+                    input.value = quantity; // Update the input value
+                }
+                subtotal += quantity * price;
+            });
+        });
+
+        // Only charge shipping if subtotal is less than $35 and not zero
+        const shipping = (subtotal > 0 && subtotal < 35) ? 5 : 0;
+
+        document.getElementById('subtotal').textContent = subtotal.toFixed(2);
+        document.getElementById('shipping').textContent = shipping.toFixed(2);
+        document.getElementById('total').textContent = (subtotal + shipping).toFixed(2);
+    }
+
+    // Function to check if at least one print option is selected
+    function validatePrintOptions() {
+        const poses = document.querySelectorAll('.pose');
+        for (let i = 0; i < poses.length; i++) {
+            const pose = poses[i];
+            const printInputs = pose.querySelectorAll('input[type="number"]');
+            let hasSelection = false;
+            for (const input of printInputs) {
+                if (parseInt(input.value) > 0) {
+                    hasSelection = true;
+                    break;
+                }
+            }
+            if (!hasSelection) {
+                alert(`Please select at least one print option for Pose ${i + 1}.`);
+                return false;
+            }
+        }
+        return true;
+    }
+
+    document.addEventListener('click', function(e) {
+        if (e.target.classList.contains('quantity-btn')) {
+            const input = e.target.parentNode.querySelector('input');
+            const step = 1;
+            const currentValue = parseInt(input.value) || 0;
+            
+            if (e.target.classList.contains('increase')) {
+                input.value = currentValue + step;
+            } else if (e.target.classList.contains('decrease')) {
+                input.value = Math.max(0, currentValue - step);
+            }
+            
+            input.dispatchEvent(new Event('change'));
+            updateTotal();
+        }
+    });
+
+    document.getElementById('orderForm').addEventListener('submit', function(e) {
+        e.preventDefault(); // Always prevent default submission
+
+        // Validate print options
+        const poses = document.querySelectorAll('.pose');
+        for (let i = 0; i < poses.length; i++) {
+            const pose = poses[i];
+            const printInputs = pose.querySelectorAll('input[type="number"]');
+            let hasSelection = false;
+            for (const input of printInputs) {
+                if (parseInt(input.value) > 0) {
+                    hasSelection = true;
+                    break;
+                }
+            }
+            if (!hasSelection) {
+                alert(`Please select at least one print option for Pose ${i + 1}.`);
+                return; // Stop here if validation fails
+            }
+        }
+
+        // If we get here, validation passed
+        // Gather all the order data
+        let orderData = [];
+        poses.forEach((pose, index) => {
+            let poseData = {
+                poseNumber: index + 1,
+                poseType: pose.querySelector('.pose-type').value,
+                prints: {},
+                description: pose.querySelector('.pose-description').value
+            };
+            pose.querySelectorAll('input[type="number"]').forEach(input => {
+                if (parseInt(input.value) > 0) {
+                    // Get the item name from the new DOM structure
+                    const itemName = input.parentNode.parentNode.querySelector('.item-name').textContent;
+                    poseData.prints[itemName] = input.value;
+                }
+            });
+            orderData.push(poseData);
+        });
+        
+        // Get shipping information
+        const subtotal = parseFloat(document.getElementById('subtotal').textContent);
+        const shipping = (subtotal > 0 && subtotal < 35) ? 5 : 0;
+        const shippingApplied = shipping > 0;
+        
+        // Create a complete order object with shipping
+        const completeOrder = {
+            poses: orderData,
+            shipping: {
+                cost: shipping,
+                applied: shippingApplied
+            }
+        };
+
+        // Add the order data to the form
+        const hiddenInput = document.createElement('input');
+        hiddenInput.type = 'hidden';
+        hiddenInput.name = 'order_details';
+        hiddenInput.value = JSON.stringify(completeOrder);
+        this.appendChild(hiddenInput);
+
+        // Now manually submit the form
+        this.submit();
+    });
+
+    // Change style of navbar on scroll (from your main site)
+    window.onscroll = function() {myFunction()};
+    function myFunction() {
+        var navbar = document.getElementById("myNavbar");
+        if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+            navbar.className = "w3-bar" + " w3-white";
+        } else {
+            navbar.className = navbar.className.replace(" w3-white", "");
+        }
+        var x = document.getElementById("navDemo");
+        if (x.className.indexOf("w3-show") != -1) {
+            x.className = "w3-bar-block" + " w3-hide" + " w3-hide-large" + " w3-hide-medium" + " w3-show";
+            if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+                x.className = "w3-bar-block" + " w3-hide" + " w3-hide-large" + " w3-hide-medium" + " w3-show" + " w3-white";
+            } else {
+                x.className = x.className.replace(" w3-white", "");
+            }
+        } else {
+            x.className = x.className.replace(" w3-show", "");
+            if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+                x.className = "w3-bar-block" + " w3-hide" + " w3-hide-large" + " w3-hide-medium" + " w3-white";
+            } else {
+                x.className = x.className.replace(" w3-white", "");
+            }
+        }
+    }
+
+    // Used to toggle the menu on small screens when clicking on the menu button (from your main site)
+    function toggleFunction() {
+        var x = document.getElementById("navDemo");
+        if (x.className.indexOf("w3-show") == -1) {
+            x.className += " w3-show";
+        } else {
+            x.className = x.className.replace(" w3-show", "");
+        }
+    }
+    
+    // Initialize the remove buttons on page load
+    updateRemoveButtons();
+  </script>
+
+</body>
+</html>
