@@ -735,12 +735,26 @@ window.onscroll = function() {myFunction()};
             });
             orderData.push(poseData);
         });
+        
+        // Get shipping information
+        const subtotal = parseFloat(document.getElementById('subtotal').textContent);
+        const shipping = (subtotal > 0 && subtotal < 35) ? 5 : 0;
+        const shippingApplied = shipping > 0;
+        
+        // Create a complete order object with shipping
+        const completeOrder = {
+            poses: orderData,
+            shipping: {
+                cost: shipping,
+                applied: shippingApplied
+            }
+        };
 
         // Add the order data to the form
         const hiddenInput = document.createElement('input');
         hiddenInput.type = 'hidden';
         hiddenInput.name = 'order_details';
-        hiddenInput.value = JSON.stringify(orderData);
+        hiddenInput.value = JSON.stringify(completeOrder);
         this.appendChild(hiddenInput);
 
         // Now manually submit the form
