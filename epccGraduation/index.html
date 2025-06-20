@@ -114,6 +114,68 @@ input[type="number"] {
     }
   }
 </style>
+<!-- information css -->
+<style>
+        .info-card {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 10px 0;
+            border-left: 4px solid #666;
+        }
+        
+        .highlight-box {
+            background: linear-gradient(135deg, #333 0%, #666 100%);
+            color: white;
+            border-radius: 8px;
+            padding: 24px;
+            text-align: center;
+            margin: 20px 0;
+        }
+        
+        .quick-facts {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+            margin: 20px 0;
+        }
+        
+        .fact-item {
+            background: white;
+            border-radius: 8px;
+            padding: 16px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            text-align: center;
+            min-width: 200px;
+            flex: 1;
+        }
+        
+        .fact-icon {
+            font-size: 24px;
+            color: #666;
+            margin-bottom: 8px;
+        }
+        
+        .cta-section {
+            background: #fff;
+            border: 2px solid #666;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            margin: 20px 0;
+        }
+        
+        @media (max-width: 768px) {
+            .quick-facts {
+                flex-direction: column;
+            }
+            
+            .fact-item {
+                min-width: auto;
+            }
+        }
+    </style>
 <body>
 
 <!-- Navbar (sit on top) -->
@@ -148,24 +210,46 @@ input[type="number"] {
   </div>
 </div>
 
-<div class="w3-content w3-container w3-padding-32" >
-    <h2 class="w3-center">Congratulations!</h2>
-    <div class="order-form-container order-summary" >
-    <div class="w3-container w3-padding-16 w3-center">
-      <p class="w3-medium" >
-        We are excited to be the official photographers for the EPCC graduation taking place June 11th!
-      </p>
-      <p class="w3-medium">
-        We will be offering profesional graduate portraits and a group photo of the class of 2025.
-      </p>
-      <p class="w3-medium">
-        Studio portaits will beigin at 4:30 PM and the group photo will be taken at 5:30 PM. We will continue to take graduate portraits after the graduation. Both will take place in the preparation room.
-      </p>
-      <p class="w3-medium">
-        Skip the lines and order your photos online using our easy-to-use form below. You can select one of our photo packages for your graduate portrait, or build your own! And don't forget to add the group photo to your order!
-      </p>
+<div class="w3-content w3-container w3-padding-32">
+
+    
+    <div class="highlight-box">
+        <h2 class="w3-center">Congratulations Class of 2025! 🎓</h2>
+        <h3 style="margin-top: 0;">EPCC Graduation • June 11th</h3>
+        <p style="font-size: 18px; margin-bottom: 0;">Official Photography by Arnal Studio</p>
     </div>
-    </div> 
+    
+    <div class="quick-facts">
+        <div class="fact-item">
+            <div class="fact-icon"><i class="fa fa-camera"></i></div>
+            <h4>Graduate Portraits</h4>
+            <p>Starting at 4:30 PM<br>Preparation Room</p>
+        </div>
+        
+        <div class="fact-item">
+            <div class="fact-icon"><i class="fa fa-users"></i></div>
+            <h4>Group Photo</h4>
+            <p>5:30 PM Sharp<br>Class of 2025</p>
+        </div>
+        
+        <div class="fact-item">
+            <div class="fact-icon"><i class="fa fa-clock-o"></i></div>
+            <h4>After Ceremony</h4>
+            <p>More portraits available<br>Same location</p>
+        </div>
+    </div>
+    
+    <div class="cta-section">
+        <h3 style="color: #666; margin-top: 0;">
+            Order Online!
+        </h3>
+        <p style="font-size: 16px; margin-bottom: 16px;">
+            Choose a photo package or build your own • Add the group photo • Done!
+        </p>
+        <p style="font-size: 14px; color: #666; margin-bottom: 0;">
+            ⬇️ Use the form below to place your order ⬇️
+        </p>
+    </div>
     <!-- Order Form Container -->
     <div class="order-form-container">
       <form id="orderForm" action="https://api.arnalphoto.com/submit" method="POST"> 
