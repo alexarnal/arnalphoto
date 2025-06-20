@@ -192,7 +192,12 @@ def get_price_for_print(print_type):
         "Print 16x20": 65,
         "Print 20x24": 95,
         "Print 30x40": 200,
-        "Photo Package": 35
+        "Photo Package": 35,
+        "Traditional Package": 40,
+        "Showcase Package": 55,
+        "Collection Package": 75,
+        "Digital Download": 35,
+
     }
     value = prices.get(print_type, 0)  # Return 0 if print type not found
     if value==0: logger.info('unable to get price, returning price of 0 for print_type', print_type)
