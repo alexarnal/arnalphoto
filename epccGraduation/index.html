@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<title>Arnal Studio - EPCC Gradiations</title>
+<title>Arnal Studio - EPCC Graduations</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta property="og:image" content="../images/epccGradOG.jpg">
@@ -113,6 +113,167 @@ input[type="number"] {
       min-height: 400px;
     }
   }
+
+/* Tab styling */
+.tab-container {
+    margin: 20px 0;
+}
+
+.tab-buttons {
+    display: flex;
+    background: #f1f1f1;
+    border-radius: 8px 8px 0 0;
+    overflow: hidden;
+    border: 1px solid #ddd;
+    border-bottom: none;
+}
+
+.tab-button {
+    flex: 1;
+    padding: 16px 20px;
+    background: #f1f1f1;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 500;
+    color: #666;
+    border-right: 1px solid #ddd;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.tab-button:last-child {
+    border-right: none;
+}
+
+.tab-button.active {
+    background: white;
+    color: #333;
+    border-bottom: 2px solid #666;
+}
+
+.tab-button:hover:not(.active) {
+    background: #e8e8e8;
+}
+
+.tab-indicator {
+    background: #666;
+    color: white;
+    border-radius: 12px;
+    padding: 2px 8px;
+    font-size: 12px;
+    margin-left: 8px;
+    display: none;
+}
+
+.tab-indicator.show {
+    display: inline-block;
+}
+
+.tab-content {
+    display: none;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 0 0 8px 8px;
+    padding: 20px;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+.package-highlight {
+    background: #f8f9fa;
+    border: 2px solid #666;
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 16px;
+}
+
+.recommended-badge {
+    background: #666;
+    color: white;
+    padding: 4px 12px;
+    border-radius: 16px;
+    font-size: 12px;
+    font-weight: bold;
+    margin-left: 10px;
+}
+
+/* Group Photo Section */
+.section-divider {
+    border-top: 2px solid #e0e0e0;
+    margin: 40px 0 30px 0;
+    position: relative;
+}
+
+.section-divider::before {
+    content: '';
+    position: absolute;
+    top: -1px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50px;
+    height: 2px;
+    background: #666;
+}
+
+.group-photo-section {
+    background: #f8f9fa;
+    border-radius: 12px;
+    padding: 24px;
+    margin: 20px 0;
+    border: 2px solid #e0e0e0;
+}
+
+.group-photo-header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.group-photo-header h2 {
+    color: #333;
+    margin-bottom: 8px;
+}
+
+.group-photo-description {
+    color: #666;
+    font-style: italic;
+    margin-bottom: 20px;
+}
+
+.group-photo-option {
+    background: white;
+    border-radius: 8px;
+    padding: 16px;
+    border: 1px solid #ddd;
+    margin-bottom: 8px;
+}
+
+.group-photo-option:last-child {
+    margin-bottom: 0;
+}
+
+.info-callout {
+    background: #e8f5e8;
+    border-left: 4px solid #666;
+    padding: 12px 16px;
+    margin-top: 16px;
+    border-radius: 0 4px 4px 0;
+}
+
+.info-callout p {
+    margin: 0;
+    color: #2e7d32;
+    font-size: 14px;
+}
+
+@media (max-width: 768px) {
+    .tab-button {
+        padding: 12px 16px;
+        font-size: 14px;
+    }
+}
 </style>
 <!-- information css -->
 <style>
@@ -250,38 +411,45 @@ input[type="number"] {
             ⬇️ Use the form below to place your order ⬇️
         </p>
     </div>
+
     <!-- Order Form Container -->
-    <div class="order-form-container">
-      <form id="orderForm" action="https://api.arnalphoto.com/submit" method="POST"> 
-          <div id="poses">
-              <div class="pose" data-pose-id="1">
-                  <div class="pose-header">
-                      <h2>Graduate Portrait</h2>
-                      <!-- <button type="button" class="remove-pose" disabled>Remove</button> -->
-                  </div>
-
-                 
-                  <div class="pose-header">
-                    <h3>Photo Packages</h3>
-                  </div>
-
-                  <div class="packages-section">
-
-                  <!-- Photo Package Option 1 -->
-                  <div class="print-option">
-                    <div class="item-details">
-                        <div class="item-name">Traditional Package</div>
-                        <div class="item-price">$40.00</div>
-                        <div class="item-description"><i>Includes 1 8×10, 2 5×7, and 4 2×3</i></div>
-                    </div>
-                    <div class="controls-container">
-                        <button type="button" class="quantity-btn decrease">-</button>
-                        <input type="number" class="photo-package" value="0" data-price="40" readonly>
-                        <button type="button" class="quantity-btn increase">+</button>
+    <form id="orderForm" action="https://api.arnalphoto.com/submit" method="POST"> 
+        
+        <!-- Graduate Portrait Section -->
+        <h2>Graduate Portrait Options</h2>
+        
+        <div class="tab-container">
+            <div class="tab-buttons">
+                <button type="button" class="tab-button active" onclick="switchTab('packages')">
+                    Photo Packages
+                    <span class="tab-indicator" id="packages-indicator">0</span>
+                </button>
+                <button type="button" class="tab-button" onclick="switchTab('build-your-own')">
+                    Build Your Own
+                    <span class="tab-indicator" id="build-indicator">0</span>
+                </button>
+            </div>
+            
+            <!-- Photo Packages Tab -->
+            <div class="tab-content active" id="packages-tab">
+                <div class="package-highlight">
+                    <div class="print-option">
+                        <div class="item-details">
+                            <div class="item-name">
+                                Traditional Package 
+                                <span class="recommended-badge">MOST POPULAR</span>
+                            </div>
+                            <div class="item-price">$40.00</div>
+                            <div class="item-description"><i>Includes 1 8×10, 2 5×7, and 4 2×3</i></div>
+                        </div>
+                        <div class="controls-container">
+                            <button type="button" class="quantity-btn decrease">-</button>
+                            <input type="number" class="package-input portrait-input" value="0" data-price="40" readonly>
+                            <button type="button" class="quantity-btn increase">+</button>
+                        </div>
                     </div>
                 </div>
-
-                <!-- Photo Package Option 2 -->
+                
                 <div class="print-option">
                     <div class="item-details">
                         <div class="item-name">Showcase Package</div>
@@ -290,12 +458,11 @@ input[type="number"] {
                     </div>
                     <div class="controls-container">
                         <button type="button" class="quantity-btn decrease">-</button>
-                        <input type="number" class="photo-package" value="0" data-price="55" readonly>
+                        <input type="number" class="package-input portrait-input" value="0" data-price="55" readonly>
                         <button type="button" class="quantity-btn increase">+</button>
                     </div>
                 </div>
-
-                <!-- Photo Package Option 3 -->
+                
                 <div class="print-option">
                     <div class="item-details">
                         <div class="item-name">Collection Package</div>
@@ -304,147 +471,188 @@ input[type="number"] {
                     </div>
                     <div class="controls-container">
                         <button type="button" class="quantity-btn decrease">-</button>
-                        <input type="number" class="photo-package" value="0" data-price="7" readonly>
+                        <input type="number" class="package-input portrait-input" value="0" data-price="70" readonly>
+                        <button type="button" class="quantity-btn increase">+</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Build Your Own Tab -->
+            <div class="tab-content" id="build-your-own-tab">
+                <div class="print-option">
+                    <div class="item-details">
+                        <div class="item-name">Print 2x3</div>
+                        <div class="item-price">$10.00</div>
+                        <div class="item-description"><i>Includes 4 prints</i></div>
+                    </div>
+                    <div class="controls-container">
+                        <button type="button" class="quantity-btn decrease">-</button>
+                        <input type="number" class="build-input portrait-input" value="0" data-price="10" readonly>
+                        <button type="button" class="quantity-btn increase">+</button>
+                    </div>
+                </div>
+                
+                <div class="print-option">
+                    <div class="item-details">
+                        <div class="item-name">Print 5x7</div>
+                        <div class="item-price">$10.00</div>
+                        <div class="item-description"><i>Single print</i></div>
+                    </div>
+                    <div class="controls-container">
+                        <button type="button" class="quantity-btn decrease">-</button>
+                        <input type="number" class="build-input portrait-input" value="0" data-price="10" readonly>
+                        <button type="button" class="quantity-btn increase">+</button>
+                    </div>
+                </div>
+                
+                <div class="print-option">
+                    <div class="item-details">
+                        <div class="item-name">Print 8x10</div>
+                        <div class="item-price">$15.00</div>
+                        <div class="item-description"><i>Single print</i></div>
+                    </div>
+                    <div class="controls-container">
+                        <button type="button" class="quantity-btn decrease">-</button>
+                        <input type="number" class="build-input portrait-input" value="0" data-price="15" readonly>
+                        <button type="button" class="quantity-btn increase">+</button>
+                    </div>
+                </div>
+                
+                <div class="print-option">
+                    <div class="item-details">
+                        <div class="item-name">Print 11x14</div>
+                        <div class="item-price">$35.00</div>
+                        <div class="item-description"><i>Single print</i></div>
+                    </div>
+                    <div class="controls-container">
+                        <button type="button" class="quantity-btn decrease">-</button>
+                        <input type="number" class="build-input portrait-input" value="0" data-price="35" readonly>
                         <button type="button" class="quantity-btn increase">+</button>
                     </div>
                 </div>
 
+                <div class="print-option">
+                    <div class="item-details">
+                        <div class="item-name">Print 16x20</div>
+                        <div class="item-price">$65.00</div>
+                        <div class="item-description"><i>Single print</i></div>
+                    </div>
+                    <div class="controls-container">
+                        <button type="button" class="quantity-btn decrease">-</button>
+                        <input type="number" class="build-input portrait-input" value="0" data-price="65" readonly>
+                        <button type="button" class="quantity-btn increase">+</button>
+                    </div>
                 </div>
 
-
-                  <div class="pose-header">
-                    <h3>Build Your Own</h3>
-                    <!-- <button type="button" class="remove-pose" disabled>Remove</button> -->
+                <div class="print-option">
+                    <div class="item-details">
+                        <div class="item-name">Print 20x24</div>
+                        <div class="item-price">$95.00</div>
+                        <div class="item-description"><i>Single print</i></div>
+                    </div>
+                    <div class="controls-container">
+                        <button type="button" class="quantity-btn decrease">-</button>
+                        <input type="number" class="build-input portrait-input" value="0" data-price="95" readonly>
+                        <button type="button" class="quantity-btn increase">+</button>
+                    </div>
                 </div>
 
-                <div class="build-your-own-section">
-
-                  <!-- Print 2x3 -->
-                  <div class="print-option">
-                      <div class="item-details">
-                          <div class="item-name">Print 2x3</div>
-                          <div class="item-price">$10.00</div>
-                          <div class="item-description"><i>Includes 4 prints</i></div>
-                      </div>
-                      <div class="controls-container">
-                          <button type="button" class="quantity-btn decrease">-</button>
-                          <input type="number" class="print-2x3" value="0" data-price="10" readonly>
-                          <button type="button" class="quantity-btn increase">+</button>
-                      </div>
-                  </div>
-
-                  <!-- Print 5x7 -->
-                  <div class="print-option">
-                      <div class="item-details">
-                          <div class="item-name">Print 5x7</div>
-                          <div class="item-price">$10.00</div>
-                          <div class="item-description"><i>&nbsp;</i></div> <!-- Optional empty description to maintain spacing -->
-                      </div>
-                      <div class="controls-container">
-                          <button type="button" class="quantity-btn decrease">-</button>
-                          <input type="number" class="print-5x7" value="0" data-price="10" readonly>
-                          <button type="button" class="quantity-btn increase">+</button>
-                      </div>
-                  </div>
-
-                  <!-- Print 8x10 -->
-                  <div class="print-option">
-                      <div class="item-details">
-                          <div class="item-name">Print 8x10</div>
-                          <div class="item-price">$15.00</div>
-                          <div class="item-description"><i>&nbsp;</i></div> <!-- Optional empty description to maintain spacing -->
-                      </div>
-                      <div class="controls-container">
-                          <button type="button" class="quantity-btn decrease">-</button>
-                          <input type="number" class="print-8x10" value="0" data-price="15" readonly>
-                          <button type="button" class="quantity-btn increase">+</button>
-                      </div>
-                  </div>
-
-                  <!-- Print 11x14 -->
-                  <div class="print-option">
-                      <div class="item-details">
-                          <div class="item-name">Print 11x14</div>
-                          <div class="item-price">$35.00</div>
-                          <div class="item-description"><i>&nbsp;</i></div> <!-- Optional empty description to maintain spacing -->
-                      </div>
-                      <div class="controls-container">
-                          <button type="button" class="quantity-btn decrease">-</button>
-                          <input type="number" class="print-11x14" value="0" data-price="35" readonly>
-                          <button type="button" class="quantity-btn increase">+</button>
-                      </div>
-                  </div>
-
-                  <!-- Print 16x20 -->
-                  <div class="print-option">
-                      <div class="item-details">
-                          <div class="item-name">Print 16x20</div>
-                          <div class="item-price">$65.00</div>
-                          <div class="item-description"><i>&nbsp;</i></div> <!-- Optional empty description to maintain spacing -->
-                      </div>
-                      <div class="controls-container">
-                          <button type="button" class="quantity-btn decrease">-</button>
-                          <input type="number" class="print-16x20" value="0" data-price="65" readonly>
-                          <button type="button" class="quantity-btn increase">+</button>
-                      </div>
-                  </div>
-
-                  <!-- Print 20x24 -->
-                  <div class="print-option">
-                      <div class="item-details">
-                          <div class="item-name">Print 20x24</div>
-                          <div class="item-price">$95.00</div>
-                          <div class="item-description"><i>&nbsp;</i></div> <!-- Optional empty description to maintain spacing -->
-                      </div>
-                      <div class="controls-container">
-                          <button type="button" class="quantity-btn decrease">-</button>
-                          <input type="number" class="print-20x24" value="0" data-price="95" readonly>
-                          <button type="button" class="quantity-btn increase">+</button>
-                      </div>
-                  </div>
-
-                  <!-- Print 30x40 -->
-                  <div class="print-option">
-                      <div class="item-details">
-                          <div class="item-name">Print 30x40</div>
-                          <div class="item-price">$200.00</div>
-                          <div class="item-description"><i>&nbsp;</i></div> <!-- Optional empty description to maintain spacing -->
-                      </div>
-                      <div class="controls-container">
-                          <button type="button" class="quantity-btn decrease">-</button>
-                          <input type="number" class="print-30x40" value="0" data-price="200" readonly>
-                          <button type="button" class="quantity-btn increase">+</button>
-                      </div>
-                  </div>
-
-                  <!-- Digital Download -->
+                <div class="print-option">
+                    <div class="item-details">
+                        <div class="item-name">Print 30x40</div>
+                        <div class="item-price">$200.00</div>
+                        <div class="item-description"><i>Single print</i></div>
+                    </div>
+                    <div class="controls-container">
+                        <button type="button" class="quantity-btn decrease">-</button>
+                        <input type="number" class="build-input portrait-input" value="0" data-price="200" readonly>
+                        <button type="button" class="quantity-btn increase">+</button>
+                    </div>
+                </div>
+                
                 <div class="print-option">
                     <div class="item-details">
                         <div class="item-name">Digital Download</div>
                         <div class="item-price">$35.00</div>
-                        <div class="item-description"><i>Includes 1 digital file via email</i></div>
+                        <div class="item-description"><i>High-resolution file via email</i></div>
                     </div>
                     <div class="controls-container">
                         <button type="button" class="quantity-btn decrease">-</button>
-                        <input type="number" class="photo-package" value="0" data-price="35" readonly>
+                        <input type="number" class="build-input portrait-input" value="0" data-price="35" readonly>
                         <button type="button" class="quantity-btn increase">+</button>
                     </div>
                 </div>
+            </div>
+        </div>
 
+        <!-- Section Divider -->
+        <div class="section-divider"></div>
+        
+        <!-- Group Photo Section -->
+        <div class="group-photo-section">
+            <div class="group-photo-header">
+                <h2><i class="fa fa-users"></i> Class of 2025 Group Photo</h2>
+                <p class="group-photo-description">Commemorate this special moment with your entire graduating class</p>
+            </div>
+            
+            <div class="group-photo-option print-option">
+                <div class="item-details">
+                    <div class="item-name">Group Photo 5×7</div>
+                    <div class="item-price">$10.00 each</div>
+                    <div class="item-description">Professional 5×7 print of the entire Class of 2025</div>
                 </div>
+                <div class="controls-container">
+                    <button type="button" class="quantity-btn decrease">-</button>
+                    <input type="number" class="group-input" value="0" data-price="10" readonly>
+                    <button type="button" class="quantity-btn increase">+</button>
+                </div>
+            </div>
 
-              </div>
-          </div>
+            <div class="group-photo-option print-option">
+                <div class="item-details">
+                    <div class="item-name">Group Photo 8×10</div>
+                    <div class="item-price">$15.00 each</div>
+                    <div class="item-description">Professional 8×10 print of the entire Class of 2025</div>
+                </div>
+                <div class="controls-container">
+                    <button type="button" class="quantity-btn decrease">-</button>
+                    <input type="number" class="group-input" value="0" data-price="15" readonly>
+                    <button type="button" class="quantity-btn increase">+</button>
+                </div>
+            </div>
 
-              <div class="order-summary">
-              <h3 style="margin-left:10px;margin-right:10px">Order Summary</h3>
-              <p style="margin-left:10px;margin-right:10px">Subtotal: $<span id="subtotal">0.00</span></p>
-              <p style="margin-left:10px;margin-right:10px">Shipping: $<span id="shipping">0.00</span></p>
-              <p style="margin-left:10px;margin-right:10px">Total: $<span id="total">0.00</span></p>
-              <button style="margin-left:10px;margin-right:10px;margin-bottom: 20px;" type="submit" class="submit-button"><i class="fa fa-check"></i> Submit Order</button>
-          </div>
-      </form>
-  </div>
+            <div class="group-photo-option print-option">
+                <div class="item-details">
+                    <div class="item-name">Group Photo 11×14</div>
+                    <div class="item-price">$35.00 each</div>
+                    <div class="item-description">Professional 11×14 print of the entire Class of 2025</div>
+                </div>
+                <div class="controls-container">
+                    <button type="button" class="quantity-btn decrease">-</button>
+                    <input type="number" class="group-input" value="0" data-price="35" readonly>
+                    <button type="button" class="quantity-btn increase">+</button>
+                </div>
+            </div>
+            
+            <div class="info-callout">
+                <p><i class="fa fa-info-circle"></i> <strong>Perfect for:</strong> Sharing with family, keeping as a memento, or giving as gifts to loved ones who couldn't attend</p>
+            </div>
+        </div>
+
+        <!-- Order Summary -->
+        <div class="order-summary" style="background: #fff; border: 2px solid #666; padding: 20px; border-radius: 8px; margin-top: 20px;">
+            <h3 style="margin-top: 0; color: #666;">Order Summary</h3>
+            <p>Graduate Portraits: $<span id="portraitTotal">0.00</span></p>
+            <p>Group Photos: $<span id="groupTotal">0.00</span></p>
+            <p>Subtotal: $<span id="subtotal">0.00</span></p>
+            <p>Shipping: $<span id="shipping">0.00</span></p>
+            <hr style="border-color: #e0e0e0;">
+            <p style="font-weight: bold; font-size: 18px; color: #666;">Total: $<span id="total">0.00</span></p>
+            <button type="submit" style="background: #666; color: white; border: none; padding: 12px 24px; border-radius: 8px; font-size: 16px; cursor: pointer; width: 100%;">
+                <i class="fa fa-graduation-cap"></i> Complete Your Order
+            </button>
+        </div>
+    </form>
 
   <!-- Container (Portfolio Section) -->
 <div class="w3-content w3-container w3-padding-32" >
@@ -541,124 +749,202 @@ window.onscroll = function() {myFunction()};
     }
   </script>
 
+// Replace the broken JavaScript section with this complete version:
+
 <script>
-    document.getElementById('orderForm').addEventListener('change', updateTotal);
+function switchTab(tabName) {
+    // Hide all tab contents
+    document.querySelectorAll('.tab-content').forEach(tab => {
+        tab.classList.remove('active');
+    });
     
-    function updateTotal() {
-        let subtotal = 0;
-        const poses = document.querySelectorAll('.pose');
-        poses.forEach(pose => {
-            const poseTypeSelect = pose.querySelector('.pose-type');
-            if (poseTypeSelect) {
-                const poseType = poseTypeSelect.value;
-                if (poseType === '4-6') subtotal += 15;
-                if (poseType === '7-10') subtotal += 30;
-            }
-            
-            pose.querySelectorAll('input[type="number"]').forEach(input => {
-                let quantity = parseInt(input.value) || 0;
-                const price = parseFloat(input.getAttribute('data-price'));
-                subtotal += quantity * price;
-            });
-        });
+    // Remove active class from all buttons
+    document.querySelectorAll('.tab-button').forEach(btn => {
+        btn.classList.remove('active');
+    });
     
-        // Only charge shipping if subtotal is less than $35 and not zero
-        const shipping = (subtotal > 0 && subtotal < 35) ? 5 : 0;
+    // Show selected tab
+    document.getElementById(tabName + '-tab').classList.add('active');
     
-        document.getElementById('subtotal').textContent = subtotal.toFixed(2);
-        document.getElementById('shipping').textContent = shipping.toFixed(2);
-        document.getElementById('total').textContent = (subtotal + shipping).toFixed(2);
+    // Activate corresponding button
+    event.target.classList.add('active');
+}
+
+function updateTotal() {
+    // Calculate portrait total
+    let portraitTotal = 0;
+    document.querySelectorAll('.portrait-input').forEach(input => {
+        const quantity = parseInt(input.value) || 0;
+        const price = parseFloat(input.getAttribute('data-price')) || 0;
+        portraitTotal += quantity * price;
+    });
+    
+    // Calculate group photo total
+    let groupTotal = 0;
+    document.querySelectorAll('.group-input').forEach(input => {
+        const quantity = parseInt(input.value) || 0;
+        const price = parseFloat(input.getAttribute('data-price')) || 0;
+        groupTotal += quantity * price;
+    });
+    
+    const subtotal = portraitTotal + groupTotal;
+    const shipping = (subtotal > 0 && subtotal < 35) ? 5 : 0;
+    const total = subtotal + shipping;
+    
+    document.getElementById('portraitTotal').textContent = portraitTotal.toFixed(2);
+    document.getElementById('groupTotal').textContent = groupTotal.toFixed(2);
+    document.getElementById('subtotal').textContent = subtotal.toFixed(2);
+    document.getElementById('shipping').textContent = shipping.toFixed(2);
+    document.getElementById('total').textContent = total.toFixed(2);
+}
+
+function updateTabIndicators() {
+    // Count packages
+    let packageCount = 0;
+    document.querySelectorAll('.package-input').forEach(input => {
+        packageCount += parseInt(input.value) || 0;
+    });
+    
+    // Count build-your-own items
+    let buildCount = 0;
+    document.querySelectorAll('.build-input').forEach(input => {
+        buildCount += parseInt(input.value) || 0;
+    });
+    
+    // Update indicators
+    const packageIndicator = document.getElementById('packages-indicator');
+    const buildIndicator = document.getElementById('build-indicator');
+    
+    if (packageCount > 0) {
+        packageIndicator.textContent = packageCount;
+        packageIndicator.classList.add('show');
+    } else {
+        packageIndicator.classList.remove('show');
     }
     
-    document.addEventListener('click', function(e) {
-        if (e.target.classList.contains('quantity-btn')) {
-            const input = e.target.parentNode.querySelector('input[type="number"]');
-            const step = 1;
-            const currentValue = parseInt(input.value) || 0;
-            
-            if (e.target.classList.contains('increase')) {
-                input.value = currentValue + step;
-            } else if (e.target.classList.contains('decrease')) {
-                input.value = Math.max(0, currentValue - step);
-            }
-            
-            input.dispatchEvent(new Event('change'));
-            updateTotal();
+    if (buildCount > 0) {
+        buildIndicator.textContent = buildCount;
+        buildIndicator.classList.add('show');
+    } else {
+        buildIndicator.classList.remove('show');
+    }
+}
+
+// Event listeners
+document.addEventListener('click', function(e) {
+    if (e.target.classList.contains('quantity-btn')) {
+        const input = e.target.parentNode.querySelector('input[type="number"]');
+        const step = 1;
+        const currentValue = parseInt(input.value) || 0;
+        
+        if (e.target.classList.contains('increase')) {
+            input.value = currentValue + step;
+        } else if (e.target.classList.contains('decrease')) {
+            input.value = Math.max(0, currentValue - step);
+        }
+        
+        updateTotal();
+        updateTabIndicators();
+    }
+});
+
+document.getElementById('orderForm').addEventListener('submit', function(e) {
+    e.preventDefault(); // Always prevent default submission
+
+    // Validation
+    let hasPortraitSelection = false;
+    let hasGroupSelection = false;
+    
+    document.querySelectorAll('.portrait-input').forEach(input => {
+        if (parseInt(input.value) > 0) {
+            hasPortraitSelection = true;
         }
     });
     
-    document.getElementById('orderForm').addEventListener('submit', function(e) {
-        e.preventDefault(); // Always prevent default submission
-    
-        // Validate print options
-        const poses = document.querySelectorAll('.pose');
-        for (let i = 0; i < poses.length; i++) {
-            const pose = poses[i];
-            const printInputs = pose.querySelectorAll('input[type="number"]');
-            let hasSelection = false;
-            for (const input of printInputs) {
-                if (parseInt(input.value) > 0) {
-                    hasSelection = true;
-                    break;
-                }
-            }
-            if (!hasSelection) {
-                alert(`Please select at least one print option.`);
-                return; // Stop here if validation fails
-            }
+    document.querySelectorAll('.group-input').forEach(input => {
+        if (parseInt(input.value) > 0) {
+            hasGroupSelection = true;
         }
-    
-        // If we get here, validation passed
-        // Gather all the order data
-        let orderData = [];
-        poses.forEach((pose, index) => {
-            const poseTypeSelect = pose.querySelector('.pose-type');
-            const descriptionInput = pose.querySelector('.pose-description');
-            
-            let poseData = {
-                poseNumber: index + 1,
-                poseType: poseTypeSelect ? poseTypeSelect.value : '1-3',
-                prints: {},
-                description: descriptionInput ? descriptionInput.value : ''
-            };
-            pose.querySelectorAll('input[type="number"]').forEach(input => {
-                if (parseInt(input.value) > 0) {
-                    // Get the item name from the new DOM structure
-                    const itemName = input.parentNode.parentNode.querySelector('.item-name').textContent;
-                    poseData.prints[itemName] = input.value;
-                }
-            });
-            orderData.push(poseData);
-        });
-        
-        // Get shipping information
-        const subtotal = parseFloat(document.getElementById('subtotal').textContent);
-        const shipping = (subtotal > 0 && subtotal < 35) ? 5 : 0;
-        const shippingApplied = shipping > 0;
-        
-        // Create a complete order object with shipping
-        const completeOrder = {
-            poses: orderData,
-            shipping: {
-                cost: shipping,
-                applied: shippingApplied
-            }
-        };
-    
-        // Add the order data to the form
-        const hiddenInput = document.createElement('input');
-        hiddenInput.type = 'hidden';
-        hiddenInput.name = 'order_details';
-        hiddenInput.value = JSON.stringify(completeOrder);
-        this.appendChild(hiddenInput);
-    
-        // Now manually submit the form
-        this.submit();
     });
     
-    // Initialize the form
-    updateTotal();
-    </script>
+    if (!hasPortraitSelection && !hasGroupSelection) {
+        alert('Please select at least one item before submitting your order.');
+        return;
+    }
+
+    // Gather order data
+    let orderData = [];
+    
+    // Create a single "pose" object that contains all the portrait selections
+    let portraitData = {
+        poseNumber: 1,
+        poseType: '1-3', // Default for graduation portraits
+        prints: {},
+        description: 'Graduate Portrait'
+    };
+    
+    // Add portrait selections
+    document.querySelectorAll('.portrait-input').forEach(input => {
+        if (parseInt(input.value) > 0) {
+            const itemName = input.parentNode.parentNode.querySelector('.item-name').textContent.trim();
+            portraitData.prints[itemName] = input.value;
+        }
+    });
+    
+    // Only add portrait data if there are selections
+    if (Object.keys(portraitData.prints).length > 0) {
+        orderData.push(portraitData);
+    }
+    
+    // Add group photo data as a separate "pose" if selected
+    let groupData = {
+        poseNumber: orderData.length + 1,
+        poseType: '1-3',
+        prints: {},
+        description: 'Class of 2025 Group Photo'
+    };
+    
+    document.querySelectorAll('.group-input').forEach(input => {
+        if (parseInt(input.value) > 0) {
+            const itemName = input.parentNode.parentNode.querySelector('.item-name').textContent.trim();
+            groupData.prints[itemName] = input.value;
+        }
+    });
+    
+    // Only add group data if there are selections
+    if (Object.keys(groupData.prints).length > 0) {
+        orderData.push(groupData);
+    }
+    
+    // Get shipping information
+    const subtotal = parseFloat(document.getElementById('subtotal').textContent);
+    const shipping = (subtotal > 0 && subtotal < 35) ? 5 : 0;
+    const shippingApplied = shipping > 0;
+    
+    // Create complete order object
+    const completeOrder = {
+        poses: orderData,
+        shipping: {
+            cost: shipping,
+            applied: shippingApplied
+        }
+    };
+
+    // Add order data to form
+    const hiddenInput = document.createElement('input');
+    hiddenInput.type = 'hidden';
+    hiddenInput.name = 'order_details';
+    hiddenInput.value = JSON.stringify(completeOrder);
+    this.appendChild(hiddenInput);
+
+    // Submit the form
+    this.submit();
+});
+
+// Initialize
+updateTotal();
+updateTabIndicators();
+</script>
 
 </body>
 </html>
