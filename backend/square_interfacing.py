@@ -74,6 +74,9 @@ def create_square_order_and_get_payment_link(order_details):
         # Parse the order_details JSON string if it's not already a dictionary
         if isinstance(order_details, str):
             order_details = json.loads(order_details)
+        
+        # Log the incoming order details for debugging
+        logger.info(f"Processing order details: {json.dumps(order_details, indent=2)}")
 
         # Check if we have the new order structure with shipping info
         if 'poses' in order_details:
@@ -84,59 +87,80 @@ def create_square_order_and_get_payment_link(order_details):
             poses = order_details
             shipping_info = {'cost': 0, 'applied': False}
 
+        logger.info(f"Found {len(poses)} poses to process")
+        logger.info(f"Shipping info: {shipping_info}")
 
         # Format order details for Square
         line_items = []
-        for pose in poses:
+        
+        for pose_index, pose in enumerate(poses):
+            logger.info(f"Processing pose {pose_index + 1}: {pose}")
+            
             # Add the prints to the order
             for print_type, quantity in pose['prints'].items():
-                price = get_price_for_print(print_type)
+                # Clean up the print type name (remove extra whitespace and badges)
+                clean_print_type = print_type.strip()
+                
+                # Remove any badge text like "MOST POPULAR"
+                if "MOST POPULAR" in clean_print_type:
+                    clean_print_type = clean_print_type.replace("MOST POPULAR", "").strip()
+                
+                price = get_price_for_print(clean_print_type)
                 if price == 0:
-                    raise ValueError(f"Invalid print type or price not found: {print_type}")
+                    logger.error(f"Invalid print type or price not found: '{clean_print_type}' (original: '{print_type}')")
+                    raise ValueError(f"Invalid print type or price not found: {clean_print_type}")
+                
+                logger.info(f"Adding line item: {clean_print_type} x{quantity} @ ${price}")
                 
                 line_items.append({
-                    "name": f"Pose {pose['poseNumber']} - {print_type}",
+                    "name": f"Pose {pose['poseNumber']} - {clean_print_type}",
                     "quantity": str(quantity),
                     "base_price_money": {
                         "amount": int(price * 100),
                         "currency": "USD"
-                    },
-                    # "note": f"{pose['description']}"
+                    }
                 })
             
-            # Add pose type cost
+            # Add pose type cost (only if there's actually a cost)
             cost_for_number_of_people = get_price_for_number_of_people(pose['poseType'])
-            # if cost_for_number_of_people > 0:  # Only add if there's a cost
-            line_items.append({
-                "name": f"Pose {pose['poseNumber']} - {pose['poseType']} people",
-                "quantity": "1",
-                # "note": f"{pose['description']}",
-                "base_price_money": {
-                    "amount": int(cost_for_number_of_people * 100),
-                    "currency": "USD"
-                }
-            })
-            if pose['description'] != '':
+            if cost_for_number_of_people > 0:  # Only add if there's a cost
+                logger.info(f"Adding pose type cost: {pose['poseType']} @ ${cost_for_number_of_people}")
+                line_items.append({
+                    "name": f"Pose {pose['poseNumber']} - {pose['poseType']} people",
+                    "quantity": "1",
+                    "base_price_money": {
+                        "amount": int(cost_for_number_of_people * 100),
+                        "currency": "USD"
+                    }
+                })
+            
+            # Add description as a note (free item)
+            if pose.get('description', '') != '':
                 line_items.append({
                     "name": f'Pose {pose["poseNumber"]} Note - {pose["description"]}',
                     "quantity": "1",
                     "base_price_money": {
                         "amount": 0,
                         "currency": "USD"
-                    },
-                })    
+                    }
+                })
 
         # Add shipping charge if applicable
         if shipping_info['applied'] and shipping_info['cost'] > 0:
+            logger.info(f"Adding shipping: ${shipping_info['cost']}")
             line_items.append({
                 "name": "Shipping",
                 "quantity": "1",
                 "base_price_money": {
-                    "amount": int(shipping_info['cost'] * 100),  # Convert to cents
+                    "amount": int(shipping_info['cost'] * 100),
                     "currency": "USD"
                 }
-            })  
+            })
 
+        logger.info(f"Final line items count: {len(line_items)}")
+        logger.info(f"Line items: {json.dumps(line_items, indent=2)}")
+
+        # Create the Square order
         result = client.checkout.create_payment_link(
             body = {
                 "order": {
@@ -152,17 +176,15 @@ def create_square_order_and_get_payment_link(order_details):
                         "cash_app_pay": True,
                         "afterpay_clearpay": True
                     }
-                },
-                # "pre_populated_data": {
-                #     "buyer_email": customer_email
-                # }
+                }
             }
         )
 
         if result.is_success():
+            logger.info("Payment link created successfully")
             return result.body['payment_link']['long_url']
         else:
-            logger.error("Square API Error:", result.errors)
+            logger.error(f"Square API Error: {result.errors}")
             return None
             
     except json.JSONDecodeError as e:
@@ -170,6 +192,8 @@ def create_square_order_and_get_payment_link(order_details):
         return None
     except Exception as e:
         logger.error(f"Unexpected error: {str(e)}")
+        import traceback
+        logger.error(f"Traceback: {traceback.format_exc()}")
         return None
 
 # You need to implement this function to return the price for each print type
@@ -185,6 +209,7 @@ def get_price_for_number_of_people(number_of_people):
 
 def get_price_for_print(print_type):
     prices = {
+        # Individual prints
         "Print 2x3": 10,
         "Print 5x7": 10,
         "Print 8x10": 15,
@@ -192,15 +217,23 @@ def get_price_for_print(print_type):
         "Print 16x20": 65,
         "Print 20x24": 95,
         "Print 30x40": 200,
-        "Photo Package": 35,
+        
+        # Packages
         "Traditional Package": 40,
         "Showcase Package": 55,
-        "Collection Package": 75,
+        "Collection Package": 70,  # Fixed: was 75, should be 70
+        
+        # Group photos
+        "Group Photo 5×7": 10,
+        "Group Photo 8×10": 15,
+        "Group Photo 11×14": 35,
+        
+        # Digital
         "Digital Download": 35,
-
     }
-    value = prices.get(print_type, 0)  # Return 0 if print type not found
-    if value==0: logger.info('unable to get price, returning price of 0 for print_type', print_type)
+    value = prices.get(print_type, 0)
+    if value == 0: 
+        logger.warning(f'Unable to get price, returning price of 0 for print_type: "{print_type}"')
     return value
 # # Use this in your main loop
 # if new_order:
