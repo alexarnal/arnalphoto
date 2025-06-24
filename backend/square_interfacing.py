@@ -101,9 +101,9 @@ def create_square_order_and_get_payment_link(order_details):
                 # Clean up the print type name (remove extra whitespace and badges)
                 clean_print_type = print_type.strip()
                 
-                # Remove any badge text like "MOST POPULAR"
-                if "MOST POPULAR" in clean_print_type:
-                    clean_print_type = clean_print_type.replace("MOST POPULAR", "").strip()
+                # Remove any badge text like "POPULAR"
+                if "POPULAR" in clean_print_type:
+                    clean_print_type = clean_print_type.replace("POPULAR", "").strip()
                 
                 price = get_price_for_print(clean_print_type)
                 if price == 0:
@@ -113,7 +113,7 @@ def create_square_order_and_get_payment_link(order_details):
                 logger.info(f"Adding line item: {clean_print_type} x{quantity} @ ${price}")
                 
                 line_items.append({
-                    "name": f"Pose {pose['poseNumber']} - {clean_print_type}",
+                    "name": f"{clean_print_type}",
                     "quantity": str(quantity),
                     "base_price_money": {
                         "amount": int(price * 100),
@@ -135,15 +135,15 @@ def create_square_order_and_get_payment_link(order_details):
                 })
             
             # Add description as a note (free item)
-            if pose.get('description', '') != '':
-                line_items.append({
-                    "name": f'Pose {pose["poseNumber"]} Note - {pose["description"]}',
-                    "quantity": "1",
-                    "base_price_money": {
-                        "amount": 0,
-                        "currency": "USD"
-                    }
-                })
+            # if pose.get('description', '') != '':
+            #     line_items.append({
+            #         "name": f'Pose {pose["poseNumber"]} Note - {pose["description"]}',
+            #         "quantity": "1",
+            #         "base_price_money": {
+            #             "amount": 0,
+            #             "currency": "USD"
+            #         }
+            #     })
 
         # Add shipping charge if applicable
         if shipping_info['applied'] and shipping_info['cost'] > 0:
@@ -224,9 +224,9 @@ def get_price_for_print(print_type):
         "Collection Package": 70,  # Fixed: was 75, should be 70
         
         # Group photos
-        "Group Photo 5×7": 10,
+        # "Group Photo 5×7": 10,
         "Group Photo 8×10": 15,
-        "Group Photo 11×14": 35,
+        # "Group Photo 11×14": 35,
         
         # Digital
         "Digital Download": 35,
