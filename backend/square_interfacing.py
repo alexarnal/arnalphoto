@@ -110,6 +110,10 @@ def create_square_order_and_get_payment_link(order_details):
                     logger.error(f"Invalid print type or price not found: '{clean_print_type}' (original: '{print_type}')")
                     raise ValueError(f"Invalid print type or price not found: {clean_print_type}")
                 
+                # Add Portrait - to all except "Group" prints
+                if "Group" not in clean_print_type:
+                    clean_print_type = f"Portrait - {clean_print_type}"
+
                 logger.info(f"Adding line item: {clean_print_type} x{quantity} @ ${price}")
                 
                 line_items.append({
