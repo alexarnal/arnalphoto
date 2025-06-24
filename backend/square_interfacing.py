@@ -224,13 +224,13 @@ def get_price_for_print(print_type):
         
         # Packages
         "Traditional Package": 40,
-        "Showcase Package": 55,
-        "Collection Package": 70,  # Fixed: was 75, should be 70
+        
+        "Social Package": 60,
+
+        "Gold Package": 90, 
         
         # Group photos
-        # "Group Photo 5×7": 10,
         "Group Photo 8×10": 15,
-        # "Group Photo 11×14": 35,
         
         # Digital
         "Digital Download": 35,
