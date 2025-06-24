@@ -233,7 +233,7 @@ def get_price_for_print(print_type):
         "Group Photo 8×10": 15,
         
         # Digital
-        "Digital Download": 35,
+        "Digital Download": 40,
     }
     value = prices.get(print_type, 0)
     if value == 0: 
