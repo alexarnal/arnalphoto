@@ -111,19 +111,29 @@ def create_square_order_and_get_payment_link(order_details):
                     raise ValueError(f"Invalid print type or price not found: {clean_print_type}")
                 
                 # Add Portrait - to all except "Group" prints
+                display_name = clean_print_type
                 if "Group" not in clean_print_type:
-                    clean_print_type = f"Portrait - {clean_print_type}"
+                    display_name = f"Portrait - {clean_print_type}"
 
-                logger.info(f"Adding line item: {clean_print_type} x{quantity} @ ${price}")
+                logger.info(f"Adding line item: {display_name} x{quantity} @ ${price}")
                 
-                line_items.append({
-                    "name": f"{clean_print_type}",
+                # Create the line item
+                line_item = {
+                    "name": display_name,
                     "quantity": str(quantity),
                     "base_price_money": {
                         "amount": int(price * 100),
                         "currency": "USD"
                     }
-                })
+                }
+                
+                # Add description for packages
+                package_description = get_package_description(clean_print_type)
+                if package_description:
+                    line_item["note"] = package_description
+                    logger.info(f"Added description for {clean_print_type}: {package_description}")
+                
+                line_items.append(line_item)
             
             # Add pose type cost (only if there's actually a cost)
             cost_for_number_of_people = get_price_for_number_of_people(pose['poseType'])
@@ -137,17 +147,6 @@ def create_square_order_and_get_payment_link(order_details):
                         "currency": "USD"
                     }
                 })
-            
-            # Add description as a note (free item)
-            # if pose.get('description', '') != '':
-            #     line_items.append({
-            #         "name": f'Pose {pose["poseNumber"]} Note - {pose["description"]}',
-            #         "quantity": "1",
-            #         "base_price_money": {
-            #             "amount": 0,
-            #             "currency": "USD"
-            #         }
-            #     })
 
         # Add shipping charge if applicable
         if shipping_info['applied'] and shipping_info['cost'] > 0:
@@ -224,9 +223,7 @@ def get_price_for_print(print_type):
         
         # Packages
         "Traditional Package": 40,
-        
         "Social Package": 60,
-
         "Gold Package": 90, 
         
         # Group photos
@@ -239,6 +236,16 @@ def get_price_for_print(print_type):
     if value == 0: 
         logger.warning(f'Unable to get price, returning price of 0 for print_type: "{print_type}"')
     return value
+
+def get_package_description(print_type):
+    """Get the description for package items to include in Square checkout"""
+    descriptions = {
+        "Traditional Package": "Includes 1 8×10, 2 5×7, and 4 2×3 wallets",
+        "Social Package": "Includes 2 5×7, 4 2×3 wallets, and digital download", 
+        "Gold Package": "Includes 1 11×14, 2 8×10, and 4 5×7",
+    }
+    return descriptions.get(print_type, "")
+
 # # Use this in your main loop
 # if new_order:
 #     payment_link = create_square_order_and_get_payment_link(parse_order_details(new_order), customer_email)
