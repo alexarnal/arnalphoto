@@ -120,6 +120,14 @@ input[type="number"] {
     text-align: center;
     border: 1px solid #ddd;
     border-radius: 4px;
+    -moz-appearance: textfield; /* Firefox */
+}
+
+/* Hide spinner arrows in Chrome, Safari, Edge, Opera */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
 }
 
 /* ===== BADGES AND INDICATORS ===== */
