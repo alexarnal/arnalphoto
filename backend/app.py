@@ -1,3 +1,4 @@
+# app.py
 from flask import Flask, request, redirect, render_template, jsonify
 import hmac
 import hashlib
@@ -33,7 +34,13 @@ def submit():
             return "Invalid order details format", 400
 
         # Create payment link
-        payment_link = create_square_order_and_get_payment_link(json.dumps(order_data))
+        payment_link = create_square_order_and_get_payment_link(
+                          json.dumps(order_data),
+                          request.form.get('student_name', ''),
+                          request.form.get('student_email', ''),
+                          request.form.get('student_phone', ''),
+                          request.form.get('ask_for_shipping', False)
+                       )
         
         if not payment_link:
             return "Failed to create payment link", 500

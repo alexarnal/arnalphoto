@@ -1,3 +1,4 @@
+# square_interfacing.py
 from square.http.auth.o_auth_2 import BearerAuthCredentials
 from square.client import Client
 import os
@@ -69,7 +70,7 @@ def submit_to_square(order_details):
     else:
         logger.error(f"Error creating order: {result.errors}")
 
-def create_square_order_and_get_payment_link(order_details):
+def create_square_order_and_get_payment_link(order_details, student_name="", student_email="", student_phone="", ask_for_shipping=True):
     try:
         # Parse the order_details JSON string if it's not already a dictionary
         if isinstance(order_details, str):
@@ -104,6 +105,8 @@ def create_square_order_and_get_payment_link(order_details):
                 # Remove any badge text like "POPULAR"
                 if "POPULAR" in clean_print_type:
                     clean_print_type = clean_print_type.replace("POPULAR", "").strip()
+                if "BEST VALUE" in clean_print_type:
+                    clean_print_type = clean_print_type.replace("BEST VALUE", "").strip()
                 
                 price = get_price_for_print(clean_print_type)
                 if price == 0:
@@ -113,7 +116,7 @@ def create_square_order_and_get_payment_link(order_details):
                 # Add Portrait - to all except "Group" prints
                 display_name = clean_print_type
                 if "Group" not in clean_print_type:
-                    display_name = f"Portrait - {clean_print_type}"
+                    display_name = f"{clean_print_type}"
 
                 logger.info(f"Adding line item: {display_name} x{quantity} @ ${price}")
                 
@@ -168,11 +171,12 @@ def create_square_order_and_get_payment_link(order_details):
             body = {
                 "order": {
                     "location_id": os.environ['SQUARE_LOCATION_ID'],
-                    "line_items": line_items
+                    "line_items": line_items,
+                    "note": f"Student: {student_name} | Email: {student_email} | Phone: {student_phone}"
                 },
                 "checkout_options": {
                     "allow_tipping": False,
-                    "ask_for_shipping_address": True,
+                    "ask_for_shipping_address": ask_for_shipping,
                     "accepted_payment_methods": {
                         "apple_pay": True,
                         "google_pay": True,
@@ -231,6 +235,27 @@ def get_price_for_print(print_type):
         
         # Digital
         "Digital Download": 40,
+
+        # Del Valle NHS Page
+        # Yearbook service
+        "Yearbook Portrait Service": 15,
+        
+        # Individual prints - match form exactly
+        "Wallet Prints (2×3)": 10,
+        "Standard Print (5×7)": 10,
+        "Large Print (8×10)": 15,
+        "Statement Print (11×14)": 35,
+        "Wall Portrait (16×20)": 65,
+        "Gallery Print (20×24)": 95,
+        "Showcase Print (30×40)": 200,
+        
+        # Packages - match form exactly
+        "Keepsake Package": 40,
+        "Digital + Print Package": 60,
+        "Premium Package": 90,
+        
+        # Digital
+        "High-Resolution Digital File": 40,
     }
     value = prices.get(print_type, 0)
     if value == 0: 
@@ -243,6 +268,11 @@ def get_package_description(print_type):
         "Traditional Package": "Includes 1 8×10, 2 5×7, and 4 2×3 wallets",
         "Social Package": "Includes 2 5×7, 4 2×3 wallets, and digital download", 
         "Gold Package": "Includes 1 11×14, 2 8×10, and 4 5×7",
+
+        # Del Valle NHS Page
+        "Keepsake Package": "Includes 1 8×10, 2 5×7, and 4 2×3 wallets",
+        "Digital + Print Package": "Includes 2 5×7, 4 2×3 wallets, and digital download", 
+        "Premium Package": "Includes 1 11×14, 2 8×10, and 4 5×7",
     }
     return descriptions.get(print_type, "")
 
