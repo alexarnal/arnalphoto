@@ -5,13 +5,13 @@
  */
 function updateTotal() {
     try {
-        // Calculate yearbook service total
+        // Calculate yearbook service total (checkbox-based)
         let yearbookTotal = 0;
-        document.querySelectorAll('.group-input').forEach(input => {
-            const quantity = parseInt(input.value) || 0;
-            const price = parseFloat(input.getAttribute('data-price')) || 0;
-            yearbookTotal += quantity * price;
-        });
+        const yearbookCheckbox = document.getElementById('yearbookServiceCheckbox');
+        if (yearbookCheckbox && yearbookCheckbox.checked) {
+            const yearbookPrice = parseFloat(yearbookCheckbox.getAttribute('data-price')) || 0;
+            yearbookTotal = yearbookPrice;
+        }
         
         // Calculate portrait prints total
         let portraitTotal = 0;
@@ -98,26 +98,11 @@ function validateDigitalOrderEmail() {
 }
 
 /**
- * Check if at least one item is selected
+ * Check if yearbook service is selected (required)
  */
-function hasItemsSelected() {
-    let hasSelection = false;
-    
-    // Check yearbook service
-    document.querySelectorAll('.group-input').forEach(input => {
-        if (parseInt(input.value) > 0) {
-            hasSelection = true;
-        }
-    });
-    
-    // Check portrait prints
-    document.querySelectorAll('.portrait-input').forEach(input => {
-        if (parseInt(input.value) > 0) {
-            hasSelection = true;
-        }
-    });
-    
-    return hasSelection;
+function isYearbookServiceSelected() {
+    const yearbookCheckbox = document.getElementById('yearbookServiceCheckbox');
+    return yearbookCheckbox && yearbookCheckbox.checked;
 }
 
 /**
@@ -126,26 +111,17 @@ function hasItemsSelected() {
 function gatherOrderData() {
     const orderData = [];
     
-    // Yearbook service data
-    const yearbookData = {
-        poseNumber: 1,
-        poseType: 'yearbook',
-        prints: {},
-        description: 'NHS Yearbook Portrait Service'
-    };
-    
-    document.querySelectorAll('.group-input').forEach(input => {
-        const quantity = parseInt(input.value) || 0;
-        if (quantity > 0) {
-            const itemNameEl = input.closest('.print-option')?.querySelector('.item-name');
-            if (itemNameEl) {
-                const itemName = itemNameEl.textContent.trim().replace(/\s+/g, ' ');
-                yearbookData.prints[itemName] = quantity;
-            }
-        }
-    });
-    
-    if (Object.keys(yearbookData.prints).length > 0) {
+    // Yearbook service data (checkbox-based)
+    const yearbookCheckbox = document.getElementById('yearbookServiceCheckbox');
+    if (yearbookCheckbox && yearbookCheckbox.checked) {
+        const yearbookData = {
+            poseNumber: 1,
+            poseType: 'yearbook',
+            prints: {
+                'Yearbook Portrait Service': 1
+            },
+            description: 'NHS Yearbook Portrait Service'
+        };
         orderData.push(yearbookData);
     }
     
@@ -209,9 +185,10 @@ function handleFormSubmit(e) {
     e.preventDefault();
     
     try {
-        // Validation: Check if at least one item is selected
-        if (!hasItemsSelected()) {
-            alert('Please select at least one item before submitting your order.');
+        // Validation: Check if yearbook service is selected (required)
+        if (!isYearbookServiceSelected()) {
+            alert('Please confirm your participation in the NHS Yearbook Portrait Service.');
+            document.getElementById('yearbookServiceCheckbox')?.focus();
             return;
         }
         
@@ -245,6 +222,12 @@ function handleFormSubmit(e) {
 function initializeFormHandlers() {
     // Attach quantity button click handler
     document.addEventListener('click', handleQuantityButtonClick);
+    
+    // Attach yearbook checkbox change handler
+    const yearbookCheckbox = document.getElementById('yearbookServiceCheckbox');
+    if (yearbookCheckbox) {
+        yearbookCheckbox.addEventListener('change', updateTotal);
+    }
     
     // Attach form submit handler
     const orderForm = document.getElementById('orderForm');

@@ -1,5 +1,23 @@
 /* ===== UI INTERACTIONS ===== */
 
+// Initialize yearbook checkbox visual state on load
+function initializeYearbookCheckbox() {
+    const checkbox = document.getElementById('yearbookServiceCheckbox');
+    const option = document.getElementById('yearbookServiceOption');
+    
+    if (checkbox && option) {
+        // Set initial state
+        option.classList.toggle('checked', checkbox.checked);
+    }
+}
+
+// Call on load
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initializeYearbookCheckbox);
+} else {
+    initializeYearbookCheckbox();
+}
+
 // Tab switching with proper event handling
 function switchTab(tabName, event) {
     try {

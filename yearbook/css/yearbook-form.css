@@ -30,6 +30,55 @@
     margin-bottom: 0;
 }
 
+/* ===== CHECKBOX STYLING ===== */
+.checkbox-container {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 4px;
+    transition: background 0.2s;
+}
+
+.checkbox-container:hover {
+    background: #f8f9fa;
+}
+
+.checkbox-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+.checkbox-wrapper input[type="checkbox"] {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    accent-color: #666;
+}
+
+.checkbox-label {
+    cursor: pointer;
+    user-select: none;
+}
+
+.yearbook-checkbox-option {
+    background: #f8f9fa;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 16px;
+    transition: all 0.3s ease;
+}
+
+.yearbook-checkbox-option.checked {
+    border-color: #666;
+    background: #fff;
+}
+
+.yearbook-checkbox-option:hover {
+    border-color: #999;
+}
+
 /* ===== SECTION DIVIDER ===== */
 .section-divider {
     border-top: 2px solid #e0e0e0;
