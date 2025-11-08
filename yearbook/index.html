@@ -1,625 +1,57 @@
 <!DOCTYPE html>
 <html>
-<title>Arnal Studio - Del Valle NHS</title>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta property="og:image" content="../images/delvalle_1.jpg">
-<meta property="og:image:width" content="1024">
-<meta property="og:image:height" content="717">
-<meta property="og:title" content="Arnal Studio - Del Valle NHS" />
-<link rel="stylesheet" href="../css/w3.css">
-<link rel="stylesheet" href="../css/opensans.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel="icon" href="../images/aplogo_circleIcon.png">
-<link rel="stylesheet" href="../order/photo_order_form.css">
-<style>
-body,h1,h2,h3,h4,h5,h6 {font-family: "Open Sans", monospace;}
-body, html {
-    height: 100%;
-    color: #333;
-    line-height: 1.8;
-  }
+<head>
+    <title>Arnal Studio - Del Valle NHS</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta property="og:image" content="../images/delvalle_1.jpg">
+    <meta property="og:image:width" content="1024">
+    <meta property="og:image:height" content="717">
+    <meta property="og:title" content="Arnal Studio - Del Valle NHS" />
+    
+    <!-- External CSS -->
+    <link rel="stylesheet" href="../css/w3.css">
+    <link rel="stylesheet" href="../css/opensans.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="icon" href="../images/aplogo_circleIcon.png">
+    
+    <!-- Page-specific CSS -->
+    <link rel="stylesheet" href="css/yearbook-styles.css">
+    <link rel="stylesheet" href="css/yearbook-form.css">
+</head>
 
-  /* Create a Parallax Effect */
-.bgimg-1, .bgimg-2, .bgimg-3 {
-    background-attachment: fixed;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-  }
-
-  /* First image (Logo. Full height) */
-
-  /* Second image (Portfolio) */
-  .bgimg-2 {
-    background-image: url("../images/backdrop_gray_.jpg");
-    min-height: 400px;
-  }
-
-  .print-option {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 16px 0;
-    border-bottom: 1px solid #f0f0f0;
-}
-
-.print-option:last-child {
-    border-bottom: none;
-}
-
-.item-details {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-}
-
-.item-name {
-    font-weight: 500;
-    font-size: 16px;
-}
-
-.item-price {
-    /* font-weight: bold; */
-    color: #333;
-}
-
-.item-description {
-    font-size: 0.85em;
-    color: #666;
-    font-style: italic;
-}
-
-.controls-container {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.quantity-btn {
-    width: 36px;
-    height: 36px;
-    border: 1px solid #ddd;
-    background: white;
-    border-radius: 4px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-}
-
-.quantity-btn:hover {
-    background: #f5f5f5;
-}
-
-input[type="number"] {
-    width: 60px;
-    height: 36px;
-    text-align: center;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-}
-
-
-.w3-wide {letter-spacing: 10px;}
-.w3-hover-opacity {cursor: pointer;}
-
-.w3-top {color:white;}
-
-  /* Turn off parallax scrolling for tablets and phones */
-  @media only screen and (max-device-width: 1600px) {
-  .bgimg-1, .bgimg-2, .bgimg-3 {
-      background-attachment: scroll;
-      min-height: 400px;
-    }
-  }
-
-/* Tab styling */
-.tab-container {
-    margin: 20px 0;
-}
-
-.tab-buttons {
-    display: flex;
-    background: #f1f1f1;
-    border-radius: 8px 8px 0 0;
-    overflow: hidden;
-    border: 1px solid #ddd;
-    border-bottom: none;
-}
-
-.tab-button {
-    flex: 1;
-    padding: 16px 20px;
-    background: #f1f1f1;
-    border: none;
-    cursor: pointer;
-    font-size: 16px;
-    font-weight: 500;
-    color: #666;
-    border-right: 1px solid #ddd;
-    transition: all 0.3s ease;
-    position: relative;
-}
-
-.tab-button:last-child {
-    border-right: none;
-}
-
-.tab-button.active {
-    background: white;
-    color: #333;
-    border-bottom: 2px solid #666;
-}
-
-.tab-button:hover:not(.active) {
-    background: #e8e8e8;
-}
-
-.tab-indicator {
-    background: #666;
-    color: white;
-    border-radius: 12px;
-    padding: 2px 8px;
-    font-size: 12px;
-    margin-left: 8px;
-    display: none;
-}
-
-.tab-indicator.show {
-    display: inline-block;
-}
-
-.tab-content {
-    display: none;
-    background: white;
-    border: 1px solid #ddd;
-    border-radius: 0 0 8px 8px;
-    padding: 20px;
-}
-
-.tab-content.active {
-    display: block;
-}
-
-.package-highlight {
-    background: #f8f9fa;
-    border: 2px solid #666;
-    border-radius: 8px;
-    padding: 16px;
-    margin-bottom: 16px;
-}
-
-.recommended-badge {
-    background: #666;
-    color: white;
-    padding: 4px 12px;
-    border-radius: 16px;
-    font-size: 12px;
-    font-weight: bold;
-    margin-left: 10px;
-}
-
-/* Group Photo Section */
-.section-divider {
-    border-top: 2px solid #e0e0e0;
-    margin: 40px 0 30px 0;
-    position: relative;
-}
-
-.section-divider::before {
-    content: '';
-    position: absolute;
-    top: -1px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 50px;
-    height: 2px;
-    background: #666;
-}
-
-.group-photo-section {
-    background: white;
-    border-radius: 12px;
-    padding: 24px;
-    margin: 20px 0;
-    border: 2px solid #e0e0e0;
-}
-
-.group-photo-header {
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-.group-photo-header h2 {
-    color: #333;
-    margin-bottom: 8px;
-}
-
-.group-photo-description {
-    color: #666;
-    font-style: italic;
-    margin-bottom: 20px;
-}
-
-.group-photo-option {
-    background: white;
-    border-radius: 8px;
-    padding: 16px;
-    border: 1px solid #ddd;
-    margin-bottom: 8px;
-}
-
-.group-photo-option:last-child {
-    margin-bottom: 0;
-}
-
-.info-callout {
-    background: #e8f5e8;
-    border-left: 4px solid #666;
-    padding: 12px 16px;
-    margin-top: 16px;
-    border-radius: 0 4px 4px 0;
-}
-
-.info-callout p {
-    margin: 0;
-    color: #2e7d32;
-    font-size: 14px;
-}
-
-@media (max-width: 768px) {
-    .tab-button {
-        padding: 12px 16px;
-        font-size: 14px;
-    }
-}
-</style>
-<!-- information css -->
-<style>
-        .info-card {
-            background: #f8f9fa;
-            border-radius: 8px;
-            padding: 20px;
-            margin: 10px 0;
-            border-left: 4px solid #666;
-        }
-        
-        .highlight-box {
-            background: linear-gradient(135deg, #333 0%, #666 100%);
-            color: white;
-            border-radius: 8px;
-            padding: 24px;
-            text-align: center;
-            margin: 20px 0;
-        }
-        
-        .quick-facts {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-            justify-content: center;
-            margin: 20px 0;
-        }
-        
-        .fact-item {
-            background: white;
-            border-radius: 8px;
-            padding: 16px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            text-align: center;
-            min-width: 200px;
-            flex: 1;
-        }
-        
-        .fact-icon {
-            font-size: 24px;
-            color: #666;
-            margin-bottom: 8px;
-        }
-        
-        .cta-section {
-            background: #fff;
-            border: 2px solid #666;
-            border-radius: 8px;
-            padding: 20px;
-            text-align: center;
-            margin: 20px 0;
-        }
-        
-        @media (max-width: 768px) {
-            .quick-facts {
-                flex-direction: column;
-            }
-            
-            .fact-item {
-                min-width: auto;
-            }
-        }
-    </style>
-
-    <style>
-        /* ===== CONSISTENT SECTION STYLING ===== */
-.content-section {
-    background: white;
-    border: 2px solid #e0e0e0;
-    border-radius: 12px;
-    padding: 24px;
-    margin: 20px 0;
-}
-
-.content-section.highlighted {
-    border-color: #666;
-    background: #f8f9fa;
-}
-
-.section-header {
-    text-align: center;
-    margin-bottom: 20px;
-    padding-bottom: 16px;
-    border-bottom: 1px solid #e0e0e0;
-}
-
-.section-header h2 {
-    color: #333;
-    margin-bottom: 8px;
-}
-
-.section-description {
-    color: #666;
-    font-style: italic;
-    margin-bottom: 0;
-}
-
-/* ===== PRINT OPTION STYLING ===== */
-.print-option {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 16px;
-    border-bottom: 1px solid #f0f0f0;
-    background: white;
-    border-radius: 8px;
-    margin-bottom: 8px;
-}
-
-.print-option:last-child {
-    border-bottom: none;
-    margin-bottom: 0;
-}
-
-.print-option.package-highlight {
-    border: 2px solid #666;
-    background: #f8f9fa;
-}
-
-.item-details {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-}
-
-.item-name {
-    font-weight: 500;
-    font-size: 16px;
-}
-
-.item-price {
-    color: #333;
-}
-
-.item-description {
-    font-size: 0.85em;
-    color: #666;
-    font-style: italic;
-}
-
-.controls-container {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.quantity-btn {
-    width: 36px;
-    height: 36px;
-    border: 1px solid #ddd;
-    background: white;
-    border-radius: 4px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-}
-
-.quantity-btn:hover {
-    background: #f5f5f5;
-}
-
-input[type="number"] {
-    width: 60px;
-    height: 36px;
-    text-align: center;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-}
-
-/* ===== BADGES AND INDICATORS ===== */
-.recommended-badge {
-    background: #666;
-    color: white;
-    padding: 4px 12px;
-    border-radius: 16px;
-    font-size: 12px;
-    font-weight: bold;
-    margin-left: 10px;
-}
-
-.info-callout {
-    background: #e8f5e8;
-    border-left: 4px solid #666;
-    padding: 12px 16px;
-    margin-top: 16px;
-    border-radius: 0 4px 4px 0;
-}
-
-.info-callout p {
-    margin: 0;
-    color: #2e7d32;
-    font-size: 14px;
-}
-
-/* ===== TAB STYLING ===== */
-.tab-container {
-    margin: 20px 0;
-}
-
-.tab-buttons {
-    display: flex;
-    background: #f1f1f1;
-    border-radius: 8px 8px 0 0;
-    overflow: hidden;
-    border: 1px solid #ddd;
-    border-bottom: none;
-}
-
-.tab-button {
-    flex: 1;
-    padding: 16px 20px;
-    background: #f1f1f1;
-    border: none;
-    cursor: pointer;
-    font-size: 16px;
-    font-weight: 500;
-    color: #666;
-    border-right: 1px solid #ddd;
-    transition: all 0.3s ease;
-}
-
-.tab-button:last-child {
-    border-right: none;
-}
-
-.tab-button.active {
-    background: white;
-    color: #333;
-    border-bottom: 2px solid #666;
-}
-
-.tab-button:hover:not(.active) {
-    background: #e8e8e8;
-}
-
-.tab-indicator {
-    background: #666;
-    color: white;
-    border-radius: 12px;
-    padding: 2px 8px;
-    font-size: 12px;
-    margin-left: 8px;
-    display: none;
-}
-
-.tab-indicator.show {
-    display: inline-block;
-}
-
-.tab-content {
-    display: none;
-    background: white;
-    border: 1px solid #ddd;
-    border-radius: 0 0 8px 8px;
-    padding: 20px;
-}
-
-.tab-content.active {
-    display: block;
-}
-
-/* ===== SECTION DIVIDER ===== */
-.section-divider {
-    border-top: 2px solid #e0e0e0;
-    margin: 40px 0 30px 0;
-    position: relative;
-}
-
-.section-divider::before {
-    content: '';
-    position: absolute;
-    top: -1px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 50px;
-    height: 2px;
-    background: #666;
-}
-    </style>
-
-    <style>
-        .shipping-info-btn:hover {
-            color: #333 !important;
-        }
-        
-        .shipping-info-btn:focus {
-            outline: none;
-        }
-        
-        #shippingInfo {
-            animation: slideDown 0.3s ease-out;
-        }
-        
-        @keyframes slideDown {
-            from {
-                opacity: 0;
-                max-height: 0;
-                padding-top: 0;
-                padding-bottom: 0;
-            }
-            to {
-                opacity: 1;
-                max-height: 50px;
-                padding-top: 8px;
-                padding-bottom: 8px;
-            }
-        }
-    </style>
 <body>
 
 <!-- Navbar (sit on top) -->
 <div class="w3-top">
-  <div class="w3-bar" id="myNavbar">
-    <a class="w3-bar-item w3-button w3-hover-black w3-hide-medium w3-hide-large w3-right" href="javascript:void(0);" onclick="toggleFunction()" title="Toggle Navigation Menu">
-      <i class="fa fa-bars" ></i>
-    </a>
-    <a href="../#home" class="w3-bar-item w3-button" >HOME</a>
-    <a href="../#about" class="w3-bar-item w3-button w3-hide-small" ><!--i class="fa fa-user"></i-->ABOUT</a>
-    <a href="../#portfolio" class="w3-bar-item w3-button w3-hide-small" ><!--i class="fa fa-th"></i-->PORTFOLIO</a>
-    <a href="../#contact" class="w3-bar-item w3-button w3-hide-small" ><!--i class="fa fa-envelope"></i-->CONTACT</a>
-    <!--a href="#" class="w3-bar-item w3-button w3-hide-small w3-right w3-hover-red">
-      <i class="fa fa-search"></i>
-    </a-->
-  </div>
+    <div class="w3-bar" id="myNavbar">
+        <a class="w3-bar-item w3-button w3-hover-black w3-hide-medium w3-hide-large w3-right" href="javascript:void(0);" onclick="toggleFunction()" title="Toggle Navigation Menu">
+            <i class="fa fa-bars"></i>
+        </a>
+        <a href="../#home" class="w3-bar-item w3-button">HOME</a>
+        <a href="../#about" class="w3-bar-item w3-button w3-hide-small">ABOUT</a>
+        <a href="../#portfolio" class="w3-bar-item w3-button w3-hide-small">PORTFOLIO</a>
+        <a href="../#contact" class="w3-bar-item w3-button w3-hide-small">CONTACT</a>
+    </div>
 
-  <!-- Navbar on small screens -->
-  <div id="navDemo" class="w3-bar-block w3-hide w3-hide-large w3-hide-medium ">
-    <a href="../#about" class="w3-bar-item w3-button " onclick="toggleFunction()">ABOUT</a>
-    <a href="../#portfolio" class="w3-bar-item w3-button " onclick="toggleFunction()">PORTFOLIO</a>
-    <a href="../#contact" class="w3-bar-item w3-button "  onclick="toggleFunction()">CONTACT</a>
-    <!--a href="#" class="w3-bar-item w3-button">SEARCH</a-->
-  </div>
+    <!-- Navbar on small screens -->
+    <div id="navDemo" class="w3-bar-block w3-hide w3-hide-large w3-hide-medium">
+        <a href="../#about" class="w3-bar-item w3-button" onclick="toggleFunction()">ABOUT</a>
+        <a href="../#portfolio" class="w3-bar-item w3-button" onclick="toggleFunction()">PORTFOLIO</a>
+        <a href="../#contact" class="w3-bar-item w3-button" onclick="toggleFunction()">CONTACT</a>
+    </div>
 </div>
 
 <!-- First Parallax Image with Logo Text -->
 <div class="bgimg-2 w3-display-container w3-opacity-min" id="portfolio">
-  <div class="w3-display-middle" style="text-align: center;">
-    <span class="w3-xxlarge w3-text-white w3-wide w3-hide-small">Del Valle NHS</span>
-    <span class="w3-xlarge w3-text-white w3-wide w3-hide-large w3-hide-medium">Del Valle NHS</span>
-  </div>
+    <div class="w3-display-middle" style="text-align: center;">
+        <span class="w3-xxlarge w3-text-white w3-wide w3-hide-small">Del Valle NHS</span>
+        <span class="w3-xlarge w3-text-white w3-wide w3-hide-large w3-hide-medium">Del Valle NHS</span>
+    </div>
 </div>
 
 <div class="w3-content w3-container w3-padding-32">
 
-    
     <div class="highlight-box">
         <h2 class="w3-center">Congratulations NHS Members!</h2>
         <h3 style="margin-top: 0;">November 20th Portrait Day</h3>
@@ -640,9 +72,6 @@ input[type="number"] {
     </div>
 
     <!-- Order Form Container -->
-    <!-- SQUARE API NOTE: Form should POST to your Square API endpoint -->
-    <!-- You'll need to capture: student_name (required), student_email (optional), student_phone (optional), order_notes (optional) -->
-    <!-- Plus all the quantity fields for each product -->
     <form id="orderForm" action="https://api.arnalphoto.com/submit" method="POST"> 
         
         <!-- Student Information Section -->
@@ -662,7 +91,7 @@ input[type="number"] {
             
             <div style="margin-bottom: 15px;">
                 <label for="studentEmail" style="display: block; font-weight: 600; margin-bottom: 5px;">
-                    Email <!-- <span style="font-size: 12px; font-weight: 400; color: #666;">(optional)</span> -->
+                    Email
                 </label>
                 <input type="email" 
                        id="studentEmail" 
@@ -673,7 +102,7 @@ input[type="number"] {
             
             <div style="margin-bottom: 15px;">
                 <label for="studentPhone" style="display: block; font-weight: 600; margin-bottom: 5px;">
-                    Phone <!-- <span style="font-size: 12px; font-weight: 400; color: #666;">(optional)</span> -->
+                    Phone
                 </label>
                 <input type="tel" 
                        id="studentPhone" 
@@ -681,29 +110,16 @@ input[type="number"] {
                        placeholder="(915) 555-1234"
                        style="width: 100%; padding: 10px; border: 1px solid #dee2e6; border-radius: 4px; font-size: 16px;">
             </div>
-            
-            <!-- <div>
-                <label for="orderNotes" style="display: block; font-weight: 600; margin-bottom: 5px;">
-                    Special Instructions <span style="font-size: 12px; font-weight: 400; color: #666;">(optional)</span>
-                </label>
-                <textarea id="orderNotes" 
-                          name="order_notes" 
-                          rows="3" 
-                          placeholder="Any special requests or delivery instructions?"
-                          style="width: 100%; padding: 10px; border: 1px solid #dee2e6; border-radius: 4px; font-size: 16px; resize: vertical;"></textarea>
-            </div> -->
         </div>
 
         <!-- Yearbook Photo Section -->
         <h2><i class="fa fa-graduation-cap"></i> Yearbook Portrait Service</h2>
         
-        <!-- CALLOUT: Keep visible, styled in gray like shipping info -->
         <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin-bottom: 20px; border-left: 3px solid #666;">
             <p style="margin: 0; color: #333;"><i class="fa fa-info-circle"></i> <strong>Professional Portrait Session</strong> – Your professionally edited portrait will be submitted directly to the NHS director for inclusion in the yearbook. All orders delivered to NHS advisor within 2-3 weeks.</p>
         </div>
         
         <div class="group-photo-section">
-            <!-- SQUARE API NOTE: This is product ID for "Yearbook Portrait Service" - $15 -->
             <div class="print-option">
                 <div class="item-details">
                     <div class="item-name">Yearbook Portrait Service</div>
@@ -724,12 +140,11 @@ input[type="number"] {
         </div>
 
         <!-- Section Divider -->
-        <div class="section-divider" style="margin: 30px 0; border-top: 2px solid #e0e0e0;"></div>
+        <div class="section-divider"></div>
 
         <!-- Personal Portrait Prints Section -->
         <h2><i class="fa fa-camera"></i> Keep Your Memories</h2>
         
-        <!-- CALLOUT: Styled in gray -->
         <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin-bottom: 20px; border-left: 3px solid #666;">
             <p style="margin: 0; color: #333;"><i class="fa fa-heart"></i> <strong>Want prints for family & friends?</strong> Add portrait packages or individual prints below. All prints are professionally edited and printed on premium photo paper.</p>
         </div>
@@ -747,7 +162,6 @@ input[type="number"] {
             </div>
             
             <!-- Photo Packages Tab -->
-            <!-- SQUARE API NOTE: Each package needs its own product ID and quantity field -->
             <div class="tab-content active" id="packages-tab">
                 <div class="print-option">
                     <div class="item-details">
@@ -808,7 +222,6 @@ input[type="number"] {
             </div>
             
             <!-- Individual Prints Tab -->
-            <!-- SQUARE API NOTE: Each print size needs its own product ID and quantity field -->
             <div class="tab-content" id="prints-tab">
                 <div class="print-option">
                     <div class="item-details">
@@ -957,8 +370,6 @@ input[type="number"] {
         </div>
 
         <!-- Order Summary -->
-        <!-- SQUARE API NOTE: Calculate totals on the backend before processing payment -->
-        <!-- Yearbook service + all print products = total amount to charge -->
         <h2 style="margin-top: 30px;"><i class="fa fa-shopping-cart"></i> Order Summary</h2>
         <div class="order-summary" style="background: #f8f9fa; padding: 24px; border-radius: 12px; text-align: left;">
             <p style="display: flex; justify-content: space-between; margin: 8px 0;">
@@ -990,376 +401,49 @@ input[type="number"] {
         <p style="font-size: 14px; color: #666; margin-top: 8px;">Contact us to schedule: <a href="mailto:arnalstudioelpaso@gmail.com">arnalstudioelpaso@gmail.com</a></p>
     </div>
 
-  <!-- Container (Portfolio Section) -->
-<div class="w3-content w3-container w3-padding-32">
-  <h3 class="w3-center">Sample Portraits</h3>
-  <p class="w3-center" style="color: #666; margin-bottom: 24px;">See the quality of our professional NHS portraits</p>
-  <div class="w3-row-padding w3-center w3-section">
-    <div class="w3-col m4">
-    <img src="../images/delvalle_1.jpg" style="width:100%" onclick="onClick(this)" class="w3-hover-opacity" alt="NHS Portrait Sample">
+    <!-- Container (Portfolio Section) -->
+    <div class="w3-content w3-container w3-padding-32">
+        <h3 class="w3-center">Sample Portraits</h3>
+        <p class="w3-center" style="color: #666; margin-bottom: 24px;">See the quality of our professional NHS portraits</p>
+        <div class="w3-row-padding w3-center w3-section">
+            <div class="w3-col m4">
+                <img src="../images/delvalle_1.jpg" style="width:100%" onclick="onClick(this)" class="w3-hover-opacity" alt="NHS Portrait Sample">
+            </div>
+            <div class="w3-hide-large w3-hide-medium">&nbsp;</div>
+            <div class="w3-col m4">
+                <img src="../images/delvalle_1.jpg" style="width:100%" onclick="onClick(this)" class="w3-hover-opacity" alt="NHS Portrait Sample">
+            </div>
+            <div class="w3-hide-large w3-hide-medium">&nbsp;</div>
+            <div class="w3-col m4">
+                <img src="../images/delvalle_1.jpg" style="width:100%" onclick="onClick(this)" class="w3-hover-opacity" alt="NHS Portrait Sample">
+            </div>
+        </div>
     </div>
-    <div class="w3-hide-large w3-hide-medium">&nbsp;</div>
-    <div class="w3-col m4">
-    <img src="../images/delvalle_1.jpg" style="width:100%" onclick="onClick(this)" class="w3-hover-opacity" alt="NHS Portrait Sample">
-    </div>
-    <div class="w3-hide-large w3-hide-medium">&nbsp;</div>
-    <div class="w3-col m4">
-    <img src="../images/delvalle_1.jpg" style="width:100%" onclick="onClick(this)" class="w3-hover-opacity" alt="NHS Portrait Sample">
-    </div>
-  </div>
+
 </div>
 
-</div>
-
-<!-- 
-SQUARE API INTEGRATION NOTES:
-================================
-
-FORM FIELDS TO CAPTURE:
-- student_name (required, text)
-- student_email (optional, email)
-- student_phone (optional, tel)
-
-PRODUCT QUANTITIES TO CAPTURE:
-Yearbook Service:
-- yearbook_service_qty (price: $15)
-
-Packages:
-- keepsake_package_qty (price: $40)
-- digital_print_package_qty (price: $60)
-- premium_package_qty (price: $90)
-
-Individual Prints:
-- wallet_prints_qty (price: $10)
-- 5x7_print_qty (price: $10)
-- 8x10_print_qty (price: $15)
-- 11x14_print_qty (price: $35)
-- 16x20_print_qty (price: $65)
-- 20x24_print_qty (price: $95)
-- 30x40_print_qty (price: $200)
-- digital_file_qty (price: $40)
-
-CALCULATION LOGIC:
-1. Calculate yearbook total: yearbook_service_qty * 15
-2. Calculate prints total: sum of (each_qty * each_price)
-3. Total = yearbook total + prints total
-4. NO SHIPPING CHARGES (all delivered to NHS advisor)
-
-SQUARE API SETUP:
-1. Create a catalog item for each product in Square Dashboard
-2. Map each input name to corresponding Square catalog item ID
-3. On form submit, build order object with line items
-4. Process payment through Square Payment API
-5. Store order with student_name for fulfillment tracking
-
-DELIVERY NOTES:
-- All orders delivered to NHS advisor within 2-3 weeks
-- No individual shipping needed
-- Use student_name to match orders during delivery
--->
-
-<!-- Modal for full size images on click-->
+<!-- Modal for full size images on click -->
 <div id="modal01" class="w3-modal w3-black" onclick="this.style.display='none'">
-<span class="w3-button w3-large w3-black w3-display-topright" title="Close Modal Image"><i class="fa fa-remove"></i></span>
-  <div class="w3-modal-content w3-animate-zoom w3-center w3-transparent w3-padding-64">
-    <img id="img01" class="w3-image">
-    <p id="caption" class="w3-opacity w3-large"></p>
-  </div>
-</div>
-
-  </div>
-
+    <span class="w3-button w3-large w3-black w3-display-topright" title="Close Modal Image"><i class="fa fa-remove"></i></span>
+    <div class="w3-modal-content w3-animate-zoom w3-center w3-transparent w3-padding-64">
+        <img id="img01" class="w3-image">
+        <p id="caption" class="w3-opacity w3-large"></p>
+    </div>
 </div>
 
 <!-- Footer -->
 <footer class="w3-center w3-padding-32" style="background: #111;color: white">
-    <!--a href="#home" class="w3-button w3-light-grey"><i class="fa fa-arrow-up w3-margin-right"></i>To the top</a-->
     <div class="w3-xlarge w3-section">
-    <a href="https://www.facebook.com/arnalstudio" title="fa" target="_blank"><i class="fa fa-facebook-official w3-hover-opacity"></i></a>
-      <!--i class="fa fa-instagram w3-hover-opacity"></i>
-    <i class="fa fa-snapchat w3-hover-opacity"></i>
-    <i class="fa fa-linkedin w3-hover-opacity"></i>
-    <i class="fa fa-pinterest-p w3-hover-opacity"></i-->
-    <a href="https://twitter.com/arnalstudio" title="fa" target="_blank"><i class="fa fa-twitter w3-hover-opacity"></i></a>
-
+        <a href="https://www.facebook.com/arnalstudio" title="fa" target="_blank"><i class="fa fa-facebook-official w3-hover-opacity"></i></a>
+        <a href="https://twitter.com/arnalstudio" title="fa" target="_blank"><i class="fa fa-twitter w3-hover-opacity"></i></a>
     </div>
-  <p>Powered by <a href="https://www.w3schools.com/w3css/default.asp" title="W3.CSS" target="_blank" class="w3-hover-opacity">w3.css</a></p>
-  </footer>
-  <p style="background: #111; color: white; margin:0px; font-size: 12px">Copyright © 2025 Arnal Studio</p>
-  <script>
-    // Modal Image Gallery
-    function onClick(element) {
-      document.getElementById("img01").src = element.src;
-      document.getElementById("modal01").style.display = "block";
-      var captionText = document.getElementById("caption");
-      captionText.innerHTML = element.alt;
-    }
+    <p>Powered by <a href="https://www.w3schools.com/w3css/default.asp" title="W3.CSS" target="_blank" class="w3-hover-opacity">w3.css</a></p>
+</footer>
+<p style="background: #111; color: white; margin:0px; font-size: 12px">Copyright © 2025 Arnal Studio</p>
 
-    // Change style of navbar on scroll
-window.onscroll = function() {myFunction()};
-    function myFunction() {
-      var navbar = document.getElementById("myNavbar");
-      if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
-        navbar.className = "w3-bar" + " w3-white";
-      } else {
-        navbar.className = navbar.className.replace( " w3-white", "");//w3-card w3-animate-top w3-white", "");
-      }
-      var x = document.getElementById("navDemo");
-      if (x.className.indexOf("w3-show") != -1) {
-        x.className = "w3-bar-block" + " w3-hide" + " w3-hide-large" + " w3-hide-medium" + " w3-show";
-        if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
-          x.className = "w3-bar-block" + " w3-hide" + " w3-hide-large" + " w3-hide-medium" + " w3-show" + " w3-white";
-        } else {
-            x.className = x.className.replace( " w3-white", "");//w3-card w3-animate-top w3-white", "");
-        }
-      } else {
-        x.className = x.className.replace(" w3-show", "");
-        if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
-          x.className = "w3-bar-block" + " w3-hide" + " w3-hide-large" + " w3-hide-medium" + " w3-white";
-        } else {
-            x.className = x.className.replace( " w3-white", "");//w3-card w3-animate-top w3-white", "");
-        }
-      }
-
-    }
-
-    // Used to toggle the menu on small screens when clicking on the menu button
-    function toggleFunction() {
-      var x = document.getElementById("navDemo");
-      if (x.className.indexOf("w3-show") == -1) {
-        x.className += " w3-show";
-      } else {
-        x.className = x.className.replace(" w3-show", "");
-      }
-    }
-  </script>
-
-
-<script>
-function switchTab(tabName) {
-    // Hide all tab contents
-    document.querySelectorAll('.tab-content').forEach(tab => {
-        tab.classList.remove('active');
-    });
-    
-    // Remove active class from all buttons
-    document.querySelectorAll('.tab-button').forEach(btn => {
-        btn.classList.remove('active');
-    });
-    
-    // Show selected tab
-    document.getElementById(tabName + '-tab').classList.add('active');
-    
-    // Activate corresponding button
-    event.target.classList.add('active');
-}
-
-function updateTotal() {
-    // Calculate portrait total
-    let portraitTotal = 0;
-    document.querySelectorAll('.portrait-input').forEach(input => {
-        const quantity = parseInt(input.value) || 0;
-        const price = parseFloat(input.getAttribute('data-price')) || 0;
-        portraitTotal += quantity * price;
-    });
-    
-    // Calculate group photo total
-    let groupTotal = 0;
-    document.querySelectorAll('.group-input').forEach(input => {
-        const quantity = parseInt(input.value) || 0;
-        const price = parseFloat(input.getAttribute('data-price')) || 0;
-        groupTotal += quantity * price;
-    });
-    
-    const subtotal = portraitTotal + groupTotal;
-    const shipping = (subtotal > 0 && subtotal < 35) ? 5 : 0;
-    const total = subtotal + shipping;
-    
-    document.getElementById('portraitTotal').textContent = portraitTotal.toFixed(2);
-    document.getElementById('groupTotal').textContent = groupTotal.toFixed(2);
-    document.getElementById('subtotal').textContent = subtotal.toFixed(2);
-    document.getElementById('shipping').textContent = shipping.toFixed(2);
-    document.getElementById('total').textContent = total.toFixed(2);
-}
-
-function updateTabIndicators() {
-    // Count packages
-    let packageCount = 0;
-    document.querySelectorAll('.package-input').forEach(input => {
-        packageCount += parseInt(input.value) || 0;
-    });
-    
-    // Count build-your-own items
-    let buildCount = 0;
-    document.querySelectorAll('.build-input').forEach(input => {
-        buildCount += parseInt(input.value) || 0;
-    });
-    
-    // Update indicators
-    const packageIndicator = document.getElementById('packages-indicator');
-    const buildIndicator = document.getElementById('build-indicator');
-    
-    if (packageCount > 0) {
-        packageIndicator.textContent = packageCount;
-        packageIndicator.classList.add('show');
-    } else {
-        packageIndicator.classList.remove('show');
-    }
-    
-    if (buildCount > 0) {
-        buildIndicator.textContent = buildCount;
-        buildIndicator.classList.add('show');
-    } else {
-        buildIndicator.classList.remove('show');
-    }
-}
-
-// Event listeners
-document.addEventListener('click', function(e) {
-    if (e.target.classList.contains('quantity-btn')) {
-        const input = e.target.parentNode.querySelector('input[type="number"]');
-        const step = 1;
-        const currentValue = parseInt(input.value) || 0;
-        
-        if (e.target.classList.contains('increase')) {
-            input.value = currentValue + step;
-        } else if (e.target.classList.contains('decrease')) {
-            input.value = Math.max(0, currentValue - step);
-        }
-        
-        updateTotal();
-        updateTabIndicators();
-    }
-});
-
-document.getElementById('orderForm').addEventListener('submit', function(e) {
-    e.preventDefault(); // Always prevent default submission
-
-    // Validation
-    let hasPortraitSelection = false;
-    let hasGroupSelection = false;
-    
-    document.querySelectorAll('.portrait-input').forEach(input => {
-        if (parseInt(input.value) > 0) {
-            hasPortraitSelection = true;
-        }
-    });
-    
-    document.querySelectorAll('.group-input').forEach(input => {
-        if (parseInt(input.value) > 0) {
-            hasGroupSelection = true;
-        }
-    });
-    
-    if (!hasPortraitSelection && !hasGroupSelection) {
-        alert('Please select at least one item before submitting your order.');
-        return;
-    }
-
-    // Check if email is required for digital orders
-    const digitalFileQty = parseInt(document.querySelector('input[name="digital_file_qty"]').value) || 0;
-    const digitalPackageQty = parseInt(document.querySelector('input[name="digital_print_package_qty"]').value) || 0;
-    const emailInput = document.getElementById('studentEmail');
-    
-    if ((digitalFileQty > 0 || digitalPackageQty > 0) && !emailInput.value.trim()) {
-        alert('Please provide an email address for digital file delivery.');
-        emailInput.focus();
-        return;
-    }
-
-    // Gather order data
-    let orderData = [];
-    
-    // Create a single "pose" object that contains all the portrait selections
-    let portraitData = {
-        poseNumber: 1,
-        poseType: '1-3', // Default for graduation portraits
-        prints: {},
-        description: 'Graduate Portrait'
-    };
-    
-    // Add portrait selections
-    document.querySelectorAll('.portrait-input').forEach(input => {
-        if (parseInt(input.value) > 0) {
-            const itemName = input.parentNode.parentNode.querySelector('.item-name').textContent.trim();
-            portraitData.prints[itemName] = input.value;
-        }
-    });
-    
-    // Only add portrait data if there are selections
-    if (Object.keys(portraitData.prints).length > 0) {
-        orderData.push(portraitData);
-    }
-    
-    // Add group photo data as a separate "pose" if selected
-    let groupData = {
-        poseNumber: orderData.length + 1,
-        poseType: '1-3',
-        prints: {},
-        description: 'Class of 2025 Group Photo'
-    };
-    
-    document.querySelectorAll('.group-input').forEach(input => {
-        if (parseInt(input.value) > 0) {
-            const itemName = input.parentNode.parentNode.querySelector('.item-name').textContent.trim();
-            groupData.prints[itemName] = input.value;
-        }
-    });
-    
-    // Only add group data if there are selections
-    if (Object.keys(groupData.prints).length > 0) {
-        orderData.push(groupData);
-    }
-    
-    // Get shipping information
-    const subtotal = parseFloat(document.getElementById('subtotal').textContent);
-    const shipping = (subtotal > 0 && subtotal < 35) ? 5 : 0;
-    const shippingApplied = shipping > 0;
-    
-    // Create complete order object
-    const completeOrder = {
-        poses: orderData,
-        shipping: {
-            cost: shipping,
-            applied: shippingApplied
-        }
-    };
-
-    // Add order data to form
-    const hiddenInput = document.createElement('input');
-    hiddenInput.type = 'hidden';
-    hiddenInput.name = 'order_details';
-    hiddenInput.value = JSON.stringify(completeOrder);
-    this.appendChild(hiddenInput);
-
-    // Submit the form
-    this.submit();
-});
-
-// Initialize
-updateTotal();
-updateTabIndicators();
-</script>
-<script>
-    function toggleShippingInfo() {
-        const shippingInfo = document.getElementById('shippingInfo');
-        if (shippingInfo.style.display === 'none') {
-            shippingInfo.style.display = 'block';
-        } else {
-            shippingInfo.style.display = 'none';
-        }
-    }
-    
-    // Optional: Close shipping info when clicking outside
-    document.addEventListener('click', function(event) {
-        const shippingInfo = document.getElementById('shippingInfo');
-        const shippingBtn = event.target.closest('.shipping-info-btn');
-        
-        if (!shippingBtn && shippingInfo.style.display === 'block') {
-            shippingInfo.style.display = 'none';
-        }
-    });
-</script>
+<!-- JavaScript -->
+<script src="js/ui-interactions.js"></script>
+<script src="js/form-handler.js"></script>
 
 </body>
 </html>

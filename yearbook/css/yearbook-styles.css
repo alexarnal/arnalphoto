@@ -1,0 +1,121 @@
+/* ===== TYPOGRAPHY & BASE ===== */
+body, h1, h2, h3, h4, h5, h6 {
+    font-family: "Open Sans", monospace;
+}
+
+body, html {
+    height: 100%;
+    color: #333;
+    line-height: 1.8;
+}
+
+.w3-wide {
+    letter-spacing: 10px;
+}
+
+.w3-hover-opacity {
+    cursor: pointer;
+}
+
+.w3-top {
+    color: white;
+}
+
+/* ===== PARALLAX BACKGROUNDS ===== */
+.bgimg-1, .bgimg-2, .bgimg-3 {
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.bgimg-2 {
+    background-image: url("../../images/backdrop_gray_.jpg");
+    min-height: 400px;
+}
+
+/* Turn off parallax scrolling for tablets and phones */
+@media only screen and (max-device-width: 1600px) {
+    .bgimg-1, .bgimg-2, .bgimg-3 {
+        background-attachment: scroll;
+        min-height: 400px;
+    }
+}
+
+/* ===== HIGHLIGHT BOX ===== */
+.highlight-box {
+    background: linear-gradient(135deg, #333 0%, #666 100%);
+    color: white;
+    border-radius: 8px;
+    padding: 24px;
+    text-align: center;
+    margin: 20px 0;
+}
+
+/* ===== QUICK FACTS SECTION ===== */
+.quick-facts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+.fact-item {
+    background: white;
+    border-radius: 8px;
+    padding: 16px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    text-align: center;
+    min-width: 200px;
+    flex: 1;
+}
+
+.fact-icon {
+    font-size: 24px;
+    color: #666;
+    margin-bottom: 8px;
+}
+
+@media (max-width: 768px) {
+    .quick-facts {
+        flex-direction: column;
+    }
+    
+    .fact-item {
+        min-width: auto;
+    }
+}
+
+/* ===== INFO CARDS & CALLOUTS ===== */
+.info-card {
+    background: #f8f9fa;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 10px 0;
+    border-left: 4px solid #666;
+}
+
+.info-callout {
+    background: #e8f5e8;
+    border-left: 4px solid #666;
+    padding: 12px 16px;
+    margin-top: 16px;
+    border-radius: 0 4px 4px 0;
+}
+
+.info-callout p {
+    margin: 0;
+    color: #2e7d32;
+    font-size: 14px;
+}
+
+/* ===== CTA SECTION ===== */
+.cta-section {
+    background: #fff;
+    border: 2px solid #666;
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+    margin: 20px 0;
+}
