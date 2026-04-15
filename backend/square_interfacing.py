@@ -70,7 +70,7 @@ def submit_to_square(order_details):
     else:
         logger.error(f"Error creating order: {result.errors}")
 
-def create_square_order_and_get_payment_link(order_details, student_name="", student_email="", student_phone="", ask_for_shipping=True):
+def create_square_order_and_get_payment_link(order_details, student_name="", student_email="", student_phone="", ask_for_shipping=True, source=""):
     try:
         # Parse the order_details JSON string if it's not already a dictionary
         if isinstance(order_details, str):
@@ -172,7 +172,7 @@ def create_square_order_and_get_payment_link(order_details, student_name="", stu
                 "order": {
                     "location_id": os.environ['SQUARE_LOCATION_ID'],
                     "line_items": line_items,
-                    "note": f"Student: {student_name} | Email: {student_email} | Phone: {student_phone}"
+                    "note": f"Source: {source or 'n/a'} | Name: {student_name} | Email: {student_email} | Phone: {student_phone}"
                 },
                 "checkout_options": {
                     "allow_tipping": False,
@@ -256,6 +256,12 @@ def get_price_for_print(print_type):
         
         # Digital
         "High-Resolution Digital File": 40,
+
+        # ===== First Communion (2026) =====
+        # The Eucharist Moment 5x7 is conditional — captured if the moment
+        # is successfully photographed. Refunds ($10) are issued manually
+        # in Square when the moment cannot be captured.
+        "Eucharist Moment (5x7)": 10,
     }
     value = prices.get(print_type, 0)
     if value == 0: 
@@ -271,8 +277,11 @@ def get_package_description(print_type):
 
         # Del Valle NHS Page
         "Keepsake Package": "Includes 1 8×10, 2 5×7, and 4 2×3 wallets",
-        "Digital + Print Package": "Includes 2 5×7, 4 2×3 wallets, and digital download", 
+        "Digital + Print Package": "Includes 2 5×7, 4 2×3 wallets, and digital download",
         "Premium Package": "Includes 1 11×14, 2 8×10, and 4 5×7",
+
+        # First Communion
+        "Eucharist Moment (5x7)": "5x7 print of the Eucharist moment. If we are unable to capture it, $10 will be refunded.",
     }
     return descriptions.get(print_type, "")
 
