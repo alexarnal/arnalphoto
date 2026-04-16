@@ -201,14 +201,18 @@ function handleFormSubmit(e) {
         const completeOrder = gatherOrderData();
         
         // Add order data to form as hidden input
-        const hiddenInput = document.createElement('input');
-        hiddenInput.type = 'hidden';
-        hiddenInput.name = 'order_details';
+        const form = e.target;
+        let hiddenInput = form.querySelector('input[name="order_details"]');
+        if (!hiddenInput) {
+            hiddenInput = document.createElement('input');
+            hiddenInput.type = 'hidden';
+            hiddenInput.name = 'order_details';
+            form.appendChild(hiddenInput);
+        }
         hiddenInput.value = JSON.stringify(completeOrder);
-        e.target.appendChild(hiddenInput);
-        
+
         // Submit the form
-        e.target.submit();
+        form.submit();
         
     } catch (error) {
         console.error('Error submitting form:', error);
