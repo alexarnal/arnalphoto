@@ -301,17 +301,24 @@ function handleSubmit(e) {
     };
 
     const form = e.target;
-    const hidden = document.createElement('input');
-    hidden.type = 'hidden';
-    hidden.name = 'order_details';
-    hidden.value = JSON.stringify(completeOrder);
-    form.appendChild(hidden);
 
-    const src = document.createElement('input');
-    src.type = 'hidden';
-    src.name = 'source';
-    src.value = 'confirmation';
-    form.appendChild(src);
+    let hidden = form.querySelector('input[name="order_details"]');
+    if (!hidden) {
+        hidden = document.createElement('input');
+        hidden.type = 'hidden';
+        hidden.name = 'order_details';
+        form.appendChild(hidden);
+    }
+    hidden.value = JSON.stringify(completeOrder);
+
+    let src = form.querySelector('input[name="source"]');
+    if (!src) {
+        src = document.createElement('input');
+        src.type = 'hidden';
+        src.name = 'source';
+        src.value = 'confirmation';
+        form.appendChild(src);
+    }
 
     form.submit();
 }
