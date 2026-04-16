@@ -262,6 +262,13 @@ def get_price_for_print(print_type):
         # is successfully photographed. Refunds ($10) are issued manually
         # in Square when the moment cannot be captured.
         "Eucharist Moment (5x7)": 10,
+
+        # ===== Confirmation 2026 =====
+        # Bishop Class Photo: 8x10 group photo of the candidate's Confirmation
+        # class with Bishop Mark Seitz at the June 13, 2026 6 PM Mass at
+        # Corpus Christi Catholic Church. Scheduled/guaranteed item — no
+        # refund clause, delivered with the rest of the order.
+        "Bishop Class Photo (8x10)": 15,
     }
     value = prices.get(print_type, 0)
     if value == 0: 
@@ -282,6 +289,9 @@ def get_package_description(print_type):
 
         # First Communion
         "Eucharist Moment (5x7)": "5x7 print of the Eucharist moment. If we are unable to capture it, $10 will be refunded.",
+
+        # Confirmation
+        "Bishop Class Photo (8x10)": "8x10 group photo of the Confirmation class with Bishop Mark Seitz, June 13, 2026 Mass.",
     }
     return descriptions.get(print_type, "")
 
