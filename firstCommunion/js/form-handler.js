@@ -286,7 +286,8 @@ function handleSubmit(e) {
 
     const completeOrder = {
         poses,
-        shipping: { cost: shipping, applied: shipping > 0 }
+        shipping: { cost: shipping, applied: shipping > 0 },
+        labelPoses: true
     };
 
     const form = e.target;

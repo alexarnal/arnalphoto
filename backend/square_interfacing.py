@@ -83,10 +83,17 @@ def create_square_order_and_get_payment_link(order_details, student_name="", stu
         if 'poses' in order_details:
             poses = order_details['poses']
             shipping_info = order_details.get('shipping', {'cost': 0, 'applied': False})
+            label_poses = bool(order_details.get('labelPoses', False))
         else:
             # If using old format, assume it's just the poses array
             poses = order_details
             shipping_info = {'cost': 0, 'applied': False}
+            label_poses = False
+
+        # Only prefix print line items with "Pose N - " when there are 2+
+        # numbered poses — a single-pose order doesn't need the grouping label.
+        numbered_pose_count = sum(1 for p in poses if p.get('poseNumber', 0) > 0)
+        apply_pose_labels = label_poses and numbered_pose_count > 1
 
         logger.info(f"Found {len(poses)} poses to process")
         logger.info(f"Shipping info: {shipping_info}")
@@ -117,6 +124,14 @@ def create_square_order_and_get_payment_link(order_details, student_name="", stu
                 display_name = clean_print_type
                 if "Group" not in clean_print_type:
                     display_name = f"{clean_print_type}"
+
+                # For forms that enable multiple poses (confirmation, firstCommunion),
+                # prefix each print with its pose number so the Square order view
+                # clearly groups items by pose. poseNumber 0 is reserved for
+                # "global" single-item pseudo-poses (e.g. Mass Moment, Bishop
+                # Class Photo) which should stay unprefixed.
+                if apply_pose_labels and pose.get('poseNumber', 0) > 0:
+                    display_name = f"Pose {pose['poseNumber']} - {display_name}"
 
                 logger.info(f"Adding line item: {display_name} x{quantity} @ ${price}")
                 
