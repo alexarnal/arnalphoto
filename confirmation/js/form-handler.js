@@ -93,7 +93,7 @@ function poseTemplate(poseNumber) {
         </select>
       </div>
       <div style="margin-top:12px;">
-        <label style="display:block;font-weight:600;margin-bottom:4px;">Note (optional)</label>
+        <label class="pose-description-label" style="display:block;font-weight:600;margin-bottom:4px;">Note (optional)</label>
         <input type="text" class="pose-description"
                placeholder="E.g., Candidate only, with sponsor, with parents, full family…"
                style="width:100%;padding:8px;border:1px solid #ddd;border-radius:4px;">
@@ -125,9 +125,12 @@ function renumberPoses() {
         pose.setAttribute('data-pose-id', i + 1);
     });
     const poses = document.querySelectorAll('#poses .pose');
+    const multi = poses.length > 1;
     poses.forEach(p => {
         const btn = p.querySelector('.remove-pose');
         if (btn) btn.disabled = poses.length <= 1;
+        const label = p.querySelector('.pose-description-label');
+        if (label) label.textContent = multi ? 'Note (required)' : 'Note (optional)';
     });
 }
 
@@ -240,6 +243,21 @@ function handleSubmit(e) {
         alert('Please provide an email address so we can deliver your digital file.');
         document.getElementById('studentEmail')?.focus();
         return;
+    }
+
+    // When there are multiple poses with items selected, each must have a note
+    // so we (and the customer) can tell them apart in Square.
+    const posesWithItems = Array.from(document.querySelectorAll('#poses .pose'))
+        .filter(p => Array.from(p.querySelectorAll('.pose-input'))
+                          .some(i => (parseInt(i.value) || 0) > 0));
+    if (posesWithItems.length > 1) {
+        const missing = posesWithItems.find(p =>
+            !(p.querySelector('.pose-description')?.value || '').trim());
+        if (missing) {
+            alert('Please add a note for each pose (e.g., "Candidate only", "With sponsor") so we can tell them apart.');
+            missing.querySelector('.pose-description')?.focus();
+            return;
+        }
     }
 
     // Build order object
