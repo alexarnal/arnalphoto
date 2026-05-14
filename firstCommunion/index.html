@@ -50,11 +50,11 @@
         .mass-moment label.ack input { margin-top: 4px; }
 
         /* Unavailable state */
-        .mass-moment.unavailable { opacity: 0.55; pointer-events: none; }
+        .mass-moment.unavailable .mm-content { opacity: 0.55; pointer-events: none; }
         .mass-moment .unavailable-notice {
             display: none;
             background: #f5f5f5; border: 1px solid #ccc; border-radius: 6px;
-            padding: 10px 14px; margin-top: 12px; font-size: 14px; color: #666;
+            padding: 10px 14px; margin-bottom: 16px; font-size: 14px; color: #666;
             text-align: center;
         }
         .mass-moment.unavailable .unavailable-notice { display: block; }
@@ -146,39 +146,40 @@
 
         <!-- ===== Mass Moment ===== -->
         <div class="mass-moment unavailable"> <!-- add unavailable class when not offering-->
-            <div class="mm-header">
-                <i class="fa fa-certificate mm-icon"></i>
-                <h2>The Mass Moment</h2>
-            </div>
-            <p style="margin:0 0 8px 0;">
-                A 5×7 print of your child <strong>receiving the Eucharist</strong> — a once-in-a-lifetime image from inside the Mass itself.
-            </p>
-            <div class="disclaimer">
-                <strong><i class="fa fa-info-circle"></i> Please Read:</strong>
-                This moment happens quickly — we always try to capture it, but can't guarantee it.
-                <strong>If we miss it, you'll be fully refunded for the Eucharist Moment.</strong> All other items are unaffected.
-            </div>
-
-            <div class="print-option" style="background:#fff;">
-                <div class="item-details">
-                    <div class="item-name">Eucharist Moment (5×7)</div>
-                    <div class="item-price">$10.00</div>
-                    <div class="item-description">Single 5×7 print of the Eucharist moment — refundable if not captured</div>
-                </div>
-                <div class="controls-container">
-                    <button type="button" class="quantity-btn decrease">-</button>
-                    <input type="number" id="eucharistQty" value="0" data-price="10" readonly>
-                    <button type="button" class="quantity-btn increase">+</button>
-                </div>
-            </div>
-
-            <label class="ack">
-                <input type="checkbox" id="eucharistAck">
-                <span>I understand this moment isn't guaranteed, and I'll be fully refunded for it if not captured.</span>
-            </label>
-
             <div class="unavailable-notice">
                 <i class="fa fa-info-circle"></i> Unavailable for this event — we hope to offer this again in the future.
+            </div>
+            <div class="mm-content">
+                <div class="mm-header">
+                    <i class="fa fa-certificate mm-icon"></i>
+                    <h2>The Mass Moment</h2>
+                </div>
+                <p style="margin:0 0 8px 0;">
+                    A 5×7 print of your child <strong>receiving the Eucharist</strong> — a once-in-a-lifetime image from inside the Mass itself.
+                </p>
+                <div class="disclaimer">
+                    <strong><i class="fa fa-info-circle"></i> Please Read:</strong>
+                    This moment happens quickly — we always try to capture it, but can't guarantee it.
+                    <strong>If we miss it, you'll be fully refunded for the Eucharist Moment.</strong> All other items are unaffected.
+                </div>
+
+                <div class="print-option" style="background:#fff;">
+                    <div class="item-details">
+                        <div class="item-name">Eucharist Moment (5×7)</div>
+                        <div class="item-price">$10.00</div>
+                        <div class="item-description">Single 5×7 print of the Eucharist moment — refundable if not captured</div>
+                    </div>
+                    <div class="controls-container">
+                        <button type="button" class="quantity-btn decrease">-</button>
+                        <input type="number" id="eucharistQty" value="0" data-price="10" readonly>
+                        <button type="button" class="quantity-btn increase">+</button>
+                    </div>
+                </div>
+
+                <label class="ack">
+                    <input type="checkbox" id="eucharistAck">
+                    <span>I understand this moment isn't guaranteed, and I'll be fully refunded for it if not captured.</span>
+                </label>
             </div>
         </div>
 
