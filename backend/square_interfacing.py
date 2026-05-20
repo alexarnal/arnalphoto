@@ -35,6 +35,8 @@ logger = logging.getLogger(__name__)
     Create a client    
 """
 
+SITTING_FEE_ENABLED = True  # Set to False to disable the sitting fee globally
+
 client = Client(
     bearer_auth_credentials=BearerAuthCredentials(
         access_token=os.environ['SQUARE_ACCESS_TOKEN']
@@ -165,6 +167,25 @@ def create_square_order_and_get_payment_link(order_details, student_name="", stu
                         "currency": "USD"
                     }
                 })
+
+        # Add sitting fee if subtotal is below the free threshold
+        SITTING_FEE = 10.00
+        SITTING_FEE_FREE_THRESHOLD = 35.00
+        items_subtotal = sum(
+            item["base_price_money"]["amount"] for item in line_items
+        ) / 100
+        if SITTING_FEE_ENABLED and 0 < items_subtotal < SITTING_FEE_FREE_THRESHOLD:
+            logger.info(f"Adding sitting fee: ${SITTING_FEE} (subtotal ${items_subtotal} < ${SITTING_FEE_FREE_THRESHOLD})")
+            line_items.append({
+                "name": "Sitting Fee",
+                "quantity": "1",
+                "base_price_money": {
+                    "amount": int(SITTING_FEE * 100),
+                    "currency": "USD"
+                }
+            })
+        else:
+            logger.info(f"Sitting fee waived (subtotal ${items_subtotal})")
 
         # Add shipping charge if applicable
         if shipping_info['applied'] and shipping_info['cost'] > 0:

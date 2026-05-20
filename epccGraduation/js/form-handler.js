@@ -7,6 +7,8 @@
 
 const SHIPPING_FREE_THRESHOLD = 35;
 const SHIPPING_FLAT_RATE = 5;
+const SITTING_FEE = 10;
+const SITTING_FEE_FREE_THRESHOLD = 35;
 
 /* ---------- Tabs (scoped to #portraitSection) ---------- */
 function handleTabClick(e) {
@@ -36,8 +38,9 @@ function updateTotal() {
     const groupTotal = groupQty * 15;
 
     const subtotal = portraitTotal + groupTotal;
+    const sittingFee = (subtotal > 0 && subtotal < SITTING_FEE_FREE_THRESHOLD) ? SITTING_FEE : 0;
     const shipping = (subtotal > 0 && subtotal < SHIPPING_FREE_THRESHOLD) ? SHIPPING_FLAT_RATE : 0;
-    const total = subtotal + shipping;
+    const total = subtotal + sittingFee + shipping;
 
     const set = (id, val) => {
         const el = document.getElementById(id);
@@ -46,6 +49,7 @@ function updateTotal() {
     set('portraitTotal', portraitTotal);
     set('groupTotal', groupTotal);
     set('subtotal', subtotal);
+    set('sitting-fee', sittingFee);
     set('shipping', shipping);
     set('total', total);
 

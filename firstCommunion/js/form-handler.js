@@ -8,6 +8,8 @@
 
 const SHIPPING_FREE_THRESHOLD = 35;
 const SHIPPING_FLAT_RATE = 5;
+const SITTING_FEE = 10;
+const SITTING_FEE_FREE_THRESHOLD = 35;
 
 /* ---------- Pose template ---------- */
 function poseTemplate(poseNumber) {
@@ -193,13 +195,16 @@ function updateTotal() {
         if (prInd)  prInd.classList.toggle('show', printCount > 0), prInd.textContent = printCount;
     });
 
+    const sittingFee = (subtotal > 0 && subtotal < SITTING_FEE_FREE_THRESHOLD) ? SITTING_FEE : 0;
     const shipping = (subtotal > 0 && subtotal < SHIPPING_FREE_THRESHOLD) ? SHIPPING_FLAT_RATE : 0;
-    const total = subtotal + shipping;
+    const total = subtotal + sittingFee + shipping;
 
     const sEl = document.getElementById('subtotal');
+    const sfEl = document.getElementById('sitting-fee');
     const shEl = document.getElementById('shipping');
     const tEl = document.getElementById('total');
     if (sEl)  sEl.textContent  = subtotal.toFixed(2);
+    if (sfEl) sfEl.textContent = sittingFee.toFixed(2);
     if (shEl) shEl.textContent = shipping.toFixed(2);
     if (tEl)  tEl.textContent  = total.toFixed(2);
 }
