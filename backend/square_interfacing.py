@@ -190,20 +190,33 @@ def create_square_order_and_get_payment_link(order_details, student_name="", stu
         else:
             logger.info(f"Sitting fee waived (portrait subtotal ${portrait_subtotal})")
 
-        # Add shipping charge if applicable
-        if shipping_info['applied'] and shipping_info['cost'] > 0:
-            logger.info(f"Adding shipping: ${shipping_info['cost']}")
-            line_items.append({
-                "name": "Shipping",
-                "quantity": "1",
-                "base_price_money": {
-                    "amount": int(shipping_info['cost'] * 100),
-                    "currency": "USD"
-                }
-            })
-
         logger.info(f"Final line items count: {len(line_items)}")
         logger.info(f"Line items: {json.dumps(line_items, indent=2)}")
+
+        shipping_cost_cents = int(shipping_info['cost'] * 100) if shipping_info['applied'] and shipping_info['cost'] > 0 else 0
+        if shipping_cost_cents > 0:
+            logger.info(f"Shipping fee: ${shipping_info['cost']} (shown in checkout shipping method)")
+        else:
+            logger.info("Shipping fee: free")
+
+        checkout_options = {
+            "allow_tipping": False,
+            "ask_for_shipping_address": ask_for_shipping,
+            "accepted_payment_methods": {
+                "apple_pay": True,
+                "google_pay": True,
+                "cash_app_pay": True,
+                "afterpay_clearpay": True
+            }
+        }
+        if ask_for_shipping:
+            checkout_options["shipping_fee"] = {
+                "name": "Standard Shipping" if shipping_cost_cents > 0 else "Free Shipping",
+                "charge": {
+                    "amount": shipping_cost_cents,
+                    "currency": "USD"
+                }
+            }
 
         # Create the Square order
         result = client.checkout.create_payment_link(
@@ -213,16 +226,7 @@ def create_square_order_and_get_payment_link(order_details, student_name="", stu
                     "line_items": line_items,
                     "note": f"Source: {source or 'n/a'} | Name: {student_name} | Email: {student_email} | Phone: {student_phone}"
                 },
-                "checkout_options": {
-                    "allow_tipping": False,
-                    "ask_for_shipping_address": ask_for_shipping,
-                    "accepted_payment_methods": {
-                        "apple_pay": True,
-                        "google_pay": True,
-                        "cash_app_pay": True,
-                        "afterpay_clearpay": True
-                    }
-                }
+                "checkout_options": checkout_options
             }
         )
 
