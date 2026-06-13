@@ -102,26 +102,28 @@ def create_square_order_and_get_payment_link(order_details, student_name="", stu
 
         # Format order details for Square
         line_items = []
-        
+        portrait_subtotal = 0  # portrait poses only — excludes group-photo pseudo-poses (poseNumber 0)
+
         for pose_index, pose in enumerate(poses):
             logger.info(f"Processing pose {pose_index + 1}: {pose}")
-            
+            is_portrait_pose = pose.get('poseNumber', 0) > 0
+
             # Add the prints to the order
             for print_type, quantity in pose['prints'].items():
                 # Clean up the print type name (remove extra whitespace and badges)
                 clean_print_type = print_type.strip()
-                
+
                 # Remove any badge text like "POPULAR"
                 if "POPULAR" in clean_print_type:
                     clean_print_type = clean_print_type.replace("POPULAR", "").strip()
                 if "BEST VALUE" in clean_print_type:
                     clean_print_type = clean_print_type.replace("BEST VALUE", "").strip()
-                
+
                 price = get_price_for_print(clean_print_type)
                 if price == 0:
                     logger.error(f"Invalid print type or price not found: '{clean_print_type}' (original: '{print_type}')")
                     raise ValueError(f"Invalid print type or price not found: {clean_print_type}")
-                
+
                 # Add Portrait - to all except "Group" prints
                 display_name = clean_print_type
                 if "Group" not in clean_print_type:
@@ -136,7 +138,7 @@ def create_square_order_and_get_payment_link(order_details, student_name="", stu
                     display_name = f"Pose {pose['poseNumber']} - {display_name}"
 
                 logger.info(f"Adding line item: {display_name} x{quantity} @ ${price}")
-                
+
                 # Create the line item
                 line_item = {
                     "name": display_name,
@@ -146,15 +148,17 @@ def create_square_order_and_get_payment_link(order_details, student_name="", stu
                         "currency": "USD"
                     }
                 }
-                
+
                 # Add description for packages
                 package_description = get_package_description(clean_print_type)
                 if package_description:
                     line_item["note"] = package_description
                     logger.info(f"Added description for {clean_print_type}: {package_description}")
-                
+
                 line_items.append(line_item)
-            
+                if is_portrait_pose:
+                    portrait_subtotal += price * quantity
+
             # Add pose type cost (only if there's actually a cost)
             cost_for_number_of_people = get_price_for_number_of_people(pose['poseType'])
             if cost_for_number_of_people > 0:  # Only add if there's a cost
@@ -167,15 +171,14 @@ def create_square_order_and_get_payment_link(order_details, student_name="", stu
                         "currency": "USD"
                     }
                 })
+                if is_portrait_pose:
+                    portrait_subtotal += cost_for_number_of_people
 
-        # Add sitting fee if subtotal is below the free threshold
+        # Add sitting fee only when portrait poses were ordered and under the threshold
         SITTING_FEE = 10.00
         SITTING_FEE_FREE_THRESHOLD = 35.00
-        items_subtotal = sum(
-            item["base_price_money"]["amount"] for item in line_items
-        ) / 100
-        if SITTING_FEE_ENABLED and 0 < items_subtotal < SITTING_FEE_FREE_THRESHOLD:
-            logger.info(f"Adding sitting fee: ${SITTING_FEE} (subtotal ${items_subtotal} < ${SITTING_FEE_FREE_THRESHOLD})")
+        if SITTING_FEE_ENABLED and 0 < portrait_subtotal < SITTING_FEE_FREE_THRESHOLD:
+            logger.info(f"Adding sitting fee: ${SITTING_FEE} (portrait subtotal ${portrait_subtotal} < ${SITTING_FEE_FREE_THRESHOLD})")
             line_items.append({
                 "name": "Sitting Fee",
                 "quantity": "1",
@@ -185,7 +188,7 @@ def create_square_order_and_get_payment_link(order_details, student_name="", stu
                 }
             })
         else:
-            logger.info(f"Sitting fee waived (subtotal ${items_subtotal})")
+            logger.info(f"Sitting fee waived (portrait subtotal ${portrait_subtotal})")
 
         # Add shipping charge if applicable
         if shipping_info['applied'] and shipping_info['cost'] > 0:
