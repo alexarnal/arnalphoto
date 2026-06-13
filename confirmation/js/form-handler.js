@@ -165,6 +165,7 @@ function handleTabClick(e) {
 /* ---------- Totals ---------- */
 function updateTotal() {
     let subtotal = 0;
+    let poseSubtotal = 0; // portrait poses only — excludes the Bishop Class Photo
 
     // Bishop Class Photo (8x10)
     const bishopInput = document.getElementById('bishopPhotoQty');
@@ -176,13 +177,14 @@ function updateTotal() {
     // Poses
     document.querySelectorAll('#poses .pose').forEach(pose => {
         const poseType = pose.querySelector('.pose-type')?.value;
-        if (poseType === '4-6') subtotal += 15;
-        if (poseType === '7-10') subtotal += 30;
+        if (poseType === '4-6') { subtotal += 15; poseSubtotal += 15; }
+        if (poseType === '7-10') { subtotal += 30; poseSubtotal += 30; }
 
         pose.querySelectorAll('.pose-input').forEach(input => {
             const q = parseInt(input.value) || 0;
             const p = parseFloat(input.getAttribute('data-price')) || 0;
             subtotal += q * p;
+            poseSubtotal += q * p;
         });
 
         // Tab indicators per pose
@@ -195,7 +197,8 @@ function updateTotal() {
         if (prInd)  prInd.classList.toggle('show', printCount > 0), prInd.textContent = printCount;
     });
 
-    const sittingFee = (subtotal > 0 && subtotal < SITTING_FEE_FREE_THRESHOLD) ? SITTING_FEE : 0;
+    // Sitting fee only applies when portrait poses are ordered and under the threshold
+    const sittingFee = (poseSubtotal > 0 && poseSubtotal < SITTING_FEE_FREE_THRESHOLD) ? SITTING_FEE : 0;
     const shipping = (subtotal > 0 && subtotal < SHIPPING_FREE_THRESHOLD) ? SHIPPING_FLAT_RATE : 0;
     const total = subtotal + sittingFee + shipping;
 
