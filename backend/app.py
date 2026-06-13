@@ -39,7 +39,7 @@ def submit():
                           request.form.get('student_name', ''),
                           request.form.get('student_email', ''),
                           request.form.get('student_phone', ''),
-                          request.form.get('ask_for_shipping', False),
+                          request.form.get('ask_for_shipping') == 'true',
                           request.form.get('source', '')
                        )
         

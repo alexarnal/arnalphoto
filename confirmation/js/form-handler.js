@@ -328,6 +328,22 @@ function handleSubmit(e) {
         form.appendChild(src);
     }
 
+    // Ask Square to collect a shipping address whenever the order contains
+    // physical items (anything except a pure digital download).
+    const wantsPhysical =
+        (parseInt(document.getElementById('bishopPhotoQty')?.value) || 0) > 0 ||
+        Array.from(document.querySelectorAll('.pose-input'))
+            .some(i => (parseInt(i.value) || 0) > 0 &&
+                       i.dataset.item !== 'High-Resolution Digital File');
+    let askShipping = form.querySelector('input[name="ask_for_shipping"]');
+    if (!askShipping) {
+        askShipping = document.createElement('input');
+        askShipping.type = 'hidden';
+        askShipping.name = 'ask_for_shipping';
+        form.appendChild(askShipping);
+    }
+    askShipping.value = wantsPhysical ? 'true' : 'false';
+
     form.submit();
 }
 
