@@ -38,7 +38,8 @@ function updateTotal() {
     const groupTotal = groupQty * 15;
 
     const subtotal = portraitTotal + groupTotal;
-    const sittingFee = (subtotal > 0 && subtotal < SITTING_FEE_FREE_THRESHOLD) ? SITTING_FEE : 0;
+    // Sitting fee only applies when portrait items are ordered and under the threshold
+    const sittingFee = (portraitTotal > 0 && portraitTotal < SITTING_FEE_FREE_THRESHOLD) ? SITTING_FEE : 0;
     const shipping = (subtotal > 0 && subtotal < SHIPPING_FREE_THRESHOLD) ? SHIPPING_FLAT_RATE : 0;
     const total = subtotal + sittingFee + shipping;
 
@@ -46,8 +47,6 @@ function updateTotal() {
         const el = document.getElementById(id);
         if (el) el.textContent = val.toFixed(2);
     };
-    set('portraitTotal', portraitTotal);
-    set('groupTotal', groupTotal);
     set('subtotal', subtotal);
     set('sitting-fee', sittingFee);
     set('shipping', shipping);
@@ -122,7 +121,7 @@ function handleSubmit(e) {
     const groupQty = parseInt(document.getElementById('groupPhotoQty')?.value) || 0;
     if (groupQty > 0) {
         poses.push({
-            poseNumber: poses.length + 1,
+            poseNumber: 0,
             poseType: '1-3',
             prints: { 'Group Photo 8×10': groupQty },
             description: 'Class of 2026 Group Photo'
@@ -156,6 +155,22 @@ function handleSubmit(e) {
         src.value = 'epccGraduation';
         form.appendChild(src);
     }
+
+    // Ask Square to collect a shipping address whenever the order contains
+    // physical items (anything except a pure digital download).
+    const wantsPhysical =
+        (parseInt(document.getElementById('groupPhotoQty')?.value) || 0) > 0 ||
+        Array.from(document.querySelectorAll('.portrait-input'))
+            .some(i => (parseInt(i.value) || 0) > 0 &&
+                       i.dataset.item !== 'High-Resolution Digital File');
+    let askShipping = form.querySelector('input[name="ask_for_shipping"]');
+    if (!askShipping) {
+        askShipping = document.createElement('input');
+        askShipping.type = 'hidden';
+        askShipping.name = 'ask_for_shipping';
+        form.appendChild(askShipping);
+    }
+    askShipping.value = wantsPhysical ? 'true' : 'false';
 
     form.submit();
 }
