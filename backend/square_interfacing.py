@@ -106,7 +106,10 @@ def create_square_order_and_get_payment_link(order_details, student_name="", stu
 
         for pose_index, pose in enumerate(poses):
             logger.info(f"Processing pose {pose_index + 1}: {pose}")
-            is_portrait_pose = pose.get('poseNumber', 0) > 0
+            # Yearbook poses are excluded: the $15 Yearbook Portrait Service fee
+            # is itself the mandatory sitting charge, so it must not also count
+            # toward the portrait_subtotal that triggers the separate sitting fee.
+            is_portrait_pose = pose.get('poseNumber', 0) > 0 and pose.get('poseType') != 'yearbook'
 
             # Add the prints to the order
             for print_type, quantity in pose['prints'].items():
